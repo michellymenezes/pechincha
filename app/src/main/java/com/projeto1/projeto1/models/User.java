@@ -10,19 +10,23 @@ import java.util.Date;
 public class User {
 
     private String name;
+    private String id;
     private String email;
-    private String password;
     private String image;
     private Date createdAt;
+    private Date birthday;
+    private String gender;
     private Double reputation;
     private ArrayList<String> preferences;
 
-    public User(String name, String email, String password, String image, Date createdAt, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String email, String image, Date createdAt, Date birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
+        this.id = id;
         this.email = email;
-        this.password = password;
         this.image = image;
         this.createdAt = createdAt;
+        this.birthday = birthday;
+        this.gender = gender;
         this.reputation = reputation;
         this.preferences = preferences;
     }
@@ -41,14 +45,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getImage() {
@@ -83,14 +79,40 @@ public class User {
         this.preferences = preferences;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
+                ", id='" + id + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
                 ", reputation=" + reputation +
                 ", preferences=" + preferences +
                 '}';
