@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.CategoryListAdapter;
+import com.projeto1.projeto1.adapters.ProductListAdapter;
+import com.projeto1.projeto1.models.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,12 +27,13 @@ public class GroceryProductsFragment extends Fragment {
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
 
-    private RecyclerView mRecycleView;
     private View mview;
-    private List<String> mIngredients;
-    private List<String> mIngredientsImgs;
-
-
+    private CategoryListAdapter mAdapter;
+    private ProductListAdapter mProductAdapter;
+    private List<String> categoryList;
+    private RecyclerView categoryRecycleView;
+    private RecyclerView productRecycleView;
+    private List<Product> productLis;
 
 
     /**
@@ -56,18 +61,34 @@ public class GroceryProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+        categoryList = new ArrayList<>(Arrays.asList( "Grãos", "Bebidas", "Laticínio",
+                "Carnes", "Frutas e Verduras", "Oleos"));
+
         mview = inflater.inflate(R.layout.fragment_grocery_products, container, false);
+        mAdapter = new CategoryListAdapter(getActivity(), categoryList);
 
-        startAdapter();
+        categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryRecycleView.setLayoutManager(llm);
+        categoryRecycleView.setAdapter(mAdapter);
+
+        productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
 
 
+        productLis = new ArrayList<>(Arrays.asList(new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","","")));
+
+        mProductAdapter = new ProductListAdapter(getActivity(), productLis);
+        LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
+        llm2.setOrientation(LinearLayoutManager.VERTICAL);
+        productRecycleView.setLayoutManager(llm2);
+        productRecycleView.setAdapter(mProductAdapter);
 
         return mview;
     }
 
-    private void startAdapter() {
 
-    }
 
     @Override
     public void onAttach(Context context) {

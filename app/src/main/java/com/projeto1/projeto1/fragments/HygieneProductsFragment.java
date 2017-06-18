@@ -19,12 +19,11 @@ import java.util.List;
 public class HygieneProductsFragment extends Fragment {
 
 
-    public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
+    public static final String TAG = "HYGIENE_PRODUCTS_FRAGMENT";
 
     private RecyclerView mRecycleView;
     private View mview;
-    private List<String> mIngredients;
-    private List<String> mIngredientsImgs;
+
 
 
 

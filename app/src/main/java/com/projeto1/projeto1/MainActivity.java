@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         modifyActioonBar();
 
 
-
+/*
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 info.setText("Login attempt failed.");
             }
         });
+        */
         
 
     }

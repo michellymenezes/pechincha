@@ -19,7 +19,7 @@ import com.projeto1.projeto1.adapters.CategorySwipeAdapter;
 
 public class MainFragment extends Fragment {
 
-    public static final String TAG = "DETAILS_FRAGMENT";
+    public static final String TAG = "MAIN_FRAGMENT";
 
     private CategorySwipeAdapter mAdapter;
     private ViewPager mPager;

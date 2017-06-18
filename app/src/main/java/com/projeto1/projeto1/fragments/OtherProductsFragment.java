@@ -23,8 +23,7 @@ public class OtherProductsFragment extends Fragment {
 
     private RecyclerView mRecycleView;
     private View mview;
-    private List<String> mIngredients;
-    private List<String> mIngredientsImgs;
+
 
 
 
