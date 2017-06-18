@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.projeto1.projeto1.fragments.MainFragment">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:background="@drawable/background_gradient"
+            android:layout_gravity="center"
+            app:tabTextColor="@android:color/white"
+            android:elevation="4dp"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabIndicatorColor="@android:color/white"
+            android:padding="3dp"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="5dp"
+            android:textAlignment="gravity"
+            android:layout_height="80dp"
+            app:tabMode="fixed" >
+
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/feed_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+
+    </LinearLayout>
+
+
+
+
+
+</FrameLayout>

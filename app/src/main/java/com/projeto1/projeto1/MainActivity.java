@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +21,15 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.projeto1.projeto1.fragments.MainFragment;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
     private LoginButton loginButton;
-
+    private MainFragment myMainFragment;
     private CallbackManager callbackManager;
 
     @Override
@@ -32,15 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myMainFragment = MainFragment.getInstance();
+        changeFragment(myMainFragment, MainFragment.TAG, true);
+        modifyActioonBar();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -72,13 +73,57 @@ public class MainActivity extends AppCompatActivity {
                 info.setText("Login attempt failed.");
             }
         });
+        
+
+    }
+
+    public void changeFragment(Fragment frag, String tag, boolean saveInBackstack) {
+
+        try {
+            FragmentManager manager = getSupportFragmentManager();
+            //fragment not in back stack, create it.
+            FragmentTransaction transaction = manager.beginTransaction();
 
 
+            transaction.replace(R.id.content_layout, frag, tag);
+
+            if (saveInBackstack) {
+                Log.d(TAG, "Change Fragment: addToBackTack " + tag);
+                transaction.addToBackStack(tag);
+            } else {
+                Log.d(TAG, "Change Fragment: NO addToBackTack");
+            }
+            transaction.commit();
+            // custom effect if fragment is already instanciated
+
+        } catch (IllegalStateException exception) {
+            Log.w(TAG, "Unable to commit fragment, could be activity as been killed in background. " + exception.toString());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        int fragments = getSupportFragmentManager().getBackStackEntryCount();
+        if (fragments == 1) {
+            finish();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Inicia as definições da ActionBar para esse fragment
+     */
+    private void modifyActioonBar() {
+        android.support.v7.app.ActionBar mActionbar = (this.getSupportActionBar());
+        mActionbar.setTitle("");
+        mActionbar.setElevation(0);
+        mActionbar.setDisplayHomeAsUpEnabled(true);//if true displays the left menu
     }
 
     @Override
@@ -96,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.bag_button) {
             return true;
         }
 
