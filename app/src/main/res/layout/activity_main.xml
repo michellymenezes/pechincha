@@ -29,7 +29,7 @@
 
             <RelativeLayout
                 android:alpha="0.9"
-                android:layout_width="235dp"
+                android:layout_width="230dp"
                 android:background="@drawable/rounded_bg_text_input"
                 android:focusableInTouchMode="false"
                 android:gravity="bottom"
@@ -41,7 +41,7 @@
                     android:id="@+id/search_bar"
                     android:focusableInTouchMode="false"
                     android:drawableRight="@drawable/ic_search"
-                    android:layout_width="230dp"
+                    android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Pesquisar Produtos"
