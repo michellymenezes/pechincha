@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (AccessToken.getCurrentAccessToken() == null){
             initializeLogin();
-            changeFragment(loginFragment, loginFragment.TAG, true);
+            changeFragment(loginFragment, LoginFragment.TAG, true);
         } else {
             Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
@@ -139,63 +139,8 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         return mCallbackManager;
-
     }
 
-    private void login(CallbackManager callbackManager){
-        setContentView(R.layout.fragment_login);
-        info = (TextView)findViewById(R.id.info);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                info.setText(
-                        "User ID: "
-                                + loginResult.getAccessToken().getUserId()
-                                + "\n" +
-                                "Auth Token: "
-                                + loginResult.getAccessToken().getToken() +
-                                "\n"
-                );
-
-
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
-
-                                // Application code
-                                try {
-                                    String email = object.getString("email");
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                info.setText("Login attempt canceled.");
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
-            }
-        });
-    }
 
 }

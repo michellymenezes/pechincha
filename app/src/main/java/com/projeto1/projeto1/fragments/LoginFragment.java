@@ -1,15 +1,12 @@
 package com.projeto1.projeto1.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,7 +17,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.adapters.CategorySwipeAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,9 +66,18 @@ public class LoginFragment extends Fragment {
         mLoginButton = (LoginButton) mView.findViewById(R.id.login_button);
         mLoginButton.setReadPermissions(Arrays.asList(
                 "public_profile", "email", "user_birthday", "user_friends"));
-
+        
         CallbackManager callbackManager = ((MainActivity) getActivity()).initializeLogin();
         login(callbackManager, mLoginButton);
+
+        Button verPromocaoBtn = (Button) mView.findViewById(R.id.ver_promocao);
+        verPromocaoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
+            }
+        });
 
         return mView;
     }
@@ -96,18 +101,19 @@ public class LoginFragment extends Fragment {
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
+                                Log.v(TAG, response.toString());
 
                                 // Application code
                                 try {
                                     String email = object.getString("email");
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
+
+                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
 
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,gender,birthday");
@@ -125,6 +131,7 @@ public class LoginFragment extends Fragment {
                 Log.d(TAG,"Login attempt failed.");
             }
         });
+
     }
 
 
