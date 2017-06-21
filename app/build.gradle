@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.resValue 'string', 'HEROKU_PRODUCT_ENDPOINT', heroku_productsEndPoint
+    }
 }
 
 repositories {
