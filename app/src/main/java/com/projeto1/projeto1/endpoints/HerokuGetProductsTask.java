@@ -25,7 +25,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class HerokuGetProductsTask extends AsyncTask {
-    private static final String TAG = "HEROKU_PRODUCTS_TASK";
+    private static final String TAG = "HEROKU_GET_PRODUCTS_TASK";
 
     private final ArrayList<Product> products;
     private String responseMessage = "";

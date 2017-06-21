@@ -2,5 +2,6 @@
     <string name="app_name">Pechincha</string>
     <string name="action_settings">Settings</string>
     <string name="pechincha">435965576762305</string>
+    <string name="cadastro_produto">Produto cadastrado com sucesso</string>
 
 </resources>

@@ -18,6 +18,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 
@@ -49,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(myMainFragment, MainFragment.TAG, true);
         }
 
+        HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
+                getBaseContext(),String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
+        mAuthTask.execute();
         /*
         HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
         mAuthTask.execute();
         */
-        
+
         modifyActioonBar();
 
     }
