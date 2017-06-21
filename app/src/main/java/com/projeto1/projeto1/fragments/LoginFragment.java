@@ -50,8 +50,6 @@ public class LoginFragment extends Fragment {
         return fragment;
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,22 +65,13 @@ public class LoginFragment extends Fragment {
         mLoginButton.setReadPermissions(Arrays.asList(
                 "public_profile", "email", "user_birthday", "user_friends"));
         
-        CallbackManager callbackManager = ((MainActivity) getActivity()).initializeLogin();
-        login(callbackManager, mLoginButton);
-
-        Button verPromocaoBtn = (Button) mView.findViewById(R.id.ver_promocao);
-        verPromocaoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
-
-            }
-        });
+        login(mLoginButton);
 
         return mView;
     }
 
-    private void login(CallbackManager callbackManager, LoginButton loginButton){
+    private void login(LoginButton loginButton){
+        CallbackManager callbackManager = ((MainActivity) getActivity()).initializeLogin();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -102,18 +91,20 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 Log.v(TAG, response.toString());
-
                                 // Application code
                                 try {
+                                    String id = object.getString("id");
                                     String email = object.getString("email");
+                                    String name = object.getString("name");
+                                    String gender = object.getString("gender");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
                             }
-                        });
-
-                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+                        }
+                );
 
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,gender,birthday");
