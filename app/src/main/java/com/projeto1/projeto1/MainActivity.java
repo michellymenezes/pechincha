@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout_button) {
+            initializeLogin();
+            LoginManager.getInstance().logOut();
+            changeFragment(loginFragment, LoginFragment.TAG, true);
             return true;
         }
 
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
+
         return mCallbackManager;
     }
 
