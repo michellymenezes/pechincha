@@ -52,7 +52,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
-            String parameters = "_id=" + id + "&__v=" + v;
+            //String parameters = "_id=" + id + "&__v=" + v;
             url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -60,7 +60,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(parameters);
+            //writer.write(parameters);
             writer.flush();
             writer.close();
             os.close();

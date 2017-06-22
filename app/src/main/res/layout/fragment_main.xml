@@ -26,7 +26,8 @@
             app:tabIndicatorHeight="5dp"
             android:textAlignment="gravity"
             android:layout_height="80dp"
-            app:tabMode="fixed" >
+            app:tabMode="fixed"
+            android:visibility="gone">
 
 
         </android.support.design.widget.TabLayout>
@@ -38,6 +39,8 @@
             android:layout_weight="1"
             android:background="@android:color/white" />
 
+
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/scan_fab"
             android:layout_width="wrap_content"
@@ -46,7 +49,7 @@
             android:src="@drawable/ic_code_scan"
             app:backgroundTint="@color/colorPrimaryDark"
             android:layout_gravity="center"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
 

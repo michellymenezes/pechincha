@@ -2,6 +2,7 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment myMainFragment;
     private LoginFragment loginFragment;
     private CallbackManager mCallbackManager;
+    private AppBarLayout mAppBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        mAppBarLayout.setVisibility(View.VISIBLE);
 
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
@@ -51,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(myMainFragment, MainFragment.TAG, true);
         }
 
-        HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
+        /*HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
                 getBaseContext(),String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
-        mAuthTask.execute();
+        mAuthTask.execute(); */
         /*
         HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
         mAuthTask.execute();
@@ -78,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.addToBackStack(tag);
             } else {
                 Log.d(TAG, "Change Fragment: NO addToBackTack");
+            }
+            if (tag.equals(LoginFragment.TAG)){
+                mAppBarLayout.setVisibility(View.GONE);
+            } else {
+                mAppBarLayout.setVisibility(View.VISIBLE);
             }
             transaction.commit();
             // custom effect if fragment is already instanciated
