@@ -12,8 +12,8 @@
         <!--app:showAsAction="always"-->
         <!--android:title="search" />-->
 
-    <item  android:id="@+id/bag_button"
-        android:icon="@drawable/ic_bag"
+    <item  android:id="@+id/logout_button"
+        android:icon="@drawable/ic_logout"
         android:title="Favorites"
         app:showAsAction="ifRoom"/>
 </menu>

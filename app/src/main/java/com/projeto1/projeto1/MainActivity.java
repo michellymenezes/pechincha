@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.bag_button) {
+        if (id == R.id.logout_button) {
             return true;
         }
 
