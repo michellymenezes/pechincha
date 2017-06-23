@@ -37,7 +37,7 @@
                 android:paddingLeft="5dp"
                 android:layout_height="35dp"
                 android:id="@+id/search_bar_container"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <EditText
                     android:id="@+id/search_bar"

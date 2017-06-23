@@ -27,7 +27,7 @@
             android:textAlignment="gravity"
             android:layout_height="80dp"
             app:tabMode="fixed"
-            android:visibility="gone">
+            android:visibility="visible">
 
 
         </android.support.design.widget.TabLayout>
@@ -49,12 +49,8 @@
             android:src="@drawable/ic_code_scan"
             app:backgroundTint="@color/colorPrimaryDark"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
-
-
-
-
 
 </FrameLayout>
