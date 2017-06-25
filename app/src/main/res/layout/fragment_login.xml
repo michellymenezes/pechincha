@@ -7,23 +7,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:background="@drawable/background_gradient"
-            android:elevation="4dp"
-            android:padding="3dp"
-            android:textAlignment="gravity"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabIndicatorHeight="5dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@android:color/white">
 
-        </android.support.design.widget.TabLayout>
 
 
         <RelativeLayout

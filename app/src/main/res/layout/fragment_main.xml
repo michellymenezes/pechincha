@@ -34,23 +34,21 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/feed_pager"
             android:layout_width="match_parent"
-            android:layout_height="0px"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/white" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/scan_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/ic_code_scan"
-            app:backgroundTint="@color/colorPrimaryDark"
-            android:layout_gravity="center"
-            />
-
     </LinearLayout>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scan_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_add"
+        android:layout_marginRight="10dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:layout_gravity="right|bottom"
+        />
 
 
 
