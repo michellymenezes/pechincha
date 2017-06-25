@@ -17,6 +17,7 @@
         android:textSize="12dp"
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
-        android:background="@drawable/rounded_bg_category"/>
+        android:background="@drawable/rounded_bg_category"
+        android:visibility="visible"/>
 
 </LinearLayout>

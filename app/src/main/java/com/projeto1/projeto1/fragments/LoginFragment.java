@@ -54,7 +54,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -127,12 +126,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_search).setVisible(false);
-        menu.findItem(R.id.bag_button).setVisible(false);
-        super.onPrepareOptionsMenu(menu);
-    }
 
 
 

@@ -13,8 +13,8 @@
         app:showAsAction="always|collapseActionView"
         android:title="search" />
 
-    <item  android:id="@+id/bag_button"
-        android:icon="@drawable/ic_bag"
-        android:title="Favorites"
+    <item  android:id="@+id/logout_button"
+        android:icon="@drawable/ic_logout"
+        android:title="Sair"
         app:showAsAction="ifRoom"/>
 </menu>

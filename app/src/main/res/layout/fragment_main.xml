@@ -26,7 +26,8 @@
             app:tabIndicatorHeight="5dp"
             android:textAlignment="gravity"
             android:layout_height="80dp"
-            app:tabMode="fixed" >
+            app:tabMode="fixed"
+            android:visibility="visible">
 
 
         </android.support.design.widget.TabLayout>
@@ -49,6 +50,10 @@
         app:backgroundTint="@color/colorPrimaryDark"
         android:layout_gravity="right|bottom"
         />
+
+
+
+
 
 
 
