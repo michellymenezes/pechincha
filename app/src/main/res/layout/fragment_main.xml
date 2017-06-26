@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:id="@+id/search_bar_container"
                 android:layout_width="270dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:background="@drawable/rounded_bg_text_input"
                 android:elevation="2dp"
                 android:focusableInTouchMode="false"
@@ -34,7 +34,7 @@
                 <EditText
                     android:id="@+id/search_bar"
                     android:layout_width="265dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="false"
                     android:backgroundTint="@android:color/transparent"
                     android:drawableRight="@drawable/ic_search"
@@ -54,15 +54,13 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:elevation="4dp"
-                android:padding="3dp"
                 android:textAlignment="gravity"
                 android:visibility="visible"
                 app:tabGravity="center"
                 app:tabIndicatorColor="@android:color/white"
-                app:tabIndicatorHeight="5dp"
+                app:tabIndicatorHeight="3dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextColor="@android:color/white">

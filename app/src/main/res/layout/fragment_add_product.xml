@@ -33,7 +33,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:text="Selecione uma categoria"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:layout_height="wrap_content"
                     />
                 <LinearLayout
@@ -76,7 +76,7 @@
                             android:textSize="12dp"
                             android:layout_gravity="center"
                             android:text="Alimentos"
-                            android:textColor="@android:color/darker_gray"
+                            android:textColor="@android:color/tertiary_text_dark"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
@@ -114,7 +114,7 @@
                             android:layout_below="@+id/checkbox"
                             android:gravity="center"
                             android:textSize="12dp"
-                            android:textColor="@android:color/darker_gray"
+                            android:textColor="@android:color/tertiary_text_dark"
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Higiene"/>
@@ -154,7 +154,7 @@
                             android:gravity="center"
                             android:textSize="12dp"
                             android:text="Outros"
-                            android:textColor="@android:color/darker_gray"
+                            android:textColor="@android:color/tertiary_text_dark"
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
                             />
@@ -162,8 +162,8 @@
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="5dp"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="5dp"
                     android:background="@android:color/darker_gray"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:text="Selecione uma subcategoria"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:layout_height="wrap_content"/>
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:text="Informações do produto"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:layout_height="wrap_content"/>
 
                 <android.support.design.widget.TextInputLayout
