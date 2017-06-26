@@ -147,7 +147,6 @@ public class AddProductFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_search).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 

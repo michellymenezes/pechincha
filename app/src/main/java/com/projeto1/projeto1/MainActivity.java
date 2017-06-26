@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-        if (AccessToken.getCurrentAccessToken() == null){
-            initializeLogin();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
-        } else {
-            Log.d(TAG, "Already logged");
+//        if (AccessToken.getCurrentAccessToken() == null){
+//            initializeLogin();
+//            changeFragment(loginFragment, LoginFragment.TAG, true);
+//        } else {
+//            Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-        }
+//        }
 
         /*HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
                 getBaseContext(),String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
