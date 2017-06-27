@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,6 @@ public class GroceryProductsFragment extends Fragment {
         categoryRecycleView.setAdapter(mAdapter);
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
-
 
         productLis = new ArrayList<>(Arrays.asList(new Sale("Feijao",null, 3.99, null, null,0,0,null,null,0,false)
 ));

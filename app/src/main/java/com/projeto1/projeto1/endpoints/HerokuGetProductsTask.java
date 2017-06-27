@@ -1,9 +1,10 @@
 package com.projeto1.projeto1.endpoints;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.ProductListener;
 import com.projeto1.projeto1.models.Product;
 
 import org.json.JSONArray;
@@ -27,15 +28,19 @@ import javax.net.ssl.HttpsURLConnection;
 public class HerokuGetProductsTask extends AsyncTask {
     private static final String TAG = "HEROKU_GET_PRODUCTS_TASK";
 
-    private final ArrayList<Product> products;
+    private ArrayList<Product> products;
     private String responseMessage = "";
     private String endpoint;
+    private ProductListener mListener;
 
-    public HerokuGetProductsTask(String url) {
+
+    public HerokuGetProductsTask(String url, ProductListener listener) {
         endpoint = url;
         products = new ArrayList<Product>();
+        mListener = listener;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     protected Boolean doInBackground(Object... params) {
         URL url;
@@ -61,12 +66,23 @@ public class HerokuGetProductsTask extends AsyncTask {
                 JSONArray productsJSON = new JSONArray(responseMessage);
                 Log.d(TAG, String.valueOf(productsJSON));
 
-                    /*
+
                     for (int i = 0; i < productsJSON.length(); i++) {
-                        String barcode = productsJSON.getJSONObject(i).getString("_id")
-                        products.add(product);
+                        if ( productsJSON.getJSONObject(i).length() >2){
+                            //{"_id":name":"brand":description""image""code":"category"}
+                            String id = productsJSON.getJSONObject(i).getString("_id");
+                            String name = productsJSON.getJSONObject(i).getString("name");
+                            String brand = productsJSON.getJSONObject(i).getString("brand");
+                            String descripition = productsJSON.getJSONObject(i).getString("description");
+                            String image = productsJSON.getJSONObject(i).getString("image");
+                            String code = productsJSON.getJSONObject(i).getString("code");
+                            String category = productsJSON.getJSONObject(i).getString("category");
+                            Product product = new Product(name,brand,descripition,image,code,category);
+                            products.add(product);
+                        }
+
                     }
-                    */
+
 
                 Log.d(TAG, "Number of products: " + String.valueOf(productsJSON.length()));
                 return true;
@@ -97,6 +113,20 @@ public class HerokuGetProductsTask extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+
+        if (products != null) {
+            mListener.OnGetProductsReady(true, this.products);
+        } else {
+            mListener.OnGetProductsReady(false, this.products);
+        }
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+
+    }
 }

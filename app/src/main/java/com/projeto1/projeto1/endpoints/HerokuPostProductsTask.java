@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.projeto1.projeto1.ProductListener;
+import com.projeto1.projeto1.models.Product;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,19 +34,21 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
     private final String ENDPOINT_ADDRESS;
     private final Context context;
+    private Product product;
+    private ProductListener mListener;
 
     private String responseMessage = "";
-    private String id;
-    private String v;
+
 
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    public HerokuPostProductsTask(String id, String v, Context context, String endpoint) {
+    public HerokuPostProductsTask(Product product, Context context, String endpoint, ProductListener listener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
-        this.id = id;
-        this.v = v;
+        this.product = product;
+        mListener = listener;
+
     }
 
     @SuppressLint("LongLogTag")
@@ -104,12 +109,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
     @SuppressLint("LongLogTag")
     @Override
     protected void onPostExecute(Boolean success) {
-        //mAuthTask = null;
-
-        if (isSuccessfulRegister) {
-            Toast.makeText(context, "Produto cadastrado com sucesso", Toast.LENGTH_LONG).show();
-            //TODO login or
-        }
+        mListener.OnPostProductFinished(isSuccessfulRegister);
         Log.d(TAG, responseMessage);
 
     }

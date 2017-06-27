@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -72,7 +70,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(LoginButton loginButton){
-        CallbackManager callbackManager = ((MainActivity) getActivity()).initializeLogin();
+        CallbackManager callbackManager = ((MainActivity) getActivity()).initializeFacebookSdk();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

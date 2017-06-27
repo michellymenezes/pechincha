@@ -1,14 +1,12 @@
 package com.projeto1.projeto1;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -16,18 +14,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
-import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
+import com.projeto1.projeto1.models.Product;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity  implements ProductListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginFragment loginFragment;
     private CallbackManager mCallbackManager;
     private AppBarLayout mAppBarLayout;
+    private ArrayList<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         loginFragment = LoginFragment.getInstance();
 
 //        if (AccessToken.getCurrentAccessToken() == null){
-//            initializeLogin();
+//            initializeFacebookSdk();
 //            changeFragment(loginFragment, LoginFragment.TAG, true);
 //        } else {
 //            Log.d(TAG, "Already logged");
@@ -62,12 +62,9 @@ public class MainActivity extends AppCompatActivity {
         /*HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
                 getBaseContext(),String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
         mAuthTask.execute(); */
-        /*
-        HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
+
+        HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
         mAuthTask.execute();
-        */
-
-
 
         modifyActioonBar();
 
@@ -144,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout_button) {
-            initializeLogin();
+            initializeFacebookSdk();
             LoginManager.getInstance().logOut();
             changeFragment(loginFragment, LoginFragment.TAG, true);
             return true;
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public CallbackManager initializeLogin(){
+    public CallbackManager initializeFacebookSdk(){
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
@@ -162,5 +159,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    @Override
+    public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
+        setProducts(products);
+    }
+
+    @Override
+    public void OnPostProductFinished(boolean finished) {
+    }
 }
