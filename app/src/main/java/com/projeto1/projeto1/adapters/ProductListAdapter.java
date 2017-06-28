@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.view_itens.CategoryViewItem;
 import com.projeto1.projeto1.view_itens.ProductViewItem;
 
@@ -18,11 +19,11 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder>{
 
     private static final String TAG = "profile_list_adapter ";
-    private final List<Product> items;
+    private final List<Sale> items;
     private final Activity activity;
 
 
-    public ProductListAdapter(Activity activity, List<Product> items) {
+    public ProductListAdapter(Activity activity, List<Sale> items) {
         this.items = items;
         this.activity = activity;
     }
@@ -35,7 +36,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(final ProductItemHolder holder, final int position) {
 
         View currFilter = ((ProductViewItem) holder.itemView);
-        ((ProductViewItem) holder.itemView).displayName(items.get(position).getName());
+        ((ProductViewItem) holder.itemView).displayName(items.get(position).getProductName());
 
     }
 

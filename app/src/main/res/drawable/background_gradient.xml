@@ -6,15 +6,8 @@
                 android:angle="270"
                 android:type="linear"
                 android:endColor="#9bd0ff"
-                android:startColor="#0084FF"/>
+                android:startColor="@color/colorPrimary"/>
 
-            <corners
-                android:radius="1dp" />
-            <padding
-                android:bottom="10dp"
-                android:left="10dp"
-                android:right="10dp"
-                android:top="10dp" />
         </shape>
     </item>
 

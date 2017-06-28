@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +35,7 @@ public class GroceryProductsFragment extends Fragment {
     private List<String> categoryList;
     private RecyclerView categoryRecycleView;
     private RecyclerView productRecycleView;
-    private List<Product> productLis;
+    private List<Sale> productLis;
 
 
     /**
@@ -76,8 +78,9 @@ public class GroceryProductsFragment extends Fragment {
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
 
+        productLis = new ArrayList<>(Arrays.asList(new Sale("Feijao",null, 3.99, null, null,0,0,null,null,0,false)
+));
 
-        productLis = new ArrayList<>(Arrays.asList(new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","",""),new Product("Feijao Serv Mix","","","","","")));
 
         mProductAdapter = new ProductListAdapter(getActivity(), productLis);
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
@@ -103,5 +106,6 @@ public class GroceryProductsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
 
 }

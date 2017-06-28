@@ -2,6 +2,7 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,11 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -23,8 +25,13 @@ import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.fragments.LoginFragment;
+import com.projeto1.projeto1.fragments.MainFragment;
+import com.projeto1.projeto1.models.Product;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity  implements ProductListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -32,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment myMainFragment;
     private LoginFragment loginFragment;
     private CallbackManager mCallbackManager;
+    private AppBarLayout mAppBarLayout;
+    private ArrayList<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +50,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        mAppBarLayout.setVisibility(View.VISIBLE);
+
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-        if (AccessToken.getCurrentAccessToken() == null){
-            initializeLogin();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
-        } else {
-            Log.d(TAG, "Already logged");
+//        if (AccessToken.getCurrentAccessToken() == null){
+//            initializeFacebookSdk();
+//            changeFragment(loginFragment, LoginFragment.TAG, true);
+//        } else {
+//            Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-        }
+//        }
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
@@ -87,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.addToBackStack(tag);
             } else {
                 Log.d(TAG, "Change Fragment: NO addToBackTack");
+            }
+            if (tag.equals(LoginFragment.TAG)){
+                mAppBarLayout.setVisibility(View.GONE);
+            } else {
+                mAppBarLayout.setVisibility(View.VISIBLE);
             }
             transaction.commit();
             // custom effect if fragment is already instanciated
@@ -137,20 +154,39 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.bag_button) {
+        if (id == R.id.logout_button) {
+            initializeFacebookSdk();
+            LoginManager.getInstance().logOut();
+            changeFragment(loginFragment, LoginFragment.TAG, true);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public CallbackManager initializeLogin(){
+    public CallbackManager initializeFacebookSdk(){
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
+
         return mCallbackManager;
     }
 
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    @Override
+    public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
+        setProducts(products);
+    }
+
+    @Override
+    public void OnPostProductFinished(boolean finished) {
+    }
 }

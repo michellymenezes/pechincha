@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
         android:id="@+id/btn_category"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="false"
@@ -18,6 +17,7 @@
         android:textSize="12dp"
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
-        android:background="@drawable/rounded_bg_category"/>
+        android:background="@drawable/rounded_bg_category"
+        android:visibility="visible"/>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ package com.projeto1.projeto1.fragments;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -51,13 +53,13 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View feed_view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         mAdapter = new CategorySwipeAdapter(getChildFragmentManager());
-        mPager = (ViewPager) feed_view.findViewById(R.id.feed_pager);
+        mPager = (ViewPager) view.findViewById(R.id.feed_pager);
 
         mPager.setAdapter(mAdapter);
-        TabLayout tabLayout = (TabLayout) feed_view.findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(mPager);
 
 
@@ -82,11 +84,22 @@ public class MainFragment extends Fragment {
             tab2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_other, 0, 0);
             tabLayout.getTabAt(2).setCustomView(tab2);
 
+        final FloatingActionButton addProductBtn = (FloatingActionButton) view.findViewById(R.id.scan_fab);
+
+        addProductBtn.setClickable(true);
+
+        addProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+            }
+        });
+
 
 
 
         // Inflate the layout for this fragment
-        return feed_view;
+        return view;
     }
 
     @Override
