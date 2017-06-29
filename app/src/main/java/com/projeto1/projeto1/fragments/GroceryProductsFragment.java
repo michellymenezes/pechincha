@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
@@ -36,7 +38,9 @@ public class GroceryProductsFragment extends Fragment {
     private RecyclerView categoryRecycleView;
     private RecyclerView productRecycleView;
     private List<Sale> productLis;
-
+    private HerokuGetSalesTask salesTask;
+    private MainActivity myMainActivity;
+    private ArrayList<Sale> sales;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -77,6 +81,12 @@ public class GroceryProductsFragment extends Fragment {
         categoryRecycleView.setAdapter(mAdapter);
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
+
+        sales = ((MainActivity) getActivity()).getSales();
+
+        Log.i("INFO", "Quantidade de sales no fragment " + String.valueOf(sales.size()));
+
+        // TODO: Passar os objetos do sales para productLis
 
         productLis = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")
 ));

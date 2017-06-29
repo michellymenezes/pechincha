@@ -145,12 +145,12 @@ public class HerokuGetSalesTask extends AsyncTask {
         }
     }
 
-    public ArrayList<Sale> getProducts() {
+    public ArrayList<Sale> getSales() {
         return sales;
     }
 
-    public void setProducts(ArrayList<Sale> products) {
-        this.sales = products;
+    public void setSales(ArrayList<Sale> sales) {
+        this.sales = sales;
 
     }
 }

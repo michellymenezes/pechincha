@@ -72,8 +72,16 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         //mTask.execute();
 
         /* GET DE PROMOÇÕES */
-/*        HerokuGetSalesTask mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
-        mTask.execute();*/
+        HerokuGetSalesTask mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        mTask.execute();
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException i) {
+            i.getMessage();
+        }
+
+        sales = mTask.getSales();
 
         /* POST DE PRODUTOS*/
         /*
@@ -135,6 +143,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
 //        setContentView(R.layout.test);
     }
+
 
     /**
      * Inicia as definições da ActionBar para esse fragment
