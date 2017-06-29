@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 
 import javax.net.ssl.HttpsURLConnection;
@@ -71,8 +72,7 @@ public class HerokuGetSalesTask extends AsyncTask {
                     for (int i = 0; i < salesJSON.length(); i++) {
                         if ( salesJSON.getJSONObject(i).length() >=13){
 
-                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:sssZ");
-
+                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
                             String id = salesJSON.getJSONObject(i).getString("_id");
                             String product = salesJSON.getJSONObject(i).getString("productName");
