@@ -56,7 +56,7 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
             //_id , productName, category, regularPrice, promotionPrice, expirationDate
             // supermarket, quantity, stars, "author","publicationDate, "likes", dislikes,comments
 
-            String parameters = "productName=" + sale.getProductName() + "&regularPrice=" + sale.getRegularPrice() +
+            String parameters = "productName=" + sale.getProduct() + "&regularPrice=" + sale.getRegularPrice() +
                     "&promotionPrice=" + sale.getCurrentPrice() + "&expirationDate=" + sale.getExpirationDate() + "&supermarket=" +sale.getSupermarket() +
                     "&quantity=" + sale.getQuantity() + "&stars=" + sale.getStarts() + "&author=" + sale.getAuthor() + "&publicationDate=" + sale.getPublicationDate();
 
@@ -114,6 +114,7 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
     @SuppressLint("LongLogTag")
     @Override
     protected void onPostExecute(Boolean success) {
+
         if (isSuccessfulRegister) {
             Toast.makeText(context, "Promoção cadastrada com sucesso", Toast.LENGTH_LONG).show();
         }

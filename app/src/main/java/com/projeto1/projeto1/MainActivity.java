@@ -20,6 +20,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
@@ -31,7 +32,7 @@ import com.projeto1.projeto1.models.Product;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  implements ProductListener {
+public class MainActivity extends AppCompatActivity  implements ProductListener, SaleListener{
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
     private CallbackManager mCallbackManager;
     private AppBarLayout mAppBarLayout;
     private ArrayList<Product> products;
+    private ArrayList<Sale> sales;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,10 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
         //mTask.execute();
+
+        /* GET DE PROMOÇÕES */
+/*        HerokuGetSalesTask mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        mTask.execute();*/
 
         /* POST DE PRODUTOS*/
         /*
@@ -188,5 +195,22 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
 
     @Override
     public void OnPostProductFinished(boolean finished) {
+    }
+
+    public ArrayList<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(ArrayList<Sale> sales) {
+        this.sales = sales;
+    }
+
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+        setSales(sales);
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
     }
 }

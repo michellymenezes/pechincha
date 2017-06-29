@@ -19,7 +19,7 @@ android {
     }
     buildTypes.each {
         it.resValue 'string', 'HEROKU_PRODUCT_ENDPOINT', heroku_productsEndPoint
-        it.resValue 'string', 'HEROKU_SALE_ENDPOINT', heroku_SalesEndPint
+        it.resValue 'string', 'HEROKU_SALE_ENDPOINT', heroku_SalesEndPoint
     }
     productFlavors {
     }

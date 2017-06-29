@@ -78,7 +78,7 @@ public class GroceryProductsFragment extends Fragment {
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
 
-        productLis = new ArrayList<>(Arrays.asList(new Sale("Feijao",null, 3.99, null, null,0,0,null,null,0,false)
+        productLis = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")
 ));
 
 

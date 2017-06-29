@@ -19,6 +19,12 @@ public class User {
     private Double reputation;
     private ArrayList<String> preferences;
 
+    public User(String name, String email, Date createdAt) {
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
+    }
+
     public User(String name, String id, String email, String image, Date createdAt, Date birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;

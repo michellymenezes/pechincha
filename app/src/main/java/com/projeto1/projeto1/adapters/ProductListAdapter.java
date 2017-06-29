@@ -36,7 +36,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(final ProductItemHolder holder, final int position) {
 
         View currFilter = ((ProductViewItem) holder.itemView);
-        ((ProductViewItem) holder.itemView).displayName(items.get(position).getProductName());
+        ((ProductViewItem) holder.itemView).displayName(items.get(position).getProduct());
 
     }
 

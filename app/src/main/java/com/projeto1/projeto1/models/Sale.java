@@ -1,6 +1,7 @@
 package com.projeto1.projeto1.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by michelly on 14/06/17.
@@ -8,20 +9,30 @@ import java.util.Date;
 
 public class Sale {
 
-    private String productName;
+    private String id;
+    private String product;
     private Double regularPrice;
     private Double currentPrice;
     private Date expirationDate;
-    private Supermarket supermarket;
+    private String supermarket;
+    //private Supermarket supermarket;
     private int quantity;
     private double starts;
-    private User author;
+    private String author;
+    //private User author;
     private Date publicationDate;
-    private int reports;
-    private Boolean expiredSale;
+    //private Boolean expiredSale;
+    private int likes;
+    //private List<User> likes;
+    private int dislikes;
+    //private List<User> dislikes;
+    //private List<User> reports;
 
-    public Sale(String productName, Double regularPrice, Double currentPrice, Date expirationDate, Supermarket supermarket, int quantity, double starts, User author, Date publicationDate, int reports, Boolean expiredSale) {
-        this.productName = productName;
+    private String category;
+
+    public Sale(String id, String product, Double regularPrice, Double currentPrice, Date expirationDate, String supermarket, int quantity, double starts, String author, Date publicationDate, int likes, int dislikes, String category) {
+        this.id = id;
+        this.product = product;
         this.regularPrice = regularPrice;
         this.currentPrice = currentPrice;
         this.expirationDate = expirationDate;
@@ -30,16 +41,27 @@ public class Sale {
         this.starts = starts;
         this.author = author;
         this.publicationDate = publicationDate;
-        this.reports = reports;
-        this.expiredSale = expiredSale;
+        //this.reports = reports;
+        //this.expiredSale = expiredSale;
+        this.likes = likes;
+        this.dislikes = dislikes;
+
+        this.category = category;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getId() {
+        return id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public Double getRegularPrice() {
@@ -66,11 +88,11 @@ public class Sale {
         this.expirationDate = expirationDate;
     }
 
-    public Supermarket getSupermarket() {
+    public String getSupermarket() {
         return supermarket;
     }
 
-    public void setSupermarket(Supermarket supermarket) {
+    public void setSupermarket(String supermarket) {
         this.supermarket = supermarket;
     }
 
@@ -90,11 +112,11 @@ public class Sale {
         this.starts = starts;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -106,26 +128,53 @@ public class Sale {
         this.publicationDate = publicationDate;
     }
 
-    public int getReports() {
-        return reports;
-    }
-
-    public void setReports(int reports) {
-        this.reports = reports;
-    }
-
-    public Boolean getExpiredSale() {
+/*    public Boolean getExpiredSale() {
         return expiredSale;
     }
 
     public void setExpiredSale(Boolean expiredSale) {
         this.expiredSale = expiredSale;
+    }*/
+
+    public int getLikes() {
+        return likes;
     }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /*
+    public List<User> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<User> reports) {
+        this.reports = reports;
+    }
+*/
 
     @Override
     public String toString() {
         return "Sale{" +
-                "productName='" + productName + '\'' +
+                "id='" + id + '\'' +
+                ", product='" + product +
                 ", regularPrice=" + regularPrice +
                 ", currentPrice=" + currentPrice +
                 ", expirationDate=" + expirationDate +
@@ -134,8 +183,12 @@ public class Sale {
                 ", starts=" + starts +
                 ", author=" + author +
                 ", publicationDate=" + publicationDate +
-                ", reports=" + reports +
-                ", expiredSale=" + expiredSale +
+                //", expiredSale=" + expiredSale +
+                ", likes=" + likes +
+                ", dislikes=" + dislikes +
+                //", reports=" + reports +
+                ", category=" + category +
+
                 '}';
     }
 }
