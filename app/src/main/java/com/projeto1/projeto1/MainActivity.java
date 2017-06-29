@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
     private AppBarLayout mAppBarLayout;
     private ArrayList<Product> products;
     private ArrayList<Sale> sales;
+    private HerokuGetSalesTask mTask;
 
 
     @Override
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         //mTask.execute();
 
         /* GET DE PROMOÇÕES */
-        HerokuGetSalesTask mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
         mTask.execute();
 
         try {
@@ -191,6 +192,11 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         return mCallbackManager;
     }
 
+    public void postSale(Sale sale){
+        HerokuPostSalesTask herokuPost = new HerokuPostSalesTask(sale, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        herokuPost.execute();
+    }
+
 
     public ArrayList<Product> getProducts() {
         return products;
@@ -224,5 +230,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
+        getSales();
+        changeFragment(myMainFragment, MainFragment.TAG, true);
     }
 }

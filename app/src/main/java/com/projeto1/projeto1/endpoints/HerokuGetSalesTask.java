@@ -70,13 +70,13 @@ public class HerokuGetSalesTask extends AsyncTask {
 
 
                     for (int i = 0; i < salesJSON.length(); i++) {
-                        if ( salesJSON.getJSONObject(i).length() >=13){
+                        if ( salesJSON.getJSONObject(i).length() >=11){
 
                             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
                             String id = salesJSON.getJSONObject(i).getString("_id");
                             String product = salesJSON.getJSONObject(i).getString("productName");
-                            String category = salesJSON.getJSONObject(i).getString("category");
+                           // String category = salesJSON.getJSONObject(i).getString("category");
                             Double regularPrice = salesJSON.getJSONObject(i).getDouble("regularPrice");
                             Double promotionPrice = salesJSON.getJSONObject(i).getDouble("promotionPrice");
                             Date expirationDate =  df.parse(salesJSON.getJSONObject(i).getString("expirationDate"));
@@ -86,8 +86,8 @@ public class HerokuGetSalesTask extends AsyncTask {
                             String author = salesJSON.getJSONObject(i).getString("author");
                             Date publicationDate = df.parse(salesJSON.getJSONObject(i).getString("publicationDate"));
                             //Boolean expiredSale = salesJSON.getJSONObject(i).getBoolean("expiredSale");
-                            int likes = salesJSON.getJSONObject(i).getInt("likes");
-                            int dislikes = salesJSON.getJSONObject(i).getInt("dislikes");
+                           // int likes = salesJSON.getJSONObject(i).getInt("likes");
+                            //int dislikes = salesJSON.getJSONObject(i).getInt("dislikes");
 
 
                             // FALTA O GET DE COMMENTS
@@ -95,7 +95,7 @@ public class HerokuGetSalesTask extends AsyncTask {
 
 
                             Sale sale = new Sale(id, product, regularPrice, promotionPrice, expirationDate, supermarket, quantity,
-                                    stars, author, publicationDate, likes, dislikes, category);
+                                    stars, author, publicationDate, 0, 0, "comida");
 
                             sales.add(sale);
                         }

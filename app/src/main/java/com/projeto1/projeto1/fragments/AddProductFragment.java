@@ -2,6 +2,7 @@ package com.projeto1.projeto1.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,11 +18,13 @@ import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.models.Sale;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class AddProductFragment extends Fragment {
@@ -137,7 +140,9 @@ public class AddProductFragment extends Fragment {
                 String productQuantity = productQuantityET.getText().toString();
 
                 //TODO criar objeto e salvar no banco.
-               //Sale sale = new Sale(productName,null, Double.parseDouble(productPrice), null, null,0,0,null,null,0,false);
+               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(productQuantity),0,"pessoa", null,0,0, "");
+                ((MainActivity) getActivity()).postSale(sale);
+
 
             }
         });

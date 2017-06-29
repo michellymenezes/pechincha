@@ -2,10 +2,12 @@ package com.projeto1.projeto1.endpoints;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.sip.SipAudioCall;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.projeto1.projeto1.SaleListener;
 import com.projeto1.projeto1.models.Sale;
 
 import org.json.JSONException;
@@ -40,10 +42,13 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    public HerokuPostSalesTask(Sale sale, Context context, String endpoint) {
+    private  SaleListener mListener;
+
+    public HerokuPostSalesTask(Sale sale, Context context, String endpoint, SaleListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.sale = sale;
+        this.mListener = mListener;
     }
 
     @SuppressLint("LongLogTag")
@@ -117,6 +122,10 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
 
         if (isSuccessfulRegister) {
             Toast.makeText(context, "Promoção cadastrada com sucesso", Toast.LENGTH_LONG).show();
+            mListener.OnPostSaleFinished(true);
+        }
+        else {
+            mListener.OnPostSaleFinished(false);
         }
         Log.d(TAG, responseMessage);
 

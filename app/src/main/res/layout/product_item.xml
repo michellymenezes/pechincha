@@ -22,7 +22,7 @@
             android:layout_margin="3dp"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/feijaosevemix"
+            android:src="@drawable/ic_offer"
             android:id="@+id/product_img"
             />
 
