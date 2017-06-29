@@ -88,8 +88,12 @@ public class GroceryProductsFragment extends Fragment {
 
         // TODO: Passar os objetos do sales para productLis
 
+        ((MainActivity) getActivity()).getSales();
+
         productLis = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")
 ));
+
+        productLis =  ((MainActivity) getActivity()).getSales();
 
 
         mProductAdapter = new ProductListAdapter(getActivity(), productLis);

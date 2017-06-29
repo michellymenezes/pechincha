@@ -31,6 +31,7 @@ import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements ProductListener, SaleListener{
 
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         }
 
         sales = mTask.getSales();
+        Log.wtf("SALES", sales.toString());
 
         /* POST DE PRODUTOS*/
         /*
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         modifyActioonBar();
 
     }
+
 
     public void changeFragment(Fragment frag, String tag, boolean saveInBackstack) {
 
