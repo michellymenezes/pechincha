@@ -1,5 +1,6 @@
 package com.projeto1.projeto1.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,10 @@ import android.view.ViewGroup;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class GroceryProductsFragment extends Fragment {
+public class GroceryProductsFragment extends Fragment implements SaleListener{
 
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
@@ -37,10 +38,9 @@ public class GroceryProductsFragment extends Fragment {
     private List<String> categoryList;
     private RecyclerView categoryRecycleView;
     private RecyclerView productRecycleView;
-    private List<Sale> productLis;
+    private List<Sale> salesList;
     private HerokuGetSalesTask salesTask;
     private MainActivity myMainActivity;
-    private ArrayList<Sale> sales;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -67,6 +67,7 @@ public class GroceryProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        salesList = new ArrayList<>();
 
         categoryList = new ArrayList<>(Arrays.asList( "Grãos", "Bebidas", "Laticínio",
                 "Carnes", "Frutas e Verduras", "Oleos"));
@@ -82,21 +83,13 @@ public class GroceryProductsFragment extends Fragment {
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
 
-        sales = ((MainActivity) getActivity()).getSales();
+        /* GET DE PROMOÇÕES */
+        salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        salesTask.execute();
 
-        Log.i("INFO", "Quantidade de sales no fragment " + String.valueOf(sales.size()));
+        //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
-        // TODO: Passar os objetos do sales para productLis
-
-        ((MainActivity) getActivity()).getSales();
-
-        productLis = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")
-));
-
-        productLis =  ((MainActivity) getActivity()).getSales();
-
-
-        mProductAdapter = new ProductListAdapter(getActivity(), productLis);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);
@@ -122,4 +115,19 @@ public class GroceryProductsFragment extends Fragment {
     }
 
 
+    @SuppressLint("LongLogTag")
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+        salesList =  sales;
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
+        productRecycleView.setAdapter(mProductAdapter);
+
+        Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
 }

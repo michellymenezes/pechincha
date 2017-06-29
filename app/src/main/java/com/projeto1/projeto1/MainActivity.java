@@ -33,7 +33,7 @@ import com.projeto1.projeto1.models.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements ProductListener, SaleListener{
+public class MainActivity extends AppCompatActivity  implements ProductListener{
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -73,19 +73,17 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
         //mTask.execute();
 
-        /* GET DE PROMOÇÕES */
-        mTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
-        mTask.execute();
 
+/*
         try {
             Thread.sleep(4000);
         } catch (InterruptedException i) {
             i.getMessage();
-        }
+        } */
 
-        sales = mTask.getSales();
+       /* sales = mTask.getSales();
         Log.wtf("SALES", sales.toString());
-
+*/
         /* POST DE PRODUTOS*/
         /*
         HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
@@ -192,11 +190,6 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         return mCallbackManager;
     }
 
-    public void postSale(Sale sale){
-        HerokuPostSalesTask herokuPost = new HerokuPostSalesTask(sale, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
-        herokuPost.execute();
-    }
-
 
     public ArrayList<Product> getProducts() {
         return products;
@@ -223,14 +216,4 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         this.sales = sales;
     }
 
-    @Override
-    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
-        setSales(sales);
-    }
-
-    @Override
-    public void OnPostSaleFinished(boolean finished) {
-        getSales();
-        changeFragment(myMainFragment, MainFragment.TAG, true);
-    }
 }

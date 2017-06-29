@@ -141,7 +141,7 @@ public class AddProductFragment extends Fragment {
 
                 //TODO criar objeto e salvar no banco.
                Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(productQuantity),0,"pessoa", null,0,0, "");
-                ((MainActivity) getActivity()).postSale(sale);
+                //((MainActivity) getActivity()).postSale(sale);
 
 
             }
