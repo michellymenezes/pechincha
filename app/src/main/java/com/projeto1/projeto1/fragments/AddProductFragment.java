@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
@@ -27,7 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class AddProductFragment extends Fragment {
+public class AddProductFragment extends Fragment  implements SaleListener{
 
 
     public static final String TAG = "ADD_PRODUCT_FRAGMENT";
@@ -141,12 +142,16 @@ public class AddProductFragment extends Fragment {
 
                 //TODO criar objeto e salvar no banco.
                Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(productQuantity),0,"pessoa", null,0,0, "");
-                //((MainActivity) getActivity()).postSale(sale);
-
+                post(sale);
 
             }
         });
         return mview;
+    }
+
+    private void post(Sale sale){
+        HerokuPostSalesTask herokuPostSalesTask = new HerokuPostSalesTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)),this);
+        herokuPostSalesTask.execute();
     }
 
 
@@ -170,4 +175,14 @@ public class AddProductFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+        ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(), GroceryProductsFragment.TAG, true);
+
+    }
 }

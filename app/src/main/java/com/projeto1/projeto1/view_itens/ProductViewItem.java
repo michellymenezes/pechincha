@@ -43,4 +43,8 @@ public class ProductViewItem extends FrameLayout {
         ((ImageView)findViewById(R.id.banner_img)).setImageResource(img);
     }
 
+    public void d(String s){
+        ((TextView) findViewById(R.id.market_name)).setText(s);
+    }
+
 }

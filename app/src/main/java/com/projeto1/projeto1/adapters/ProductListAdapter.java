@@ -39,6 +39,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ((ProductViewItem) holder.itemView).displayName(items.get(position).getProduct());
         ((ProductViewItem) holder.itemView).displayPrice(items.get(position).getCurrentPrice());
 
+        ((ProductViewItem) holder.itemView).d(items.get(position).getSupermarket());
+
     }
 
 

@@ -35,6 +35,20 @@
             android:padding="5dp"
          />
 
+
+        <TextView
+            android:id="@+id/market_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:padding="5dp"
+            android:layout_toRightOf="@+id/product_img"
+            android:layout_marginLeft="5dp"
+
+            android:layout_below="@+id/product_name"
+
+            />
+
         <ImageView
             android:layout_width="50dp"
             android:layout_below="@+id/product_name"
@@ -44,6 +58,7 @@
             android:layout_height="20dp"
             android:scaleType="fitCenter"
             android:id="@+id/banner_img"
+            android:visibility="gone"
             />
         <TextView
             android:id="@+id/product_price"
