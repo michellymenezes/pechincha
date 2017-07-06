@@ -20,6 +20,7 @@ android {
     buildTypes.each {
         it.resValue 'string', 'HEROKU_PRODUCT_ENDPOINT', heroku_productsEndPoint
         it.resValue 'string', 'HEROKU_SALE_ENDPOINT', heroku_SalesEndPoint
+        it.resValue 'string', 'HEROKU_USER_ENDPOINT', heroku_usersEndPoint
     }
     productFlavors {
     }
@@ -41,6 +42,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.code.gson:gson:2.7'
 }
 
 dependencies {

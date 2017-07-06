@@ -2,6 +2,7 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -29,6 +32,7 @@ import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,29 +65,21 @@ public class MainActivity extends AppCompatActivity  implements ProductListener{
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-//        if (AccessToken.getCurrentAccessToken() == null){
-//            initializeFacebookSdk();
-//            changeFragment(loginFragment, LoginFragment.TAG, true);
-//        } else {
-//            Log.d(TAG, "Already logged");
+        if (SharedPreferencesUtils.getUser(getBaseContext()) == null){
+            initializeFacebookSdk();
+            changeFragment(loginFragment, LoginFragment.TAG, true);
+
+        } else {
+            Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-//        }
+            User user = SharedPreferencesUtils.getUser(getBaseContext());
+            Log.d(TAG, user.toString());
+        }
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
         //mTask.execute();
 
-
-/*
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException i) {
-            i.getMessage();
-        } */
-
-       /* sales = mTask.getSales();
-        Log.wtf("SALES", sales.toString());
-*/
         /* POST DE PRODUTOS*/
         /*
         HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
