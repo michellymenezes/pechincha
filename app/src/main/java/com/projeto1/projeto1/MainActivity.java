@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -29,6 +30,7 @@ import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,29 +63,29 @@ public class MainActivity extends AppCompatActivity  implements ProductListener{
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-//        if (AccessToken.getCurrentAccessToken() == null){
-//            initializeFacebookSdk();
-//            changeFragment(loginFragment, LoginFragment.TAG, true);
-//        } else {
-//            Log.d(TAG, "Already logged");
+        if (SharedPreferencesUtils.getToken(getBaseContext()).equals("")){
+            initializeFacebookSdk();
+            changeFragment(loginFragment, LoginFragment.TAG, true);
+        } else {
+            Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-//        }
+
+            //Para recuperar usuario salvo
+            Intent intent = getIntent();
+            User user = intent.getParcelableExtra("USER");
+
+            Toast.makeText(getBaseContext(), "Olá " + user.getName(), Toast.LENGTH_LONG).show();
+            changeFragment(myMainFragment, MainFragment.TAG, true);
+        }
+
+
+
+
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
         //mTask.execute();
 
-
-/*
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException i) {
-            i.getMessage();
-        } */
-
-       /* sales = mTask.getSales();
-        Log.wtf("SALES", sales.toString());
-*/
         /* POST DE PRODUTOS*/
         /*
         HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
@@ -173,9 +175,10 @@ public class MainActivity extends AppCompatActivity  implements ProductListener{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout_button) {
-            initializeFacebookSdk();
             LoginManager.getInstance().logOut();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
+            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(login);
+            finish();
             return true;
         }
 
