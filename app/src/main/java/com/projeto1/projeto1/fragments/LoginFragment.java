@@ -144,6 +144,7 @@ public class LoginFragment extends Fragment implements LoginListener{
 
        /* if (logged) {
 
+            //TODO Adicionar apenas se não houver no BD
             HerokuPostUserTask userTask = new HerokuPostUserTask(user, getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
             userTask.execute();
         }*/
