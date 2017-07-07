@@ -19,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -27,7 +28,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
-    private static final String TAG = "HEROKU_POST_SALES_TASK";
+    private static final String TAG = "HEROKU_POST_USER_TASK";
 
     private final String ENDPOINT_ADDRESS;
     private final Context context;
@@ -51,21 +52,25 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         URL url;
-        /*
+
         try {
 
-            /* firstName: String,
-                lastName: String,
-                username: String,
-                email: String,
-                avatar: String,
-                created_at: Date,
-                reputation: Double,
-                preferences : [String]//
+            //Models
+            //String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences
 
-            String parameters = "firstName=" + user.getName() + "&lastName=" + user.getName() +
-                    "&username=" + user.getName() + "&email=" + user.getEmail() + "&avatar=" +user.getImage() +
-                    "&created_at=" + user.getCreatedAt() + "&reputation=" + user.getReputation() + "&preferences=" + user.getReputation();
+            /* BD
+            user {
+                userID: String,
+                fullname: String,
+                email: String,
+                created_at: String,
+                image: String,
+                reputation: Double,
+                preferences: [String],
+            }*/
+
+            String parameters = "userID= " + user.getId() + "&fullname=" + user.getName()  + "&email=" + user.getEmail() + "&avatar=" + user.getImage() +
+                    "&created_at=" + user.getCreatedAt() + "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences();
 
             url = new URL(ENDPOINT_ADDRESS);
 
@@ -93,15 +98,13 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
 
                 isSuccessfulRegister = (jsonObject.length() > 2);
 
-
-                 isSuccessfulRegister = false;
                 Iterator<String> keys = jsonObject.keys();
 
+                while (keys.hasNext()) {
 
-                while( keys.hasNext() ) {
-                    String key = (String)keys.next();
-                    if (key.equals("success")){
-                        isSuccessfulRegister = jsonObject.getString("success").contains("success") ;
+                    String key = (String) keys.next();
+                    if (key.equals("success")) {
+                        isSuccessfulRegister = jsonObject.getString("success").contains("success");
                     }
                 }
 
@@ -114,7 +117,13 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
         return true;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+        mListener.OnPostLoginFinished(isSuccessfulRegister);
     }
 }

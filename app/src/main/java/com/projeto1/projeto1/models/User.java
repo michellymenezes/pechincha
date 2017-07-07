@@ -16,24 +16,24 @@ public class User implements Parcelable{
     private String id;
     private String email;
     private String image;
-    private Date createdAt;
+    private String createdAt;
     private String birthday;
     private String gender;
     private Double reputation;
     private ArrayList<String> preferences;
 
-    public User(String name, String email, Date createdAt) {
+    public User(String name, String email, String createdAt) {
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
     }
 
-    public User(String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String email, String image, String createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
         this.email = email;
         this.image = image;
-        this.createdAt = new Date(createdAt);
+        this.createdAt = createdAt;
         this.birthday = birthday;
         this.gender = gender;
         this.reputation = reputation;
@@ -45,7 +45,7 @@ public class User implements Parcelable{
         id = in.readString();
         email = in.readString();
         image = in.readString();
-        createdAt = new Date(in.readLong());
+        createdAt = in.readString();
         birthday = in.readString();
         gender = in.readString();
         reputation = in.readDouble();
@@ -63,6 +63,19 @@ public class User implements Parcelable{
             return new User[size];
         }
     };
+
+    public User(String name, String id, String email, String image, String createdAt, Double reputation, ArrayList<String> preferences) {
+        this.name = name;
+        this.id = id;
+        this.email = email;
+        this.image = image;
+        this.createdAt = createdAt;
+        this.birthday = "";
+        this.gender = "";
+        this.reputation = reputation;
+        this.preferences = preferences;
+
+    }
 
     public String getName() {
         return name;
@@ -88,11 +101,11 @@ public class User implements Parcelable{
         this.image = image;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -162,7 +175,7 @@ public class User implements Parcelable{
         dest.writeString(id);
         dest.writeString(email);
         dest.writeString(image);
-        dest.writeLong(createdAt.getTime());
+        dest.writeString(createdAt);
         dest.writeString(birthday);
         dest.writeString(gender);
         dest.writeDouble(reputation);

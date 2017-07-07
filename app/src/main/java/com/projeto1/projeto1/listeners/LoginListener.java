@@ -10,5 +10,6 @@ import java.util.ArrayList;
 
 public interface LoginListener {
     void OnPostLoginFinished(boolean finished);
-    void onGetUserFinished(boolean ready, ArrayList<User> users);
+    void OnGetAllUsersFinished(boolean ready, ArrayList<User> users);
+    void OnGetUserFinished(boolean ready, User user);
 }

@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 
 /**
@@ -106,7 +107,7 @@ public class LoginFragment extends Fragment implements LoginListener{
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
                                     String birthday = object.getString("birthday");
-                                    user = new User(name,id,email,"image", System.currentTimeMillis(),birthday,gender, 0.0,new ArrayList<String>());
+                                    user = new User(name,id,email,"image", new Date(System.currentTimeMillis()).toString(),birthday,gender, 0.0,new ArrayList<String>());
                                     logged = true;
 
                                 } catch (JSONException e) {
@@ -156,7 +157,14 @@ public class LoginFragment extends Fragment implements LoginListener{
     }
 
     @Override
-    public void onGetUserFinished(boolean ready, ArrayList<User> users) {
+    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
 
     }
+
+    @Override
+    public void OnGetUserFinished(boolean ready, User user) {
+
+    }
+
+
 }
