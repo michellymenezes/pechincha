@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
             Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
 
+            User user = SharedPreferencesUtils.getUser(getBaseContext());
+            Log.d(TAG, user.toString());
+
         }
 
-        User user = SharedPreferencesUtils.getUser(getBaseContext());
-        Log.d(TAG, user.toString());
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
