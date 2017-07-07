@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-        if (SharedPreferencesUtils.getUser(getBaseContext()) == null){
+        if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
             changeFragment(loginFragment, LoginFragment.TAG, true);
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
             } else {
                 Log.d(TAG, "Change Fragment: NO addToBackTack");
             }
-            if (tag.equals(LoginFragment.TAG)){
+            if (tag.equals(LoginFragment.TAG)) {
                 mAppBarLayout.setVisibility(View.GONE);
             } else {
                 mAppBarLayout.setVisibility(View.VISIBLE);
@@ -166,14 +166,14 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         if (id == R.id.logout_button) {
             initializeFacebookSdk();
             LoginManager.getInstance().logOut();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
+            changeFragment(loginFragment, LoginFragment.TAG, false);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public CallbackManager initializeFacebookSdk(){
+    public CallbackManager initializeFacebookSdk() {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
@@ -206,5 +206,4 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
     public void setSales(ArrayList<Sale> sales) {
         this.sales = sales;
     }
-
 }
