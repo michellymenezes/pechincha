@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.projeto1.projeto1.MainActivity;
+import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.view_itens.CategoryViewItem;
@@ -35,11 +39,22 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(final ProductItemHolder holder, final int position) {
 
-        View currFilter = ((ProductViewItem) holder.itemView);
+        View view = ((ProductViewItem) holder.itemView);
         ((ProductViewItem) holder.itemView).displayName(items.get(position).getProduct());
         ((ProductViewItem) holder.itemView).displayPrice(items.get(position).getCurrentPrice());
-
         ((ProductViewItem) holder.itemView).d(items.get(position).getSupermarket());
+
+        RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
+
+        saleCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO CARREGAR AS INFORMAÇOES DA PROMOÇAO NA TELA DE VISUALIZACAO
+                ((MainActivity) activity).changeFragment(SaleDetailsFragment.getInstance(),SaleDetailsFragment.TAG,true);
+            }
+        });
+
+
 
     }
 

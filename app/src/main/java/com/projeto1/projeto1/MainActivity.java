@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -61,13 +62,13 @@ public class MainActivity extends AppCompatActivity  implements ProductListener{
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-//        if (AccessToken.getCurrentAccessToken() == null){
-//            initializeFacebookSdk();
-//            changeFragment(loginFragment, LoginFragment.TAG, true);
-//        } else {
-//            Log.d(TAG, "Already logged");
+        if (AccessToken.getCurrentAccessToken() == null){
+            initializeFacebookSdk();
+            changeFragment(loginFragment, LoginFragment.TAG, true);
+        } else {
+            Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-//        }
+        }
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
