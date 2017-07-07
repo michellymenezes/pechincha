@@ -1,9 +1,6 @@
 package com.projeto1.projeto1.fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +14,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.projeto1.projeto1.LoginListener;
+import com.projeto1.projeto1.listeners.LoginListener;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
-import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
@@ -110,8 +106,7 @@ public class LoginFragment extends Fragment implements LoginListener{
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
                                     String birthday = object.getString("birthday");
-                                    user = new User(name,id,email,"image", SystemClock.uptimeMillis(),birthday,gender, 0.0,new ArrayList<String>());
-
+                                    user = new User(name,id,email,"image", System.currentTimeMillis(),birthday,gender, 0.0,new ArrayList<String>());
                                     logged = true;
 
                                 } catch (JSONException e) {
@@ -158,5 +153,10 @@ public class LoginFragment extends Fragment implements LoginListener{
     @Override
     public void OnPostLoginFinished(boolean finished) {
         ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+    }
+
+    @Override
+    public void onGetUserFinished(boolean ready, ArrayList<User> users) {
+
     }
 }

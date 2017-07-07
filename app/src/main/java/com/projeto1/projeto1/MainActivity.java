@@ -2,7 +2,6 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,30 +13,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
-import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
-import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
+import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Sale;
-import com.projeto1.projeto1.fragments.LoginFragment;
-import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements ProductListener{
+public class MainActivity extends AppCompatActivity  implements ProductListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -72,9 +64,11 @@ public class MainActivity extends AppCompatActivity  implements ProductListener{
         } else {
             Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-            User user = SharedPreferencesUtils.getUser(getBaseContext());
-            Log.d(TAG, user.toString());
+
         }
+
+        User user = SharedPreferencesUtils.getUser(getBaseContext());
+        Log.d(TAG, user.toString());
 
         /*POST DE PROMOÇÕES*/
         //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));

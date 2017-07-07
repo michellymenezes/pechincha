@@ -4,9 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.projeto1.projeto1.ProductListener;
+import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Product;
 
 import org.json.JSONException;

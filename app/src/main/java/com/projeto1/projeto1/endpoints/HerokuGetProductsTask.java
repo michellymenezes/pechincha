@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.ProductListener;
+import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Product;
 
 import org.json.JSONArray;
