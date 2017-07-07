@@ -1,6 +1,9 @@
 package com.projeto1.projeto1.fragments;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,23 +17,32 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.projeto1.projeto1.LoginListener;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
+import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+
 
 /**
  * Created by rafaelle on 20/06/17.
  */
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LoginListener{
 
     public static final String TAG = "LOGIN_FRAGMENT";
     private View mView;
     private LoginButton mLoginButton;
+    User user;
+    private boolean logged;
+
 
     public LoginFragment() {
         // Required empty public constructor
@@ -70,6 +82,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(LoginButton loginButton){
+
         CallbackManager callbackManager = ((MainActivity) getActivity()).initializeFacebookSdk();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -96,14 +109,25 @@ public class LoginFragment extends Fragment {
                                     String email = object.getString("email");
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
+                                    String birthday = object.getString("birthday");
+                                    user = new User(name,id,email,"image", SystemClock.uptimeMillis(),birthday,gender, 0.0,new ArrayList<String>());
+
+                                    logged = true;
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+
+                                //Intent intent = new Intent(getContext(), LoginFragment.class);
+                                //intent.putExtra("USER", user);
+                                SharedPreferencesUtils.setUser(getContext(), user);
                                 ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
+
                             }
                         }
                 );
+
 
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,gender,birthday");
@@ -122,9 +146,17 @@ public class LoginFragment extends Fragment {
             }
         });
 
+       /* if (logged) {
+
+            HerokuPostUserTask userTask = new HerokuPostUserTask(user, getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            userTask.execute();
+        }*/
+
     }
 
 
-
-
+    @Override
+    public void OnPostLoginFinished(boolean finished) {
+        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+    }
 }
