@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         if (id == R.id.logout_button) {
             initializeFacebookSdk();
             LoginManager.getInstance().logOut();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
+            changeFragment(loginFragment, LoginFragment.TAG, false);
             return true;
         }
 
