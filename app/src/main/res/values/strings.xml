@@ -13,4 +13,8 @@
     <string name="roboto_thin">sans-serif-thin</string>
     <string name="roboto_medium">sans-serif-medium</string>
 
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 </resources>

@@ -3,10 +3,15 @@ package com.projeto1.projeto1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -37,7 +42,7 @@ import com.projeto1.projeto1.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements ProductListener {
+public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -45,22 +50,26 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
     private MainFragment myMainFragment;
     private LoginFragment loginFragment;
     private CallbackManager mCallbackManager;
-    private AppBarLayout mAppBarLayout;
     private ArrayList<Product> products;
+    private AppBarLayout mAppBarLayout;
     private ArrayList<Sale> sales;
     private HerokuGetSalesTask mTask;
+
+    //Menu
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+    private NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initMenu();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
-        mAppBarLayout.setVisibility(View.VISIBLE);
+
 
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
@@ -95,6 +104,38 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         modifyActioonBar();
 
     }
+
+    private void makingMenuClickable() {
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initMenu() {
+
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        mAppBarLayout.setVisibility(View.VISIBLE);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        makingMenuClickable();
+        mToggle.setDrawerIndicatorEnabled(false);
+
+        mToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        mToggle.setHomeAsUpIndicator(R.drawable.ic_hamburguer);
+
+
+
+    }
+
 
 
     public void changeFragment(Fragment frag, String tag, boolean saveInBackstack) {
@@ -143,6 +184,37 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
     }
 
 
+
+
+
+    // Deve ser implementado para dar ação aos itens do menu
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id) {
+
+            case R.id.nav_config:
+
+                break;
+
+            case R.id.nav_about:
+
+                break;
+
+            case R.id.nav_logout:
+                initializeFacebookSdk();
+                LoginManager.getInstance().logOut();
+                changeFragment(loginFragment, LoginFragment.TAG, false);
+                break;
+
+
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
     /**
      * Inicia as definições da ActionBar para esse fragment
      */
@@ -165,17 +237,15 @@ public class MainActivity extends AppCompatActivity  implements ProductListener 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.logout_button) {
-            initializeFacebookSdk();
-            LoginManager.getInstance().logOut();
-            changeFragment(loginFragment, LoginFragment.TAG, false);
+     if (mToggle.onOptionsItemSelected(item)){
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+
     }
 
     public CallbackManager initializeFacebookSdk() {

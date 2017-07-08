@@ -14,7 +14,7 @@
         <!--android:title="search" />-->
 
     <item  android:id="@+id/logout_button"
-        android:icon="@drawable/ic_logout"
-        android:title="Sair"
+        android:icon="@drawable/ic_favorite_list"
+        android:title="Favoritos"
         app:showAsAction="ifRoom"/>
 </menu>
