@@ -1,10 +1,13 @@
 package com.projeto1.projeto1.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -21,6 +25,7 @@ import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.models.Sale;
+import com.shawnlin.numberpicker.NumberPicker;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
 import java.util.ArrayList;
@@ -42,6 +47,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
     private ArrayList<String> hygieneCategoryList;
     private ArrayList<String> otherCategoryList;
     private GroceryProductsFragment groceryProductsFragment;
+    private String quantity;
 
 
     /**
@@ -127,9 +133,20 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
         final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
         final EditText productPriceET = (EditText) mview.findViewById(R.id.price_input);
-        final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
+       // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
+        final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
+
+
+        quantityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantityDialog(quantityBtn);
+            }
+        });
+
 
         Button sendBtn = (Button) mview.findViewById(R.id.send_btn);
+
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,15 +155,90 @@ public class AddProductFragment extends Fragment  implements SaleListener{
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
                 String productPrice = productPriceET.getText().toString();
-                String productQuantity = productQuantityET.getText().toString();
+                String productQuantity =  "";//productQuantityET.getText().toString();
 
                 //TODO criar objeto e salvar no banco.
-               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(productQuantity),0,"pessoa", null,0,0, "");
+               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
                 post(sale);
 
             }
         });
         return mview;
+    }
+
+    private void quantityDialog(final Button quantityBtn) {
+        final View viewDialog = View.inflate(getActivity(), R.layout.quantity_picker_dialog, null);
+
+        final NumberPicker picker = (NumberPicker) viewDialog.findViewById(R.id.number_picker);
+        final CheckBox cb_unit = (CheckBox) viewDialog.findViewById(R.id.checkbox_unit);
+        final CheckBox cb_kg = (CheckBox) viewDialog.findViewById(R.id.checkbox_kg);
+        final CheckBox cb_grams = (CheckBox) viewDialog.findViewById(R.id.checkbox_grams);
+
+        cb_unit.setChecked(true);
+        picker.setDisplayedValues(null);
+        picker.setMinValue(1);
+        picker.setMaxValue(20);
+        picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
+
+        cb_unit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cb_unit.isChecked()) {
+                    cb_kg.setChecked(false);
+                    cb_grams.setChecked(false);
+                    picker.setDisplayedValues(null);
+                    picker.setValue(1);
+                    picker.setMinValue(1);
+                    picker.setMaxValue(20);
+                    picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
+
+                }
+            }
+        });
+
+        cb_kg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cb_kg.isChecked()) {
+                    cb_unit.setChecked(false);
+                    cb_grams.setChecked(false);
+                    picker.setDisplayedValues(null);
+                    picker.setMinValue(1);
+                    picker.setMaxValue(20);
+                    picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
+
+                }
+            }
+        });
+
+        cb_grams.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cb_grams.isChecked()) {
+                    cb_kg.setChecked(false);
+                    cb_unit.setChecked(false);
+                    picker.setDisplayedValues(null);
+                    picker.setMinValue(1);
+                    picker.setMaxValue(9);
+                    picker.setDisplayedValues( new String[] { "100", "200", "300","400","500","600","700","800","900" } );
+
+                }
+            }
+        });
+        new AlertDialog.Builder(getContext())
+                .setTitle("Quantidade")
+                .setView(viewDialog)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        quantity = picker.getDisplayedValues()[picker.getValue()-1];
+                        quantityBtn.setText(quantity);
+
+
+
+                    }
+                })
+                .setIcon(R.drawable.ic_food_scale_tool)
+                .show();
     }
 
     private void post(Sale sale){

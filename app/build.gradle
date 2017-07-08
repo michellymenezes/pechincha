@@ -52,3 +52,12 @@ dependencies {
 dependencies {
     compile 'com.android.support:support-v4:25.+'
 }
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+dependencies {
+    compile 'com.shawnlin:number-picker:2.4.4'
+}
