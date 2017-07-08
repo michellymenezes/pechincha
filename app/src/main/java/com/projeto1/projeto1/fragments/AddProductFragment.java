@@ -2,11 +2,14 @@ package com.projeto1.projeto1.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +31,8 @@ import com.projeto1.projeto1.models.Sale;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -48,6 +53,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
     private ArrayList<String> otherCategoryList;
     private GroceryProductsFragment groceryProductsFragment;
     private String quantity;
+    private EditText productPriceET;
 
 
     /**
@@ -132,11 +138,13 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         final EditText productNameET = (EditText) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
         final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
-        final EditText productPriceET = (EditText) mview.findViewById(R.id.price_input);
+        productPriceET = (EditText) mview.findViewById(R.id.price_input);
        // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
         final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
 
+        productPriceET.setRawInputType(Configuration.KEYBOARD_12KEY);
 
+        priceClick(mview);
         quantityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,16 +163,51 @@ public class AddProductFragment extends Fragment  implements SaleListener{
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
                 String productPrice = productPriceET.getText().toString();
-                String productQuantity =  "";//productQuantityET.getText().toString();
 
                 //TODO criar objeto e salvar no banco.
-               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
+               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice.substring(2,5)), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
                 post(sale);
 
             }
         });
         return mview;
     }
+
+    public void priceClick(View view) {
+        productPriceET.addTextChangedListener(new TextWatcher() {
+            DecimalFormat dec = new DecimalFormat("0.00");
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            private String current = "";
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(current)){
+                        productPriceET.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[R$,.]", "");
+
+                    double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
+
+                    current = "R" + formatted;
+                    productPriceET.setText("R" + formatted);
+                    productPriceET.setSelection(formatted.length()+1);
+
+                    productPriceET.addTextChangedListener(this);
+                }
+            }
+        });
+    }
+
+
 
     private void quantityDialog(final Button quantityBtn) {
         final View viewDialog = View.inflate(getActivity(), R.layout.quantity_picker_dialog, null);
@@ -175,7 +218,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         picker.setDisplayedValues(null);
         picker.setMinValue(1);
         picker.setMaxValue(5);
-        picker.setDisplayedValues( new String[] { "Uni", "Kg", "g","L","ml"} );
+        picker.setDisplayedValues( new String[] { "Uni", "Kg", "g","ml","L"} );
 
 
         new AlertDialog.Builder(getContext())
@@ -225,7 +268,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(), GroceryProductsFragment.TAG, true);
+        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
 
     }
 }
