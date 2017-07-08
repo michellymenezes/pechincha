@@ -175,7 +175,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         picker.setDisplayedValues(null);
         picker.setMinValue(1);
         picker.setMaxValue(5);
-        picker.setDisplayedValues( new String[] { "Unidade(s)", "Quilo(s)", "Grama(s)","Litro(s)","Mililitro(s)"} );
+        picker.setDisplayedValues( new String[] { "Uni", "Kg", "g","L","ml"} );
 
 
         new AlertDialog.Builder(getContext())
