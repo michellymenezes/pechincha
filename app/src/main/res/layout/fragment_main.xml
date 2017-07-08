@@ -23,7 +23,9 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/search_bar_container"
-                android:layout_width="270dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/rounded_bg_text_input"
                 android:elevation="2dp"
@@ -33,19 +35,21 @@
 
                 <EditText
                     android:id="@+id/search_bar"
-                    android:layout_width="265dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:layout_alignParentLeft="false"
                     android:backgroundTint="@android:color/transparent"
                     android:drawableRight="@drawable/ic_search"
                     android:focusableInTouchMode="false"
-                    android:foregroundGravity="bottom"
-                    android:gravity="bottom"
+                    android:foregroundGravity="bottom|left"
+                    android:gravity="bottom|left"
                     android:hint="Pesquisar Produtos"
                     android:imeOptions="actionSearch"
                     android:inputType="textCapWords"
                     android:text="Pesquisar Produto"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12dp"
                     />
@@ -54,15 +58,17 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:textAlignment="gravity"
+                android:background="@color/colorPrimary"
                 android:visibility="visible"
                 app:tabGravity="center"
                 app:tabIndicatorColor="@android:color/white"
                 app:tabIndicatorHeight="3dp"
+                android:paddingBottom="3dp"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@android:color/white">
 
 

@@ -3,13 +3,21 @@ package com.projeto1.projeto1.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.CategoryListAdapter;
+import com.projeto1.projeto1.adapters.ProductListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.models.Sale;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,9 +29,15 @@ public class OtherProductsFragment extends Fragment {
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
 
-    private RecyclerView mRecycleView;
     private View mview;
-
+    private CategoryListAdapter mAdapter;
+    private ProductListAdapter mProductAdapter;
+    private List<String> categoryList;
+    private RecyclerView categoryRecycleView;
+    private RecyclerView productRecycleView;
+    private List<Sale> salesList;
+    private HerokuGetSalesTask salesTask;
+    private MainActivity myMainActivity;
 
 
 
@@ -52,15 +66,34 @@ public class OtherProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        salesList = new ArrayList<>();
 
-        mview = inflater.inflate(R.layout.fragment_other_products, container, false);
+        categoryList = new ArrayList<>(Arrays.asList("Ração", "Utensílios Elétricos", "Brinquedos", "Bazar","Utensílios Cozinha" ));
 
-        startAdapter();
+        mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
+        mAdapter = new CategoryListAdapter(getActivity(), categoryList);
 
+        categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryRecycleView.setLayoutManager(llm);
+        categoryRecycleView.setAdapter(mAdapter);
 
+        productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
+
+        /* GET DE PROMOÇÕES */
+
+        //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
+
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
+        LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
+        llm2.setOrientation(LinearLayoutManager.VERTICAL);
+        productRecycleView.setLayoutManager(llm2);
+        productRecycleView.setAdapter(mProductAdapter);
 
         return mview;
     }
+
 
     private void startAdapter() {
 

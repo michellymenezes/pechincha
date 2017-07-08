@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,23 +67,26 @@ public class MainFragment extends Fragment {
 
             tabLayout.setupWithViewPager(mPager);
 
-            TextView tab0 = (TextView) inflater.inflate(R.layout.custom_tab, null);
-            tab0.setText("Alimentos");
-            tab0.setHighlightColor(Color.WHITE);
-            tab0.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_grocery, 0, 0);
-            tabLayout.getTabAt(0).setCustomView(tab0);
+            View viewTab1 = (View) inflater.inflate(R.layout.custom_tab, null);
+            ImageButton iconTab1 = (ImageButton)  viewTab1.findViewById(R.id.icon_tab);
+            iconTab1.setImageResource(R.drawable.ic_grocery);
+            TextView tv_tab1 = (TextView)  viewTab1.findViewById(R.id.tv_tab);
+            tv_tab1.setText("Alimentos");
+            tabLayout.getTabAt(0).setCustomView(viewTab1);
 
-            TextView tab1 = (TextView) inflater.inflate(R.layout.custom_tab, null);
-            tab1.setText("Higiene");
-            tab1.setHighlightColor(Color.WHITE);
-            tab1.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_hygiene, 0, 0);
-            tabLayout.getTabAt(1).setCustomView(tab1);
+        View viewTab2 = (View) inflater.inflate(R.layout.custom_tab, null);
+        ImageButton iconTab2 = (ImageButton)  viewTab2.findViewById(R.id.icon_tab);
+        iconTab2.setImageResource(R.drawable.ic_hygiene);
+        TextView tv_tab2 = (TextView)  viewTab2.findViewById(R.id.tv_tab);
+        tv_tab2.setText("Higiene");
+        tabLayout.getTabAt(1).setCustomView(viewTab2);
 
-            TextView tab2 = (TextView) inflater.inflate(R.layout.custom_tab, null);
-            tab2.setText("Outros");
-            tab2.setHighlightColor(Color.WHITE);
-            tab2.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_other, 0, 0);
-            tabLayout.getTabAt(2).setCustomView(tab2);
+        View viewTab3 = (View) inflater.inflate(R.layout.custom_tab, null);
+        ImageButton iconTab3 = (ImageButton)  viewTab3.findViewById(R.id.icon_tab);
+        iconTab3.setImageResource(R.drawable.ic_other);
+        TextView tv_tab3 = (TextView)  viewTab3.findViewById(R.id.tv_tab);
+        tv_tab3.setText("Outros");
+        tabLayout.getTabAt(2).setCustomView(viewTab3);
 
         final FloatingActionButton addProductBtn = (FloatingActionButton) view.findViewById(R.id.scan_fab);
 
