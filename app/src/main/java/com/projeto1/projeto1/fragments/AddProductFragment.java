@@ -170,70 +170,21 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         final View viewDialog = View.inflate(getActivity(), R.layout.quantity_picker_dialog, null);
 
         final NumberPicker picker = (NumberPicker) viewDialog.findViewById(R.id.number_picker);
-        final CheckBox cb_unit = (CheckBox) viewDialog.findViewById(R.id.checkbox_unit);
-        final CheckBox cb_kg = (CheckBox) viewDialog.findViewById(R.id.checkbox_kg);
-        final CheckBox cb_grams = (CheckBox) viewDialog.findViewById(R.id.checkbox_grams);
+         final EditText productQuantityET = (EditText) viewDialog.findViewById(R.id.quantity_input);
 
-        cb_unit.setChecked(true);
         picker.setDisplayedValues(null);
         picker.setMinValue(1);
-        picker.setMaxValue(20);
-        picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
+        picker.setMaxValue(5);
+        picker.setDisplayedValues( new String[] { "Unidade(s)", "Quilo(s)", "Grama(s)","Litro(s)","Mililitro(s)"} );
 
-        cb_unit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_unit.isChecked()) {
-                    cb_kg.setChecked(false);
-                    cb_grams.setChecked(false);
-                    picker.setDisplayedValues(null);
-                    picker.setValue(1);
-                    picker.setMinValue(1);
-                    picker.setMaxValue(20);
-                    picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
 
-                }
-            }
-        });
-
-        cb_kg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_kg.isChecked()) {
-                    cb_unit.setChecked(false);
-                    cb_grams.setChecked(false);
-                    picker.setDisplayedValues(null);
-                    picker.setMinValue(1);
-                    picker.setMaxValue(20);
-                    picker.setDisplayedValues( new String[] { "1", "2", "3","4","5","6","7","8","9","10","11", "12", "13","14","15","16","17","18","19","20"} );
-
-                }
-            }
-        });
-
-        cb_grams.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_grams.isChecked()) {
-                    cb_kg.setChecked(false);
-                    cb_unit.setChecked(false);
-                    picker.setDisplayedValues(null);
-                    picker.setMinValue(1);
-                    picker.setMaxValue(9);
-                    picker.setDisplayedValues( new String[] { "100", "200", "300","400","500","600","700","800","900" } );
-
-                }
-            }
-        });
         new AlertDialog.Builder(getContext())
-                .setTitle("Quantidade")
+                .setTitle("Quantidade e medida")
                 .setView(viewDialog)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        quantity = picker.getDisplayedValues()[picker.getValue()-1];
-                        quantityBtn.setText(quantity);
-
-
+                        quantity = productQuantityET.getText().toString();
+                        quantityBtn.setText(quantity + " " +picker.getDisplayedValues()[picker.getValue()-1]);
 
                     }
                 })
