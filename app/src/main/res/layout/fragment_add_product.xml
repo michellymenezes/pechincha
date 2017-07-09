@@ -20,12 +20,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:orientation="vertical"
                 android:background="@drawable/rounded_bg_product_item"
-                android:layout_margin="5dp"
                 android:elevation="2dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -39,6 +38,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
                     <LinearLayout
@@ -49,10 +49,10 @@
                         android:gravity="center">
                         <CheckBox
                             android:id="@+id/checkbox_grocery"
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:layout_below="@+id/icon_im"
                             android:layout_gravity="center"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:textSize="12dp"
                             android:background="@drawable/bg_checbox_category"
                             android:textColor="@android:color/transparent"
@@ -61,11 +61,11 @@
                             android:button="@null"
                             />
                         <ImageButton
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:clickable="false"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:gravity="center"
-                            android:layout_marginTop="-60dp"
+                            android:layout_marginTop="-55dp"
                             android:src="@drawable/ic_grocery"
                             android:background="@android:color/transparent"/>
 
@@ -75,7 +75,7 @@
                             android:textSize="12dp"
                             android:layout_gravity="center"
                             android:text="Alimentos"
-                            android:textColor="@android:color/tertiary_text_dark"
+                            android:textColor="@android:color/darker_gray"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
@@ -86,10 +86,10 @@
                         android:gravity="center">
                         <CheckBox
                             android:id="@+id/checkbox_hygiene"
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:layout_below="@+id/icon_im"
                             android:gravity="center"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:textSize="12dp"
                             android:background="@drawable/bg_checbox_category"
                             android:textColor="@android:color/transparent"
@@ -98,11 +98,11 @@
                             android:button="@null"
                             />
                         <ImageButton
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:clickable="false"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:gravity="center"
-                            android:layout_marginTop="-60dp"
+                            android:layout_marginTop="-55dp"
                             android:src="@drawable/ic_hygiene"
                             android:background="@android:color/transparent"/>
 
@@ -111,7 +111,7 @@
                             android:layout_below="@+id/checkbox"
                             android:gravity="center"
                             android:textSize="12dp"
-                            android:textColor="@android:color/tertiary_text_dark"
+                            android:textColor="@android:color/darker_gray"
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Higiene"/>
@@ -124,10 +124,10 @@
                         android:gravity="center">
                         <CheckBox
                             android:id="@+id/checkbox_other"
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:layout_below="@+id/icon_im"
                             android:gravity="center"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:textSize="12dp"
                             android:background="@drawable/bg_checbox_category"
                             android:textColor="@android:color/transparent"
@@ -136,11 +136,11 @@
                             android:button="@null"
                             />
                         <ImageButton
-                            android:layout_width="60dp"
+                            android:layout_width="55dp"
                             android:clickable="false"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="-60dp"
+                            android:layout_marginTop="-55dp"
                             android:src="@drawable/ic_other"
                             android:background="@android:color/transparent"/>
 
@@ -150,20 +150,24 @@
                             android:gravity="center"
                             android:textSize="12dp"
                             android:text="Outros"
-                            android:textColor="@android:color/tertiary_text_dark"
+                            android:textColor="@android:color/darker_gray"
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="0.6dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@android:color/darker_gray"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_below="@+id/checkbox"
+                    android:layout_marginTop="5dp"
                     android:textSize="15dp"
                     android:gravity="center"
                     android:text="Selecione uma subcategoria"
@@ -197,25 +201,56 @@
                     android:textColor="@android:color/tertiary_text_dark"
                     android:layout_height="wrap_content"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_code_product"
-                    android:gravity="center"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/product_code_input"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_barcode"
+                        android:background="@drawable/rounded_icon_bg"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_code_product"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:layout_alignParentRight="true"
-                        android:imeOptions="actionDone"
-                        android:hint="Código do Produto"
-                        android:inputType="textCapWords"
-                        />
-                </android.support.design.widget.TextInputLayout>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/product_code_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14dp"
+                            android:layout_alignParentRight="true"
+                            android:imeOptions="actionDone"
+                            android:hint="Código do Produto"
+                            android:inputType="textCapWords"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_groceries"
+                        android:background="@drawable/rounded_icon_bg"/>
+
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_product"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -231,8 +266,24 @@
                         />
                 </android.support.design.widget.TextInputLayout>
 
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_map_pin_marked"
+                        android:background="@drawable/rounded_icon_bg"/>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_brand"
+                    android:layout_marginLeft="5dp"
+
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:background="@drawable/rounded_bg_product_item"
@@ -248,9 +299,22 @@
                         android:inputType="textCapWords"
                         />
                 </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_price"
+                        android:background="@drawable/rounded_icon_bg"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_price"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center"
                     android:background="@drawable/rounded_bg_product_item"
                     android:layout_width="match_parent"
@@ -266,21 +330,64 @@
                         android:inputType="numberDecimal"
                         />
                 </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_food_scale_tool"
+                        android:background="@drawable/rounded_icon_bg"/>
 
                     <Button
                         android:id="@+id/quantity_input"
+                        android:padding="3dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
-                        android:background="@android:color/white"
+                        android:background="@android:color/transparent"
                         android:gravity="start|center"
                         android:layout_alignParentRight="true"
                         android:imeOptions="actionDone"
                         android:hint="Quantidade"
                         android:inputType="number"
                         />
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_calendar"
+                        android:background="@drawable/rounded_icon_bg"/>
+
+                    <Button
+                        android:id="@+id/expire_date"
+                        android:padding="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="start|center"
+                        android:layout_alignParentRight="true"
+                        android:imeOptions="actionDone"
+                        android:hint="Data de validade"
+                        android:inputType="number"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:id="@+id/send_btn"
@@ -292,6 +399,8 @@
                 android:layout_gravity="center"
                 android:padding="5dp"
                 android:text="Cadastrar"/>
+
+
         </LinearLayout>
     </ScrollView>
 

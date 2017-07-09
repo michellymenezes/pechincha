@@ -141,6 +141,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
         productPriceET = (EditText) mview.findViewById(R.id.price_input);
        // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
         final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
+        final Button expireDateBtn = (Button)  mview.findViewById(R.id.expire_date);
 
         productPriceET.setRawInputType(Configuration.KEYBOARD_12KEY);
 
@@ -149,6 +150,13 @@ public class AddProductFragment extends Fragment  implements SaleListener{
             @Override
             public void onClick(View v) {
                 quantityDialog(quantityBtn);
+            }
+        });
+
+        expireDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateDialog(expireDateBtn);
             }
         });
 
@@ -171,6 +179,40 @@ public class AddProductFragment extends Fragment  implements SaleListener{
             }
         });
         return mview;
+    }
+
+    private void dateDialog(Button expireDateBtn) {
+        final View viewDialog = View.inflate(getActivity(), R.layout.date_piker_dialog, null);
+
+        final NumberPicker pickerDay = (NumberPicker) viewDialog.findViewById(R.id.number_picker_day);
+        final NumberPicker pickerMonth = (NumberPicker) viewDialog.findViewById(R.id.number_picker_month);
+        final NumberPicker pickerYear = (NumberPicker) viewDialog.findViewById(R.id.number_picker_year);
+
+        pickerDay.setDisplayedValues(null);
+        pickerDay.setValue(new Date().getDay()+2);
+        pickerDay.setMinValue(1);
+        pickerDay.setMaxValue(31);
+
+        pickerMonth.setDisplayedValues(null);
+        pickerMonth.setValue(new Date().getMonth()+1);
+        pickerMonth.setMinValue(1);
+        pickerMonth.setMaxValue(12);
+        pickerMonth.setDisplayedValues( new String[] {"Jan", "Fev", "Mar","Abr","Mai","Jun","Jul", "Ago", "Set","Out","Nov","Dez"} );
+
+        pickerYear.setDisplayedValues(null);
+        pickerYear.setMinValue(2017);
+        pickerYear.setMaxValue(2030);
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Data de Validade")
+                .setView(viewDialog)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(R.drawable.ic_calendar)
+                .show();
     }
 
     public void priceClick(View view) {

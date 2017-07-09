@@ -88,119 +88,121 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="-25dp">
 
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_weight="1.4"
-          android:layout_height="0dp">
-          <TextView
-              android:id="@+id/name_product"
-              android:layout_width="250dp"
-              android:gravity="center|left"
-              android:layout_marginLeft="10dp"
-              android:layout_height="30dp"
-              android:textColor="@android:color/darker_gray"
-              android:textStyle="bold"
-              android:text="Feijão ServMix"
-              android:textSize="20dp"/>
-          <ImageView
-              android:id="@+id/sm_location"
-              android:layout_below="@id/name_product"
-              android:layout_marginLeft="10dp"
-              android:layout_width="15dp"
-              android:layout_height="20dp"
-              android:src="@drawable/ic_map_pin_marked"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1.4"
+            android:layout_height="0dp">
+            <TextView
+                android:id="@+id/name_product"
+                android:layout_width="250dp"
+                android:gravity="center|left"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold"
+                android:text="Feijão ServMix"
+                android:textSize="20dp"/>
+            <ImageView
+                android:id="@+id/sm_location"
+                android:layout_below="@id/name_product"
+                android:layout_marginLeft="10dp"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_map_pin_marked"/>
 
-          <TextView
-              android:id="@+id/name_supermarket"
-              android:layout_toRightOf="@+id/sm_location"
-              android:layout_below="@id/name_product"
-              android:gravity="left|bottom"
-              android:layout_width="170dp"
-              android:layout_marginLeft="3dp"
-              android:layout_height="20dp"
-              android:text="Walmart"
-              android:textColor="@android:color/darker_gray"
-              android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/name_supermarket"
+                android:layout_toRightOf="@+id/sm_location"
+                android:layout_below="@id/name_product"
+                android:gravity="left|bottom"
+                android:layout_width="170dp"
+                android:layout_marginLeft="3dp"
+                android:layout_height="20dp"
+                android:text="Walmart"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15dp"/>
 
-          <LinearLayout
-              android:id="@+id/like_content"
-              android:layout_width="wrap_content"
-              android:orientation="horizontal"
-              android:layout_alignParentRight="true"
-              android:layout_marginRight="10dp"
-              android:layout_alignParentTop="true"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              >
-              <CheckBox
-                  android:layout_width="30dp"
-                  android:layout_height="30dp"
-                  android:src="@drawable/ic_favorite_border"
-                  android:id="@+id/like_btn"
-                  android:layout_gravity="center"
-                  android:background="@drawable/bg_checbox_favorite"
-                  android:button="@null"
-                  />
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="15dp"
-                  android:textSize="10dp"
-                  android:text="200"
-                  android:textColor="@android:color/darker_gray"
-                  android:textStyle="bold"
-                  android:gravity="center"
-                  />
+            <LinearLayout
+                android:id="@+id/like_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+                <CheckBox
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_favorite_border"
+                    android:id="@+id/like_btn"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_checbox_favorite"
+                    android:button="@null"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textSize="10dp"
+                    android:text="200"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    />
 
-          </LinearLayout>
+            </LinearLayout>
 
-          <LinearLayout
-              android:id="@+id/price_content"
-              android:layout_width="wrap_content"
-              android:layout_below="@+id/like_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:gravity="right"
-              android:layout_marginRight="10dp"
-              android:orientation="vertical"
-              android:layout_alignParentRight="true">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="15dp"
-                  android:layout_marginLeft="5dp"
-                  android:gravity="bottom"
-                  android:textColor="@android:color/darker_gray"
-                  android:text="R$2.99"
-                  />
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="30dp"
-                  android:layout_marginTop="-5dp"
-                  android:gravity="top"
-                  android:textColor="@color/colorPrimaryDark"
-                  android:textSize="25dp"
-                  android:textStyle="bold"
-                  android:text="R$3.99"
-                  />
+            <LinearLayout
+                android:id="@+id/price_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/like_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/old_price"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="bottom"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="R$2.99"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/current_price"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="-5dp"
+                    android:gravity="top"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="R$3.99"
+                    />
 
-          </LinearLayout>
+            </LinearLayout>
 
-          <View
-              android:layout_width="match_parent"
-              android:layout_alignParentBottom="true"
-              android:id="@+id/divider"
-              android:layout_height="0.6dp"
-              android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp"
-              android:background="@android:color/darker_gray"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/divider"
+                android:layout_height="0.6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/darker_gray"/>
 
-      </RelativeLayout>
+        </RelativeLayout>
 
 
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1.4"
+            android:layout_weight="1.2"
             android:id="@+id/circle_container"
             android:layout_height="0dp"
             android:gravity="center"
@@ -213,13 +215,14 @@
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_gravity="center"
-                        android:layout_height="70dp"
+                        android:layout_height="50dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_report"
                         android:textSize="12dp"
@@ -244,9 +247,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_gravity="center"
-                        android:layout_height="70dp"
+                        android:layout_height="50dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_update_price"
                         android:textSize="12dp"
@@ -267,13 +270,14 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_gravity="center"
-                        android:layout_height="70dp"
+                        android:layout_height="50dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_customer"
                         android:textSize="12dp"
@@ -343,7 +347,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:layout_marginTop="3dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -354,10 +358,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-                <ImageView
-                    android:layout_width="20dp"
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:background="@drawable/rounded_icon_bg"
                     android:id="@+id/barcode_icon"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_barcode"
                     />
                 <TextView
@@ -370,14 +375,14 @@
                     android:gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:id="@+id/barcode"
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="789212345432343"
                     android:textColor="@android:color/darker_gray"
                     android:textStyle="bold"
-                    android:gravity="center"
+                    android:gravity="center|top"
                     android:layout_toRightOf="@+id/barcode_icon"/>
             </LinearLayout>
             <LinearLayout
@@ -387,14 +392,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:background="@drawable/rounded_icon_bg"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_calendar"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
+
                     android:textSize="10dp"
                     android:text="Válido até"
                     android:textColor="@android:color/darker_gray"
@@ -402,13 +409,13 @@
                     android:gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="12/12/2017"
                     android:textColor="@android:color/darker_gray"
                     android:textStyle="bold"
-                    android:gravity="top"
+                    android:gravity="top|center"
                     />
             </LinearLayout>
             <LinearLayout
@@ -418,9 +425,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:background="@drawable/rounded_icon_bg"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_food_scale_tool"
                     />
                 <TextView
@@ -433,13 +441,13 @@
                     android:gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="1Kg"
                     android:textColor="@android:color/darker_gray"
                     android:textStyle="bold"
-                    android:gravity="top"
+                    android:gravity="top|center"
                     />
             </LinearLayout>
 
