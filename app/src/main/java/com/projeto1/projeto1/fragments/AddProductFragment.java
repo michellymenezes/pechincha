@@ -97,10 +97,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
         produtcsTask.execute();
 
-        Product p = new Product("Macarrão", "Pillar", "500g", " ", "12344321", "Alimento", "Massa");
-        postP(p);
-
-
         final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
         final CheckBox cb_hygiene = (CheckBox) mview.findViewById(R.id.checkbox_hygiene);
         final CheckBox cb_other = (CheckBox) mview.findViewById(R.id.checkbox_other);
@@ -330,7 +326,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         herokuPostSalesTask.execute();
     }
 
-    private void postP(Product product){
+    private void postProduct(Product product){
         HerokuPostProductsTask herokuPostProductsTask = new HerokuPostProductsTask(product, getContext(), String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)),this);
         herokuPostProductsTask.execute();
     }
