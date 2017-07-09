@@ -68,7 +68,6 @@
                 app:tabIndicatorHeight="3dp"
                 android:paddingBottom="3dp"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@android:color/white">
 
 
