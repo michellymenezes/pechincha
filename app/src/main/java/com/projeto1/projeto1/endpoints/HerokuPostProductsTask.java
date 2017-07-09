@@ -59,7 +59,8 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
         try {
             String parameters = "name" + product.getName() + "&brand" + product.getBrand() +
                     "&description" + product.getDescription() + "&image" + product.getImage() +
-                    "&code" + product.getBarcode() + "&category" + product.getCategory();
+                    "&barCode" + product.getBarcode() + "&category" + product.getCategory() +
+                    "&subcategory" + product.getSubcategory();
 
             url = new URL(ENDPOINT_ADDRESS);
 
@@ -75,7 +76,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
             conn.connect();
             int responseCode = conn.getResponseCode();
-
+            Log.v("RESPONSE_CODE: ", conn.getResponseMessage());
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line = "";
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

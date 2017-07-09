@@ -11,14 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
@@ -29,6 +32,7 @@ import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -93,6 +97,9 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
         produtcsTask.execute();
 
+        Product p = new Product("Macarrão", "Pillar", "500g", " ", "12344321", "Alimento", "Massa");
+        postP(p);
+
 
         final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
         final CheckBox cb_hygiene = (CheckBox) mview.findViewById(R.id.checkbox_hygiene);
@@ -149,6 +156,35 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
         final EditText productNameET = (EditText) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
+
+
+        productCodeET.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                // Identifier of the action. This will be either the identifier you supplied,
+                // or EditorInfo.IME_NULL if being called due to the enter key being pressed.
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == KeyEvent.ACTION_DOWN
+                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    Log.v("TECLADO", "done");
+
+                    for(int i = 0; i < productsList.size(); i++){
+                        String cod = productCodeET.getText().toString();
+                        if(cod.equals(productsList.get(i).getBarcode())){
+                            productNameET.setText(productsList.get(i).getName());
+                            productNameET.setEnabled(false);
+                            break;
+                        }
+                        productNameET.setEnabled(true);
+
+                    }
+                    return true;
+                }
+                // Return true if you have consumed the action, else false.
+                return false;
+            }
+        });
         final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
         productPriceET = (EditText) mview.findViewById(R.id.price_input);
        // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
@@ -294,7 +330,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         herokuPostSalesTask.execute();
     }
 
-
+    private void postP(Product product){
+        HerokuPostProductsTask herokuPostProductsTask = new HerokuPostProductsTask(product, getContext(), String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)),this);
+        herokuPostProductsTask.execute();
+    }
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
