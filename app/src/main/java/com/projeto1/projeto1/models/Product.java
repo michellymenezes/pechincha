@@ -12,14 +12,27 @@ public class Product {
     private String image;
     private String barcode;
     private String category;
+    private String subcategory;
 
-    public Product(String name, String brand, String description, String image, String barcode, String category) {
+    public Product(String name, String brand, String description, String image, String barcode, String category, String subcategory) {
         this.name = name;
         this.brand = brand;
         this.description = description;
         this.image = image;
         this.barcode = barcode;
         this.category = category;
+        this.subcategory = subcategory;
+    }
+
+    public Product(String name, String brand, String barcode, String category){
+        this.name = name;
+        this.brand = brand;
+        this.barcode = barcode;
+        this.category = category;
+        this.description = "";
+        this.image = "";
+        this.subcategory = "";
+
     }
 
     public String getName() {
@@ -70,6 +83,14 @@ public class Product {
         this.category = category;
     }
 
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -79,6 +100,23 @@ public class Product {
                 ", image='" + image + '\'' +
                 ", barcode='" + barcode + '\'' +
                 ", category='" + category + '\'' +
+                ", subcategory='" + subcategory + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return barcode.equals(product.barcode);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return barcode.hashCode();
     }
 }

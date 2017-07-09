@@ -22,11 +22,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
+import com.projeto1.projeto1.ProductListener;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
+import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
@@ -38,7 +42,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class AddProductFragment extends Fragment  implements SaleListener{
+public class AddProductFragment extends Fragment  implements SaleListener, ProductListener{
 
 
     public static final String TAG = "ADD_PRODUCT_FRAGMENT";
@@ -53,7 +57,10 @@ public class AddProductFragment extends Fragment  implements SaleListener{
     private ArrayList<String> otherCategoryList;
     private GroceryProductsFragment groceryProductsFragment;
     private String quantity;
+    private List<Product> productsList;
     private EditText productPriceET;
+    private HerokuGetProductsTask produtcsTask;
+
 
 
     /**
@@ -82,6 +89,10 @@ public class AddProductFragment extends Fragment  implements SaleListener{
                              Bundle savedInstanceState) {
 
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
+        productsList = new ArrayList<>();
+        produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
+        produtcsTask.execute();
+
 
         final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
         final CheckBox cb_hygiene = (CheckBox) mview.findViewById(R.id.checkbox_hygiene);
@@ -134,6 +145,7 @@ public class AddProductFragment extends Fragment  implements SaleListener{
                 }
             }
         });
+
 
         final EditText productNameET = (EditText) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
@@ -311,6 +323,17 @@ public class AddProductFragment extends Fragment  implements SaleListener{
     @Override
     public void OnPostSaleFinished(boolean finished) {
         ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
+    }
+
+    @Override
+    public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
+        productsList = products;
+        Log.v(TAG, "Quantidade de products: " + String.valueOf(productsList.size()));
+    }
+
+    @Override
+    public void OnPostProductFinished(boolean finished) {
 
     }
 }
