@@ -26,8 +26,8 @@ public class Market {
     }
 
     public Market(String id, String name, Address address, String image, String cnpj, Localization localization) {
-        if (id.equals(null)){
-            getId();
+        if (id==null){
+            generateId();
             this.id = uniqueID;
         } else {
             this.id = id;
@@ -37,7 +37,6 @@ public class Market {
         this.image = image;
         this.cnpj = cnpj;
         this.localization = localization;
-        uniqueID = null;
     }
 
     public Market(String name, Address adrdess) {

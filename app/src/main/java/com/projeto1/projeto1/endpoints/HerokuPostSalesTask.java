@@ -58,7 +58,7 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
 
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
-                    "&expirationDate=" +sale.getExpirationDate() + "&publicationDate=" + sale.getPublicationDate() +
+                    "&expirationDate=" +sale.getExpirationDate() +
                     "&author=" + sale.getAuthorId();
             url = new URL(ENDPOINT_ADDRESS);
 
@@ -74,6 +74,8 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
 
             conn.connect();
             int responseCode = conn.getResponseCode();
+
+            Log.v(TAG, conn.getResponseMessage() + responseCode);
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line = "";

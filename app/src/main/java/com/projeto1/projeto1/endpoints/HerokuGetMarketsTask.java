@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.MarketListener;
+import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.models.Address;
 import com.projeto1.projeto1.models.Localization;
 import com.projeto1.projeto1.models.Market;
