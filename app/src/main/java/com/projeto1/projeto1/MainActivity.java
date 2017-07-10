@@ -28,13 +28,19 @@ import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
+import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
+import com.projeto1.projeto1.fragments.LoginFragment;
+import com.projeto1.projeto1.fragments.MainFragment;
+import com.projeto1.projeto1.listeners.LoginListener;
+import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener {
+public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener, LoginListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private AppBarLayout mAppBarLayout;
     private ArrayList<Sale> sales;
     private HerokuGetSalesTask mTask;
+    private User user;
 
     //Menu
     private ActionBarDrawerToggle mToggle;
@@ -60,9 +67,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         setContentView(R.layout.activity_main);
         initMenu();
 
-
-
-
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
@@ -73,21 +77,34 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         } else {
             Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
-            User user = SharedPreferencesUtils.getUser(getBaseContext());
+            user = SharedPreferencesUtils.getUser(getBaseContext());
             Log.d(TAG, user.toString());
+
         }
 
-        /*POST DE PROMOÇÕES*/
-        //HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
-        //mTask.execute();
+        /** POST USUARIO**/
+        /*
+        if (user != null){
+            HerokuPostUserTask postUserTask = new HerokuPostUserTask(user,getBaseContext(),String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this);
+            postUserTask.execute();
+        } */
 
-        /* POST DE PRODUTOS*/
+        /** GET TODOS OS USUARIOS**/
+        /* HerokuGetUserTask userTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this);
+        userTask.execute(); */
+
+
+        /**POST DE PROMOÇÕES**/
+        /*HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
+        mTask.execute(); */
+
+        /** POST DE PRODUTOS**/
         /*
         HerokuPostProductsTask mAuthTask = new HerokuPostProductsTask("594z81z04zz96z0004z93980", "0",
                 getBaseContext(),String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
         mAuthTask.execute(); */
 
-        /* GET DE PRODUTOS */
+        /** GET DE PRODUTOS **/
         /*
 
         HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
@@ -277,4 +294,21 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     public void setSales(ArrayList<Sale> sales) {
         this.sales = sales;
     }
+
+    @Override
+    public void OnPostLoginFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
+
+    }
+
+    @Override
+    public void OnGetUserFinished(boolean ready, User user) {
+
+    }
+
+
 }

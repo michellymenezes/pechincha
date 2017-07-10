@@ -2,12 +2,11 @@ package com.projeto1.projeto1.endpoints;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.sip.SipAudioCall;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.projeto1.projeto1.SaleListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Sale;
 
 import org.json.JSONException;
@@ -22,7 +21,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 

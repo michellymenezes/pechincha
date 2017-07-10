@@ -23,9 +23,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
-import com.projeto1.projeto1.ProductListener;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.SaleListener;
+import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class AddProductFragment extends Fragment  implements SaleListener, ProductListener{
+public class AddProductFragment extends Fragment  implements SaleListener, ProductListener {
 
 
     public static final String TAG = "ADD_PRODUCT_FRAGMENT";
