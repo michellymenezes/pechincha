@@ -63,3 +63,6 @@ buildscript {
 dependencies {
     compile 'com.shawnlin:number-picker:2.4.4'
 }
+dependencies {
+    compile 'com.android.support:support-v4:25.+'
+}

@@ -1,43 +1,43 @@
 package com.projeto1.projeto1.fragments;
 
-
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.adapters.CategorySwipeAdapter;
+import com.projeto1.projeto1.adapters.CategoryListAdapter;
+import com.projeto1.projeto1.adapters.ProductListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.models.Sale;
+
+import java.util.List;
+
 
 public class MainFragment extends Fragment {
 
-    public static final String TAG = "MAIN_FRAGMENT";
 
-    private CategorySwipeAdapter mAdapter;
-    private ViewPager mPager;
+    public static final String TAG = "HYGIENE_PRODUCTS_FRAGMENT";
+
+    private View mview;
 
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.2.
-     * @return A new instance of fragment FeedFragment.
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
      */
-    // TODO: Rename and change types and number of parameters
+    public MainFragment() {
+    }
+
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
     public static MainFragment getInstance() {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
@@ -46,49 +46,25 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mAdapter = new CategorySwipeAdapter(getChildFragmentManager());
-        mPager = (ViewPager) view.findViewById(R.id.feed_pager);
 
-        mPager.setAdapter(mAdapter);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(mPager);
+        mview = inflater.inflate(R.layout.fragment_main, container, false);
 
 
 
-            tabLayout.setupWithViewPager(mPager);
+        final FloatingActionButton addProductBtn = (FloatingActionButton) mview.findViewById(R.id.scan_fab);
 
-            View viewTab1 = (View) inflater.inflate(R.layout.custom_tab, null);
-            ImageButton iconTab1 = (ImageButton)  viewTab1.findViewById(R.id.icon_tab);
-            iconTab1.setImageResource(R.drawable.ic_grocery);
-            TextView tv_tab1 = (TextView)  viewTab1.findViewById(R.id.tv_tab);
-            tv_tab1.setText("Alimentos");
-            tabLayout.getTabAt(0).setCustomView(viewTab1);
+        final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
 
-        View viewTab2 = (View) inflater.inflate(R.layout.custom_tab, null);
-        ImageButton iconTab2 = (ImageButton)  viewTab2.findViewById(R.id.icon_tab);
-        iconTab2.setImageResource(R.drawable.ic_hygiene);
-        TextView tv_tab2 = (TextView)  viewTab2.findViewById(R.id.tv_tab);
-        tv_tab2.setText("Higiene");
-        tabLayout.getTabAt(1).setCustomView(viewTab2);
-
-        View viewTab3 = (View) inflater.inflate(R.layout.custom_tab, null);
-        ImageButton iconTab3 = (ImageButton)  viewTab3.findViewById(R.id.icon_tab);
-        iconTab3.setImageResource(R.drawable.ic_other);
-        TextView tv_tab3 = (TextView)  viewTab3.findViewById(R.id.tv_tab);
-        tv_tab3.setText("Outros");
-        tabLayout.getTabAt(2).setCustomView(viewTab3);
-
-        final FloatingActionButton addProductBtn = (FloatingActionButton) view.findViewById(R.id.scan_fab);
+        grocery_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
+            }
+        });
 
         addProductBtn.setClickable(true);
 
@@ -99,21 +75,25 @@ public class MainFragment extends Fragment {
 
             }
         });
+        return mview;
+    }
 
+    private void startAdapter() {
 
-
-
-        // Inflate the layout for this fragment
-        return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
     }
+
 }
