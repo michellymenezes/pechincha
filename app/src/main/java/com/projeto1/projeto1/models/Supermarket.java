@@ -7,15 +7,25 @@ package com.projeto1.projeto1.models;
 public class Supermarket {
 
     private String name;
-    private String adress;
+    private Address adress;
     private String image;
     private String cnpj;
+    private Localization localization;
 
-    public Supermarket(String name, String adress, String image, String cnpj) {
+    public Supermarket(String name, Address adress, String image, String cnpj, Localization localization) {
         this.name = name;
         this.adress = adress;
         this.image = image;
         this.cnpj = cnpj;
+        this.localization = localization;
+    }
+
+    public Supermarket(String name, Address adress) {
+        this.name = name;
+        this.adress = adress;
+        this.image = "";
+        this.cnpj = "";
+        this.localization = null;
     }
 
     public String getName() {
@@ -26,11 +36,11 @@ public class Supermarket {
         this.name = name;
     }
 
-    public String getAdress() {
+    public Address getAdress() {
         return adress;
     }
 
-    public void setAdress(String adress) {
+    public void setAdress(Address adress) {
         this.adress = adress;
     }
 
@@ -54,9 +64,29 @@ public class Supermarket {
     public String toString() {
         return "Supermarket{" +
                 "name='" + name + '\'' +
-                ", adress='" + adress + '\'' +
+                ", adress=" + adress +
                 ", image='" + image + '\'' +
                 ", cnpj='" + cnpj + '\'' +
+                ", localization=" + localization +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Supermarket that = (Supermarket) o;
+
+        if (!name.equals(that.name)) return false;
+        return adress.equals(that.adress);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + adress.hashCode();
+        return result;
     }
 }
