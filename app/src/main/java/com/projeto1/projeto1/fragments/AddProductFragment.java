@@ -304,10 +304,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productName = productNameET.getText().toString();
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
-                String productPrice = productPriceET.getText().toString();
+                Double productPrice = Double.parseDouble(productPriceET.getText().toString().substring(2));
 
                 //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice.substring(2)), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
+                Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, new Date(2017,7,22), "aabbcc112233", 1, "Uni");
                 post(sale);
 
             }

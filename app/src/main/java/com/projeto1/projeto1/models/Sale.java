@@ -18,16 +18,29 @@ public class Sale {
     private Date publicationDate;
     private String authorId;
     private int quantity;
+    private String quantUni;
 
-    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, Date expirationDate, Date publicationDate, String authorId, int quantity) {
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, Date expirationDate, String authorId, int quantity, String quantUni) {
         this.productId = productId;
         this.marketId = marketId;
         this.salePrice = salePrice;
         this.regularPrice = regularPrice;
         this.expirationDate = expirationDate;
-        this.publicationDate = publicationDate;
         this.authorId = authorId;
         this.quantity = quantity;
+        this.quantUni = quantUni;
+
+        this.id = " ";
+    }
+
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String authorId, int quantity, String quantUni) {
+        this.productId = productId;
+        this.marketId = marketId;
+        this.salePrice = salePrice;
+        this.regularPrice = regularPrice;
+        this.authorId = authorId;
+        this.quantity = quantity;
+        this.quantUni = quantUni;
 
         this.id = " ";
     }
@@ -116,6 +129,14 @@ public class Sale {
         this.quantity = quantity;
     }
 
+    public String getQuantUni() {
+        return quantUni;
+    }
+
+    public void setQuantUni(String quantUni) {
+        this.quantUni = quantUni;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,6 +170,7 @@ public class Sale {
                 ", publicationDate=" + publicationDate +
                 ", authorId='" + authorId + '\'' +
                 ", quantity=" + quantity +
+                ", quantUni='" + quantUni + '\'' +
                 '}';
     }
 }

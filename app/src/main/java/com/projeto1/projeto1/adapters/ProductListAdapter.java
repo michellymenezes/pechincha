@@ -40,9 +40,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(final ProductItemHolder holder, final int position) {
 
         View view = ((ProductViewItem) holder.itemView);
-        ((ProductViewItem) holder.itemView).displayName(items.get(position).getProduct());
-        ((ProductViewItem) holder.itemView).displayPrice(items.get(position).getCurrentPrice());
-        ((ProductViewItem) holder.itemView).d(items.get(position).getSupermarket());
+    //    ((ProductViewItem) holder.itemView).displayName(items.get(position).getProduct());
+        ((ProductViewItem) holder.itemView).displayPrice(items.get(position).getSalePrice());
+    //    ((ProductViewItem) holder.itemView).d(items.get(position).getSupermarket());
 
         RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
 
