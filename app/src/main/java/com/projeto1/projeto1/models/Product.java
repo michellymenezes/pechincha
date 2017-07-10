@@ -29,9 +29,9 @@ public class Product {
         this.brand = brand;
         this.barcode = barcode;
         this.category = category;
-        this.description = "";
-        this.image = "";
-        this.subcategory = "";
+        this.description = " ";
+        this.image = " ";
+        this.subcategory = " ";
 
     }
 
