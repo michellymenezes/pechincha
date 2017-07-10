@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -93,8 +94,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
 
         productsList = new ArrayList<>();
-        produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
-        produtcsTask.execute();
+        updateProductList();
+
 
 
         final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
@@ -173,7 +174,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                         || event.getAction() == KeyEvent.ACTION_DOWN
                         && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 
-                    View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
+                    final View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
                     final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
                     final EditText nameDialog = (EditText) mvDialog.findViewById(R.id.product_name_input_dialog);
                     final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
@@ -211,37 +212,56 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
                     String positiveAction = "";
                     String negativeAction = "";
+                    String productAction = "";
 
                     if (productExists) {
                         positiveAction = "Ok";
                         negativeAction = "";
+                        productAction = "Informações do Produto";
                     }else{
                         positiveAction = "Salvar";
                         negativeAction = "Cancel";
-
+                        productAction =  "Cadastre o produto";
                     }
 
                     final boolean productExistsFinal = productExists;
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Produto")
-                            .setView(mvDialog)
-                            .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    productNameET.setText(nameDialog.getText().toString());
-                                    productNameET.setEnabled(false);
-                                    if(!productExistsFinal) {
-                                        Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
-                                        postProduct(product);
+
+                    if ((productCodeET.getText().toString().length() == 12)){
+                        new AlertDialog.Builder(getContext())
+                                .setTitle(productAction)
+                                .setView(mvDialog)
+                                .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        productNameET.setText(nameDialog.getText().toString());
+                                        productNameET.setEnabled(false);
+
+                                        if (nameDialog.getText().toString().equals("") ||
+                                                brandDialog.getText().toString().equals("") ||
+                                                codeDialog.getText().toString().equals("") ||
+                                                categoryDialog.getText().toString().equals("")){
+                                            Toast.makeText(getContext(), "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
+                                            productNameET.setText("");
+                                        } else {
+                                            if(!productExistsFinal) {
+                                                Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
+                                                postProduct(product);
+                                                updateProductList();
+                                            }
+                                        }
+
                                     }
-                                }
-                            })
-                            .setNegativeButton(negativeAction, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    productNameET.setText("");
-                                }
-                            })
-                            .setIcon(R.drawable.ic_add)
-                            .show();
+                                })
+                                .setNegativeButton(negativeAction, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        productNameET.setText("");
+                                    }
+                                })
+                                .setIcon(R.drawable.ic_add)
+                                .show();
+                    }else {
+                        Toast.makeText(getContext(), "O código de barras deve conter dígitos", Toast.LENGTH_LONG).show();
+
+                    }
 
 //                    Log.v("TECLADO", "done");
                     return true;
@@ -281,10 +301,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productName = productNameET.getText().toString();
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
-                String productPrice = productPriceET.getText().toString();
+                Double productPrice = Double.parseDouble(productPriceET.getText().toString().substring(2));
 
                 //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice.substring(2)), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
+                Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, new Date(2017,7,22), "aabbcc112233", 1, "Uni");
                 post(sale);
 
             }
@@ -388,6 +408,12 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 .setIcon(R.drawable.ic_food_scale_tool)
                 .show();
     }
+
+    public void updateProductList(){
+        produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
+        produtcsTask.execute();
+    }
+
 
     private void post(Sale sale){
         HerokuPostSalesTask herokuPostSalesTask = new HerokuPostSalesTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)),this);

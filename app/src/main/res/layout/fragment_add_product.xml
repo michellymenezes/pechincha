@@ -228,7 +228,7 @@
                             android:layout_alignParentRight="true"
                             android:imeOptions="actionDone"
                             android:hint="Código do Produto"
-                            android:inputType="textCapWords"
+                            android:inputType="number"
                             />
                     </android.support.design.widget.TextInputLayout>
 
