@@ -54,7 +54,17 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
-            String parameters = "name=" + market.getName();
+
+            String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
+                    "&cnpj=" + market.getCnpj() + "&address={street=" + market.getAdress().getStreet() +
+                    "&number=" + market.getAdress().getNumber() + "$complemet=" + market.getAdress().getComplement() +
+                    "&neighborhood=" + market.getAdress().getNeighborhood() +
+                    "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
+                    "&country=" + market.getAdress().getCountry() + "}&localization={longitude=" + market.getLocalization().getLongitude() +
+                    "&latitude=" + market.getLocalization().getLatitude() + "}";
+
+           // parameters = jsonObject.toString();
+            Log.v("PARAMETERS", parameters);
             url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -62,7 +72,7 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-          //  writer.write(parameters);
+            writer.write(parameters);
             writer.flush();
             writer.close();
             os.close();
