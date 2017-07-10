@@ -69,32 +69,21 @@ public class HerokuGetSalesTask extends AsyncTask {
 
 
                     for (int i = 0; i < salesJSON.length(); i++) {
-                        if ( salesJSON.getJSONObject(i).length() >=11){
+                        if ( salesJSON.getJSONObject(i).length() >=8){
 
                             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
                             String id = salesJSON.getJSONObject(i).getString("_id");
-                            String product = salesJSON.getJSONObject(i).getString("productName");
-                           // String category = salesJSON.getJSONObject(i).getString("category");
+                            String productId = salesJSON.getJSONObject(i).getString("product");
+                            String marketId = salesJSON.getJSONObject(i).getString("market");
+                            Double salePrice = salesJSON.getJSONObject(i).getDouble("salePrice");
                             Double regularPrice = salesJSON.getJSONObject(i).getDouble("regularPrice");
-                            Double promotionPrice = salesJSON.getJSONObject(i).getDouble("promotionPrice");
                             Date expirationDate =  df.parse(salesJSON.getJSONObject(i).getString("expirationDate"));
-                            String supermarket = salesJSON.getJSONObject(i).getString("supermarket");
-                            int quantity = salesJSON.getJSONObject(i).getInt("quantity");
-                            int stars = salesJSON.getJSONObject(i).getInt("stars");
-                            String author = salesJSON.getJSONObject(i).getString("author");
                             Date publicationDate = df.parse(salesJSON.getJSONObject(i).getString("publicationDate"));
-                            //Boolean expiredSale = salesJSON.getJSONObject(i).getBoolean("expiredSale");
-                           // int likes = salesJSON.getJSONObject(i).getInt("likes");
-                            //int dislikes = salesJSON.getJSONObject(i).getInt("dislikes");
+                            String authorId = salesJSON.getJSONObject(i).getString("author");
+                            // int quantity = salesJSON.getJSONObject(i).getInt("quantity");
 
-
-                            // FALTA O GET DE COMMENTS
-
-
-
-                            Sale sale = new Sale(id, product, regularPrice, promotionPrice, expirationDate, supermarket, quantity,
-                                    stars, author, publicationDate, 0, 0, "comida");
+                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1);
 
                             sales.add(sale);
                         }

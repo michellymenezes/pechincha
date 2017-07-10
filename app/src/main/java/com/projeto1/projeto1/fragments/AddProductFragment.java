@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
+import com.projeto1.projeto1.MarketListener;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
@@ -33,6 +35,7 @@ import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
+import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.shawnlin.numberpicker.NumberPicker;
