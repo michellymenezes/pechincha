@@ -175,7 +175,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN
-                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                        || productCodeET.getText().length() ==12) {
 
                     final View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
                     final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
@@ -262,8 +263,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                                 .setIcon(R.drawable.ic_add)
                                 .show();
                     }else {
-                        Toast.makeText(getContext(), "O código de barras deve conter dígitos", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getContext(), "O código de barras deve conter 12 dígitos", Toast.LENGTH_LONG).show();
+                        productNameET.setText("");
                     }
 
 //                    Log.v("TECLADO", "done");
