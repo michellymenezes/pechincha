@@ -125,7 +125,6 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
         }
 
     }
-
     @Override
     protected void onCancelled() {
         mAuthTask = null;
