@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -90,9 +91,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                              Bundle savedInstanceState) {
 
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
+
         productsList = new ArrayList<>();
         produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
         produtcsTask.execute();
+
 
         final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
         final CheckBox cb_hygiene = (CheckBox) mview.findViewById(R.id.checkbox_hygiene);
@@ -146,9 +149,18 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             }
         });
 
+        priceClick(mview);
+        addSale(mview, inflater, container);
 
+        return mview;
+    }
+
+    private void addSale(final View mview, final LayoutInflater inflater, final ViewGroup container) {
         final EditText productNameET = (EditText) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
+
+
+
 
 
         productCodeET.setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -160,18 +172,78 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN
                         && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    Log.v("TECLADO", "done");
 
+                    View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
+                    final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
+                    final EditText nameDialog = (EditText) mvDialog.findViewById(R.id.product_name_input_dialog);
+                    final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
+                    final EditText categoryDialog = (EditText) mvDialog.findViewById(R.id.product_category_input_dialog);
+
+                    codeDialog.setText(productCodeET.getText().toString());
+                    codeDialog.setEnabled(false);
+                    boolean productExists = false;
+                    String productName = "";
+                    Log.v("size", String.valueOf(productsList.size()));
                     for(int i = 0; i < productsList.size(); i++){
                         String cod = productCodeET.getText().toString();
+                        Log.v("PRODUCT", productsList.get(i).toString());
                         if(cod.equals(productsList.get(i).getBarcode())){
-                            productNameET.setText(productsList.get(i).getName());
-                            productNameET.setEnabled(false);
+                            productExists = true;
+                            Product product = productsList.get(i);
+                            productName = product.getName();
+                            nameDialog.setText(productName);
+                            nameDialog.setEnabled(false);
+                            brandDialog.setText(product.getBrand());
+                            brandDialog.setEnabled(false);
+                            categoryDialog.setText(product.getCategory());
+                            categoryDialog.setEnabled(false);
                             break;
                         }
-                        productNameET.setEnabled(true);
 
                     }
+
+
+
+                    //keyboard down
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(productCodeET.getWindowToken(),
+                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
+
+                    String positiveAction = "";
+                    String negativeAction = "";
+
+                    if (productExists) {
+                        positiveAction = "Ok";
+                        negativeAction = "";
+                    }else{
+                        positiveAction = "Salvar";
+                        negativeAction = "Cancel";
+
+                    }
+
+                    final boolean productExistsFinal = productExists;
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Produto")
+                            .setView(mvDialog)
+                            .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    productNameET.setText(nameDialog.getText().toString());
+                                    productNameET.setEnabled(false);
+                                    if(!productExistsFinal) {
+                                        Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
+                                        postProduct(product);
+                                    }
+                                }
+                            })
+                            .setNegativeButton(negativeAction, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    productNameET.setText("");
+                                }
+                            })
+                            .setIcon(R.drawable.ic_add)
+                            .show();
+
+//                    Log.v("TECLADO", "done");
                     return true;
                 }
                 // Return true if you have consumed the action, else false.
@@ -179,14 +251,12 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             }
         });
         final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
-        productPriceET = (EditText) mview.findViewById(R.id.price_input);
-       // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
+        // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
         final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
         final Button expireDateBtn = (Button)  mview.findViewById(R.id.expire_date);
 
         productPriceET.setRawInputType(Configuration.KEYBOARD_12KEY);
 
-        priceClick(mview);
         quantityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,12 +284,12 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productPrice = productPriceET.getText().toString();
 
                 //TODO criar objeto e salvar no banco.
-               Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice.substring(2)), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
+                Sale sale = new Sale(productCode, productName,10.0, Double.parseDouble(productPrice.substring(2)), new Date(2017, 3,2), productMarket, Integer.parseInt(quantity),0,"pessoa", null,0,0, "");
                 post(sale);
 
             }
         });
-        return mview;
+
     }
 
     private void dateDialog(Button expireDateBtn) {
@@ -257,6 +327,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     public void priceClick(View view) {
+        productPriceET = (EditText) mview.findViewById(R.id.price_input);
         productPriceET.addTextChangedListener(new TextWatcher() {
             DecimalFormat dec = new DecimalFormat("0.00");
 
@@ -354,7 +425,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(OldMainFragment.getInstance(), OldMainFragment.TAG, true);
+        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
     }
 
     @Override

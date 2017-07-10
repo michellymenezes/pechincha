@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/bg_details_screen"
-        android:layout_height="220dp">
+        android:background="@color/colorPrimary"
+        android:layout_height="200dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -17,16 +17,16 @@
             android:gravity="center"
             android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="130dp"
+                android:layout_width="170dp"
                 android:background="@drawable/circle_bg_image"
                 android:gravity="center"
-                android:layout_marginLeft="70dp"
-                android:layout_marginBottom="42dp"
-                android:layout_height="130dp">
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="170dp">
                 <ImageView
                     android:id="@+id/product_image"
-                    android:layout_width="80dp"
-                    android:layout_height="90dp"
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
                     android:src="@drawable/feijaosevemix"
                     android:scaleType="fitCenter"
                     />
@@ -37,12 +37,11 @@
                 android:layout_width="wrap_content"
                 android:layout_toRightOf="@+id/img_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="-80dp"
-                android:layout_marginLeft="-30dp"
+                android:layout_marginBottom="-60dp"
+                android:layout_marginLeft="-40dp"
                 android:layout_height="wrap_content">
                 <ImageButton
                     android:id="@+id/user_img"
-                    android:layout_marginLeft="5dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_user"
@@ -53,10 +52,10 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:gravity="bottom"
+                    android:gravity="bottom|center"
                     android:text="Usuario"
                     android:textColor="@android:color/white"
-                    android:layout_toRightOf="@id/user_img"/>
+                    android:layout_below="@id/user_img"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
@@ -64,7 +63,6 @@
                     android:textSize="10dp"
                     android:textColor="@android:color/white"
                     android:text="12/06/2017"
-                    android:layout_toRightOf="@id/user_img"
                     android:layout_below="@id/user_name"/>
             </RelativeLayout>
 
@@ -79,14 +77,11 @@
         android:orientation="vertical"
         android:layout_weight="4.2"
         android:layout_height="100dp"
-        android:background="@drawable/rounded_bg_product_item"
-        android:layout_marginLeft="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_marginRight="20dp"
         android:elevation="4dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="-25dp">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -98,7 +93,7 @@
                 android:gravity="center|left"
                 android:layout_marginLeft="10dp"
                 android:layout_height="30dp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@android:color/tertiary_text_dark"
                 android:textStyle="bold"
                 android:text="Feijão ServMix"
                 android:textSize="20dp"/>
@@ -146,7 +141,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="200"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center"
                     />
@@ -169,7 +164,7 @@
                     android:layout_height="15dp"
                     android:layout_marginLeft="5dp"
                     android:gravity="bottom"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:text="R$2.99"
                     />
                 <TextView
@@ -370,7 +365,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="Cod. barras"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center"
                     />
@@ -380,7 +375,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="789212345432343"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center|top"
                     android:layout_toRightOf="@+id/barcode_icon"/>
@@ -404,7 +399,7 @@
 
                     android:textSize="10dp"
                     android:text="Válido até"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center"
                     />
@@ -413,7 +408,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="12/12/2017"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="top|center"
                     />
@@ -436,7 +431,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="Quantidade"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center"
                     />
@@ -445,7 +440,7 @@
                     android:layout_height="15dp"
                     android:textSize="10dp"
                     android:text="1Kg"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="top|center"
                     />
