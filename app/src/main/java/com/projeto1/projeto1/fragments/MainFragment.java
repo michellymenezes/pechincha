@@ -59,7 +59,7 @@ public class MainFragment extends Fragment {
 
 
 
-        mview = inflater.inflate(R.layout.fragment_test_main, container, false);
+        mview = inflater.inflate(R.layout.fragment_main, container, false);
 
 
 

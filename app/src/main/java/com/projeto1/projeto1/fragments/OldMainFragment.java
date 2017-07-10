@@ -51,7 +51,7 @@ public class OldMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_old, container, false);
 
         mAdapter = new CategorySwipeAdapter(getChildFragmentManager());
         mPager = (ViewPager) view.findViewById(R.id.feed_pager);
