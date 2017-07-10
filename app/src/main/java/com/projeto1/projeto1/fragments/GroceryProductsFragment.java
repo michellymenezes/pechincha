@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.SaleListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;

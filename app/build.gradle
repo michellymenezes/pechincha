@@ -21,6 +21,8 @@ android {
         it.resValue 'string', 'HEROKU_PRODUCT_ENDPOINT', heroku_productsEndPoint
         it.resValue 'string', 'HEROKU_SALE_ENDPOINT', heroku_SalesEndPoint
         it.resValue 'string', 'HEROKU_USER_ENDPOINT', heroku_usersEndPoint
+        it.resValue 'string', 'HEROKU_MARKET_ENDPOINT', heroku_MarketsEndPoint
+
     }
     productFlavors {
     }

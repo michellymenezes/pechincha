@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.SaleListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Sale;
 
 import org.json.JSONArray;
@@ -21,7 +21,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TimeZone;
 
 
 import javax.net.ssl.HttpsURLConnection;

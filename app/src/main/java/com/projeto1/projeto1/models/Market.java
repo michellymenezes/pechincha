@@ -1,10 +1,13 @@
 package com.projeto1.projeto1.models;
 
+import java.util.UUID;
+
 /**
  * Created by michelly on 14/06/17.
  */
 
 public class Market {
+    private String uniqueID;
     private String id;
     private String name;
     private Address adress;
@@ -13,7 +16,8 @@ public class Market {
     private Localization localization;
 
     public Market(String name, Address adress, String image, String cnpj, Localization localization) {
-        this.id = "";
+        generateId();
+        this.id = uniqueID;
         this.name = name;
         this.adress = adress;
         this.image = image;
@@ -22,12 +26,18 @@ public class Market {
     }
 
     public Market(String id, String name, Address adress, String image, String cnpj, Localization localization) {
-        this.id = id;
+        if (id.equals(null)){
+            getId();
+            this.id = uniqueID;
+        } else {
+            this.id = id;
+        }
         this.name = name;
         this.adress = adress;
         this.image = image;
         this.cnpj = cnpj;
         this.localization = localization;
+        uniqueID = null;
     }
 
     public Market(String name, Address adress) {
@@ -36,6 +46,8 @@ public class Market {
         this.image = "";
         this.cnpj = "";
         this.localization = null;
+        uniqueID = null;
+        generateId();
     }
 
     public String getId() {
@@ -112,5 +124,9 @@ public class Market {
                 ", cnpj='" + cnpj + '\'' +
                 ", localization=" + localization +
                 '}';
+    }
+
+    private void generateId(){
+        uniqueID = UUID.randomUUID().toString();
     }
 }
