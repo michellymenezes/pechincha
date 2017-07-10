@@ -25,6 +25,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
@@ -34,13 +35,14 @@ import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.listeners.LoginListener;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener, LoginListener {
+public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener, LoginListener, MarketListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -111,6 +113,12 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         mAuthTask.execute();
         */
 
+        //TODO terminar objeto
+        /*Market market = new Market(null,"Supermercados Ideal",,)
+
+        HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
+
+*/
         modifyActioonBar();
 
     }
@@ -311,4 +319,13 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
 
+    @Override
+    public void OnGetMarketsReady(boolean ready, ArrayList<Market> products) {
+
+    }
+
+    @Override
+    public void OnPostMarketsFinished(boolean finished) {
+
+    }
 }
