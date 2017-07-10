@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.projeto1.projeto1.R;
@@ -45,6 +47,10 @@ public class ProductViewItem extends FrameLayout {
 
     public void d(String s){
         ((TextView) findViewById(R.id.market_name)).setText(s);
+    }
+
+    public RelativeLayout getRelativerLayout(){
+        return (RelativeLayout)findViewById(R.id.product_container);
     }
 
 }

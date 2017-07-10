@@ -49,3 +49,6 @@ dependencies {
     compile 'com.xiaofeng.android:flowlayoutmanager:1.2.3.2'
 
 }
+dependencies {
+    compile 'com.android.support:support-v4:25.+'
+}

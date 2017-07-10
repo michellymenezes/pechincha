@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
-        if (SharedPreferencesUtils.getUser(getBaseContext()) == null){
+        if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
             changeFragment(loginFragment, LoginFragment.TAG, true);
 
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
             Log.d(TAG, "Already logged");
             changeFragment(myMainFragment, MainFragment.TAG, true);
             user = SharedPreferencesUtils.getUser(getBaseContext());
+            Log.d(TAG, user.toString());
+
         }
 
         /** POST USUARIO**/
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         /** GET TODOS OS USUARIOS**/
         /* HerokuGetUserTask userTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this);
         userTask.execute(); */
+
 
         /**POST DE PROMOÇÕES**/
         /*HerokuPostSalesTask mTask = new HerokuPostSalesTask(new Sale(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)));
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
             } else {
                 Log.d(TAG, "Change Fragment: NO addToBackTack");
             }
-            if (tag.equals(LoginFragment.TAG)){
+            if (tag.equals(LoginFragment.TAG)) {
                 mAppBarLayout.setVisibility(View.GONE);
             } else {
                 mAppBarLayout.setVisibility(View.VISIBLE);
@@ -177,14 +180,14 @@ public class MainActivity extends AppCompatActivity  implements ProductListener,
         if (id == R.id.logout_button) {
             initializeFacebookSdk();
             LoginManager.getInstance().logOut();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
+            changeFragment(loginFragment, LoginFragment.TAG, false);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public CallbackManager initializeFacebookSdk(){
+    public CallbackManager initializeFacebookSdk() {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();

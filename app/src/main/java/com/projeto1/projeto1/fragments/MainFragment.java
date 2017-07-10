@@ -92,6 +92,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+
             }
         });
 
