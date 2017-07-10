@@ -99,15 +99,13 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
             String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
                     "&cnpj=" + market.getCnpj() +
-                    "&address=" + " "+ "&localization= "+ " ";
-                    /*
                     "&address={street=" + market.getAdress().getStreet() +
                     "&number=" + market.getAdress().getNumber() + "&complement=" + market.getAdress().getComplement() +
                     "&neighborhood=" + market.getAdress().getNeighborhood() +
                     "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
                     "&country=" + market.getAdress().getCountry() + "}"+
                     "&localization={longitude=" + market.getLocalization().getLongitude() +
-                    "&latitude=" + market.getLocalization().getLatitude() + "}";*/
+                    "&latitude=" + market.getLocalization().getLatitude() + "}";
            // parameters = jsonObject.toString();
             Log.d(TAG, "Parameters: " +parameters);
             url = new URL(ENDPOINT_ADDRESS);
