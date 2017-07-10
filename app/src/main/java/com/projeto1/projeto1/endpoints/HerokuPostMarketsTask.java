@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-import com.projeto1.projeto1.MarketListener;
+import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.models.Market;
 
 import org.json.JSONException;
@@ -78,15 +78,38 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
             */
 
 
-            String parameters = "{name=" + market.getName() + "&image=" + market.getImage() +
-                    "&cnpj=" + market.getCnpj() + "&address={street=" + market.getAdress().getStreet() +
+            //BD
+            //_id":"59636ffadcb5250004873373", automatico
+            // "name":"Hiper Extra",
+            // "image":"path/to/image",
+            // "cnpj":"CNPJ",
+            // "address":{"street":"Av. Floriano Peixoto",
+            //              "number":"12A",
+            //              "complement":"Ali",
+            //              "neighborhood":"Centro",
+            //              "city":"Campina Grande",
+            //              "state":"Paraiba",
+            //              "country":"Brazil",
+            //              "_id":"59636ffadcb5250004873371"}, automatico
+            // "localization":{"longitude":-23.02,
+            //              "latitude":20.02,
+            //              "_id":"59636ffadcb5250004873372"}, automatico
+            // "__v":0} automatico
+
+
+            String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
+                    "&cnpj=" + market.getCnpj() +
+                    "&address=" + " "+ "&localization= "+ " ";
+                    /*
+                    "&address={street=" + market.getAdress().getStreet() +
                     "&number=" + market.getAdress().getNumber() + "&complement=" + market.getAdress().getComplement() +
                     "&neighborhood=" + market.getAdress().getNeighborhood() +
                     "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
-                    "&country=" + market.getAdress().getCountry() + "}&localization={longitude=" + market.getLocalization().getLongitude() +
-                    "&latitude=" + market.getLocalization().getLatitude() + "}}";
+                    "&country=" + market.getAdress().getCountry() + "}"+
+                    "&localization={longitude=" + market.getLocalization().getLongitude() +
+                    "&latitude=" + market.getLocalization().getLatitude() + "}";*/
            // parameters = jsonObject.toString();
-            Log.v("PARAMETERS", parameters);
+            Log.d(TAG, "Parameters: " +parameters);
             url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -101,7 +124,8 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
             conn.connect();
             int responseCode = conn.getResponseCode();
-            Log.v("RESPONSE_CODE: ", conn.getResponseMessage());
+            Log.d(TAG, "RESPONSE_CODE: " +  conn.getResponseMessage());
+
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line = "";
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

@@ -29,12 +29,11 @@ import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
-import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
-import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
-import com.projeto1.projeto1.fragments.LoginFragment;
-import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.listeners.LoginListener;
+import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.models.Address;
+import com.projeto1.projeto1.models.Localization;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.Product;
@@ -113,12 +112,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         mAuthTask.execute();
         */
 
+        Address address = new Address("Vila Nova da Rainha","461", "ponto de cem reis", "Campina Grande", "PB", "Brasil", "");
+        Localization localization = new Localization(-7.2134805,-35.885104);
+
         //TODO terminar objeto
-        /*Market market = new Market(null,"Supermercados Ideal",,)
-
+        Market market = new Market(null,"Supermercados Ideal",address,"", "08.957.326/0001-13",localization);
         HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
+        marketsTask.execute();
 
-*/
         modifyActioonBar();
 
     }
