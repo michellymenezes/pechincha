@@ -26,14 +26,6 @@ public class MainFragment extends Fragment {
     public static final String TAG = "HYGIENE_PRODUCTS_FRAGMENT";
 
     private View mview;
-    private CategoryListAdapter mAdapter;
-    private ProductListAdapter mProductAdapter;
-    private List<String> categoryList;
-    private RecyclerView categoryRecycleView;
-    private RecyclerView productRecycleView;
-    private List<Sale> salesList;
-    private HerokuGetSalesTask salesTask;
-    private MainActivity myMainActivity;
 
 
 

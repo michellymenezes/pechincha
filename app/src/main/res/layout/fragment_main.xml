@@ -65,7 +65,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
-                android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -89,14 +88,13 @@
                     android:textSize="12dp"
                     android:layout_gravity="center"
                     android:text="Alimento"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_height="wrap_content"
                     />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
@@ -117,7 +115,7 @@
                     android:layout_below="@+id/checkbox"
                     android:gravity="center|top"
                     android:textSize="12dp"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:text="Higiene"/>
@@ -126,7 +124,6 @@
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
@@ -147,7 +144,7 @@
                     android:gravity="center|top"
                     android:textSize="12dp"
                     android:text="Limpeza"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_height="wrap_content"
                     />
             </LinearLayout>
@@ -164,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
                 android:orientation="vertical"
-                android:padding="10dp"
+
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
@@ -186,14 +183,13 @@
                     android:textSize="12dp"
                     android:layout_gravity="center"
                     android:text="Eletrônico"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_height="wrap_content"
                     />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
@@ -214,7 +210,7 @@
                     android:layout_below="@+id/checkbox"
                     android:gravity="center|top"
                     android:textSize="12dp"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:text="Mobília"/>
@@ -223,7 +219,6 @@
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
@@ -244,7 +239,7 @@
                     android:gravity="center|top"
                     android:textSize="12dp"
                     android:text="Outros"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/darker_gray"
                     android:layout_height="wrap_content"
                     />
             </LinearLayout>
@@ -258,10 +253,11 @@
         android:id="@+id/scan_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="15dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="-25dp"
-        android:src="@drawable/ic_code_scan"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_sale_"
         app:backgroundTint="@color/colorPrimaryDark"
         />
 
