@@ -1,7 +1,5 @@
 package com.projeto1.projeto1.fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -21,7 +19,6 @@ import com.projeto1.projeto1.LoginListener;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
-import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
@@ -121,7 +118,7 @@ public class LoginFragment extends Fragment implements LoginListener{
                                 //Intent intent = new Intent(getContext(), LoginFragment.class);
                                 //intent.putExtra("USER", user);
                                 SharedPreferencesUtils.setUser(getContext(), user);
-                                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+                                ((MainActivity) getActivity()).changeFragment(OldMainFragment.getInstance(), OldMainFragment.TAG, true);
 
 
                             }
@@ -157,6 +154,6 @@ public class LoginFragment extends Fragment implements LoginListener{
 
     @Override
     public void OnPostLoginFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+        ((MainActivity) getActivity()).changeFragment(OldMainFragment.getInstance(), OldMainFragment.TAG, true);
     }
 }

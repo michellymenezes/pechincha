@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/preview"
-    android:layout_height="200dp"
+    android:gravity="center|top"
+    android:background="@drawable/bg_menu_screen"
+    android:layout_height="250dp"
     >
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_marginBottom="5dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_gravity="center"
             android:scaleType="center"
             android:background="@drawable/circle_bg_image"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_user"/>
 
         <TextView
@@ -35,4 +37,4 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>

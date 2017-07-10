@@ -2,7 +2,6 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -19,28 +18,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
-import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
-import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
+import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.models.Sale;
-import com.projeto1.projeto1.fragments.LoginFragment;
-import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener {
 
@@ -195,12 +187,15 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         int id = item.getItemId();
         switch (id) {
 
-            case R.id.nav_config:
+            case R.id.nav_home:
+                changeFragment(MainFragment.getInstance(), MainFragment.TAG, false);
+                break;
 
+            case R.id.nav_config:
+                changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG, false);
                 break;
 
             case R.id.nav_about:
-
                 break;
 
             case R.id.nav_logout:
