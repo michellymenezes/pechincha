@@ -54,15 +54,37 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
+/*
+            JSONObject mkt = new JSONObject();
+            mkt.put("name", market.getName());
+            mkt.put("image", market.getImage());
+            mkt.put("cnpj", market.getCnpj());
 
-            String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
+            JSONObject adrs = new JSONObject();
+            adrs.put("street", market.getAdress().getStreet());
+            adrs.put("number", market.getAdress().getNumber());
+            adrs.put("complement", market.getAdress().getComplement());
+            adrs.put("neighborhood", market.getAdress().getNeighborhood());
+            adrs.put("city", market.getAdress().getCity());
+            adrs.put("state", market.getAdress().getState());
+            adrs.put("country", market.getAdress().getCountry());
+
+            JSONObject loc = new JSONObject();
+            loc.put("longitude", market.getLocalization().getLongitude());
+            loc.put("latitude", market.getLocalization().getLatitude());
+
+            mkt.put("address", adrs);
+            mkt.put("localization", loc);
+            */
+
+
+            String parameters = "{name=" + market.getName() + "&image=" + market.getImage() +
                     "&cnpj=" + market.getCnpj() + "&address={street=" + market.getAdress().getStreet() +
-                    "&number=" + market.getAdress().getNumber() + "$complemet=" + market.getAdress().getComplement() +
+                    "&number=" + market.getAdress().getNumber() + "&complement=" + market.getAdress().getComplement() +
                     "&neighborhood=" + market.getAdress().getNeighborhood() +
                     "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
                     "&country=" + market.getAdress().getCountry() + "}&localization={longitude=" + market.getLocalization().getLongitude() +
-                    "&latitude=" + market.getLocalization().getLatitude() + "}";
-
+                    "&latitude=" + market.getLocalization().getLatitude() + "}}";
            // parameters = jsonObject.toString();
             Log.v("PARAMETERS", parameters);
             url = new URL(ENDPOINT_ADDRESS);

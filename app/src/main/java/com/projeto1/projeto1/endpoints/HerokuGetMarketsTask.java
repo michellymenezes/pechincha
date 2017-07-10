@@ -76,22 +76,28 @@ public class HerokuGetMarketsTask extends AsyncTask {
                             String cnpj = marketsJSON.getJSONObject(i).getString("cnpj");
 
                             JSONObject addressJSON = new JSONObject(marketsJSON.getJSONObject(i).getString("address"));
-                            String street = addressJSON.getString("street");
-                            String number = addressJSON.getString("number");
-                            String neighborhood = addressJSON.getString("neighborhood");
-                            String city = addressJSON.getString("city");
-                            String state = addressJSON.getString("state");
-                            String country = addressJSON.getString("country");
-                            String complement = addressJSON.getString("complement");
-                            Address address = new Address(street, number, neighborhood, city, state, country, complement);
-
                             JSONObject localizationJSON = new JSONObject(marketsJSON.getJSONObject(i).getString("localization"));
-                            Number longitude = localizationJSON.getInt("longitude");
-                            Number latitude = localizationJSON.getInt("latitude");
-                            Localization localization = new Localization(longitude, latitude);
 
-                            Market market = new Market(id, name,address, image, cnpj, localization);
-                            markets.add(market);
+                            if (addressJSON.length() > 7 & localizationJSON.length() > 2) {
+                                String street = addressJSON.getString("street");
+                                String number = addressJSON.getString("number");
+                                String neighborhood = addressJSON.getString("neighborhood");
+                                String city = addressJSON.getString("city");
+                                String state = addressJSON.getString("state");
+                                String country = addressJSON.getString("country");
+                                String complement = addressJSON.getString("complement");
+                                Address address = new Address(street, number, neighborhood, city, state, country, complement);
+
+                                Number longitude = localizationJSON.getInt("longitude");
+                                Number latitude = localizationJSON.getInt("latitude");
+                                Localization localization = new Localization(longitude, latitude);
+
+                                Market market = new Market(id, name,address, image, cnpj, localization);
+                                markets.add(market);
+                            }
+                            else {
+                                continue;
+                            }
                         }
 
                     }

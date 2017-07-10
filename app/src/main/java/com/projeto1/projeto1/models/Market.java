@@ -10,22 +10,22 @@ public class Market {
     private String uniqueID;
     private String id;
     private String name;
-    private Address adress;
+    private Address address;
     private String image;
     private String cnpj;
     private Localization localization;
 
-    public Market(String name, Address adress, String image, String cnpj, Localization localization) {
+    public Market(String name, Address address, String image, String cnpj, Localization localization) {
         generateId();
         this.id = uniqueID;
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.image = image;
         this.cnpj = cnpj;
         this.localization = localization;
     }
 
-    public Market(String id, String name, Address adress, String image, String cnpj, Localization localization) {
+    public Market(String id, String name, Address address, String image, String cnpj, Localization localization) {
         if (id.equals(null)){
             getId();
             this.id = uniqueID;
@@ -33,16 +33,16 @@ public class Market {
             this.id = id;
         }
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.image = image;
         this.cnpj = cnpj;
         this.localization = localization;
         uniqueID = null;
     }
 
-    public Market(String name, Address adress) {
+    public Market(String name, Address adrdess) {
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.image = "";
         this.cnpj = "";
         this.localization = null;
@@ -75,11 +75,11 @@ public class Market {
     }
 
     public Address getAdress() {
-        return adress;
+        return address;
     }
 
     public void setAdress(Address adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public String getImage() {
@@ -119,7 +119,7 @@ public class Market {
         return "Market{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", adress=" + adress +
+                ", address=" + address +
                 ", image='" + image + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 ", localization=" + localization +
