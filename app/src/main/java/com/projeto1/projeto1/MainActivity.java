@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         /* GET DE PRODUTOS */
         /*
+
         HerokuGetProductsTask mAuthTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)));
         mAuthTask.execute();
         */

@@ -57,7 +57,11 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
-            //String parameters = "_id=" + id + "&__v=" + v;
+            String parameters = "name=" + product.getName() + "&brand=" + product.getBrand() +
+                    "&description=" + product.getDescription() + "&image=" + product.getImage() +
+                    "&barCode=" + product.getBarcode() + "&category=" + product.getCategory() +
+                    "&subcategory=" + product.getSubcategory();
+
             url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -65,14 +69,14 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            //writer.write(parameters);
+            writer.write(parameters);
             writer.flush();
             writer.close();
             os.close();
 
             conn.connect();
             int responseCode = conn.getResponseCode();
-
+            Log.v("RESPONSE_CODE: ", conn.getResponseMessage());
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line = "";
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -81,6 +85,9 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
                 }
                 JSONObject jsonObject = new JSONObject(responseMessage);
                 Log.d(TAG, jsonObject.toString());
+
+                isSuccessfulRegister = (jsonObject.length() > 2);
+
 
                 /*
                 isSuccessfulRegister = false;
@@ -109,8 +116,13 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
     @SuppressLint("LongLogTag")
     @Override
     protected void onPostExecute(Boolean success) {
-        mListener.OnPostProductFinished(isSuccessfulRegister);
-        Log.d(TAG, responseMessage);
+        if (isSuccessfulRegister) {
+            Toast.makeText(context, "Produto cadastrado com sucesso", Toast.LENGTH_LONG).show();
+            mListener.OnPostProductFinished(true);
+        }
+        else {
+            mListener.OnPostProductFinished(false);
+        }
 
     }
 

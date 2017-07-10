@@ -68,23 +68,24 @@ public class HerokuGetProductsTask extends AsyncTask {
 
 
                     for (int i = 0; i < productsJSON.length(); i++) {
-                        if ( productsJSON.getJSONObject(i).length() >2){
+                        if ( productsJSON.getJSONObject(i).length() > 9){
                             //{"_id":name":"brand":description""image""code":"category"}
                             String id = productsJSON.getJSONObject(i).getString("_id");
                             String name = productsJSON.getJSONObject(i).getString("name");
                             String brand = productsJSON.getJSONObject(i).getString("brand");
                             String descripition = productsJSON.getJSONObject(i).getString("description");
                             String image = productsJSON.getJSONObject(i).getString("image");
-                            String code = productsJSON.getJSONObject(i).getString("code");
+                            String code = productsJSON.getJSONObject(i).getString("barCode");
                             String category = productsJSON.getJSONObject(i).getString("category");
-                            Product product = new Product(name,brand,descripition,image,code,category);
+                            String subcategory = productsJSON.getJSONObject(i).getString("subcategory");
+                            Product product = new Product(name,brand,descripition,image,code,category,subcategory);
                             products.add(product);
                         }
 
                     }
 
 
-                Log.d(TAG, "Number of products: " + String.valueOf(productsJSON.length()));
+                Log.d(TAG, "Number of products: " + products.size());
                 return true;
 
             } else {
