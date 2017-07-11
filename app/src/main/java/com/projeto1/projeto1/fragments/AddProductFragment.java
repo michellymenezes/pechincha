@@ -41,8 +41,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class AddProductFragment extends Fragment  implements SaleListener, ProductListener {
 
@@ -350,20 +352,22 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         final NumberPicker pickerMonth = (NumberPicker) viewDialog.findViewById(R.id.number_picker_month);
         final NumberPicker pickerYear = (NumberPicker) viewDialog.findViewById(R.id.number_picker_year);
 
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
         pickerDay.setDisplayedValues(null);
-        pickerDay.setValue(new Date().getDay()+2);
+        pickerDay.setValue(calendar.get(Calendar.DATE));
         pickerDay.setMinValue(1);
         pickerDay.setMaxValue(31);
 
         pickerMonth.setDisplayedValues(null);
-        pickerMonth.setValue(new Date().getMonth()+1);
+        pickerMonth.setValue(calendar.get(Calendar.MONTH) + 1);
         pickerMonth.setMinValue(1);
         pickerMonth.setMaxValue(12);
         pickerMonth.setDisplayedValues( new String[] {"Jan", "Fev", "Mar","Abr","Mai","Jun","Jul", "Ago", "Set","Out","Nov","Dez"} );
 
         pickerYear.setDisplayedValues(null);
-        pickerYear.setMinValue(2017);
-        pickerYear.setMaxValue(2030);
+        pickerYear.setMinValue(calendar.get(Calendar.YEAR));
+        pickerYear.setMaxValue(calendar.get(Calendar.YEAR)+10);
 
         new AlertDialog.Builder(getContext())
                 .setTitle("Data de Validade")

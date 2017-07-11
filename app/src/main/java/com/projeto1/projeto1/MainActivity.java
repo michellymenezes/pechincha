@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         mToggle.setHomeAsUpIndicator(R.drawable.ic_hamburguer);
 
 
-
     }
 
 
