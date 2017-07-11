@@ -96,7 +96,7 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
             //              "_id":"59636ffadcb5250004873372"}, automatico
             // "__v":0} automatico
 
-
+/*
             String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
                     "&cnpj=" + market.getCnpj() +
                     "&address={street=" + market.getAdress().getStreet() +
@@ -105,7 +105,15 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
                     "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
                     "&country=" + market.getAdress().getCountry() + "}"+
                     "&localization={longitude=" + market.getLocalization().getLongitude() +
-                    "&latitude=" + market.getLocalization().getLatitude() + "}";
+                    "&latitude=" + market.getLocalization().getLatitude() + "}"; */
+
+
+
+
+            String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
+                    "&cnpj=" + market.getCnpj() +
+                    "&address=" + market.getAdress()+
+                    "&localization=" + market.getLocalization();
            // parameters = jsonObject.toString();
             Log.d(TAG, "Parameters: " +parameters);
             url = new URL(ENDPOINT_ADDRESS);
@@ -148,7 +156,17 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
                 }*/
 
                 conn.disconnect();
+            } else {
+                BufferedReader br1 = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String line = "", error = "";
+                while ((line = br1.readLine()) != null) {
+                    error += line;
+                }
+                Log.d(TAG, error);
+                return false;
             }
+
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

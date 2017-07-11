@@ -25,6 +25,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
@@ -106,15 +107,15 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         mAuthTask.execute();
         */
 
-        Address address = new Address("Vila Nova da Rainha","461", "ponto de cem reis", "Campina Grande", "PB", "Brasil", "");
+        Address address = new Address("Vila Nova da Rainha","461", "ponto de cem reis", "Campina Grande", "PB", "Brasil", " ");
         Localization localization = new Localization(-7.2134805,-35.885104);
 
         //TODO terminar objeto
-        /*
-        Market market = new Market(null,"Supermercados Ideal",address,"", "08.957.326/0001-13",localization);
+
+        Market market = new Market(null,"Supermercados Ideal",address," ", "08.957.326/0001-13",localization);
         HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
         marketsTask.execute();
-*/
+
         modifyActioonBar();
 
     }
@@ -222,6 +223,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             case R.id.nav_logout:
                 initializeFacebookSdk();
                 LoginManager.getInstance().logOut();
+                SharedPreferencesUtils.setUser(this, null);
                 changeFragment(loginFragment, LoginFragment.TAG, false);
                 break;
 

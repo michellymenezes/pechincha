@@ -42,7 +42,7 @@ public class Market {
     public Market(String name, Address adrdess) {
         this.name = name;
         this.address = address;
-        this.image = "";
+        this.image = " ";
         this.cnpj = "";
         this.localization = null;
         uniqueID = null;

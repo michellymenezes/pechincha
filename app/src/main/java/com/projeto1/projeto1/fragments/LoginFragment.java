@@ -115,8 +115,7 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
                                     user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(),birthday,gender, (double) 1,new ArrayList<String>());
                                     logged = true;
                                     SharedPreferencesUtils.setUser(getContext(), user);
-                                    //TODO ajustar get e post
-                                    //onLoginFinished(user);
+                                    onLoginFinished(user);
 
 
                                 } catch (JSONException e) {
