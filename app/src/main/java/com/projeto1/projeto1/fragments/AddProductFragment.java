@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,17 +19,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.CategoryAdapter;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
-import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
@@ -36,7 +36,6 @@ import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.shawnlin.numberpicker.NumberPicker;
-import com.xiaofeng.flowlayoutmanager.FlowLayoutManager;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -51,18 +50,14 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     public static final String TAG = "ADD_PRODUCT_FRAGMENT";
 
     private View mview;
-    private CategoryListAdapter mAdapter;
-    private SubCategoryListAdapter mListAdapter;
-    private List<String> subCategoryList;
-    private RecyclerView subCategoryRecycleView;
-    private ArrayList<String> groceryCategoryList;
-    private ArrayList<String> hygieneCategoryList;
-    private ArrayList<String> otherCategoryList;
-    private GroceryProductsFragment groceryProductsFragment;
     private String quantity;
     private List<Product> productsList;
     private EditText productPriceET;
     private HerokuGetProductsTask produtcsTask;
+    private List<String> categoryList;
+
+
+
 
 
 
@@ -98,57 +93,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
 
 
-        final CheckBox cb_grocery = (CheckBox) mview.findViewById(R.id.checkbox_grocery);
-        final CheckBox cb_hygiene = (CheckBox) mview.findViewById(R.id.checkbox_hygiene);
-        final CheckBox cb_other = (CheckBox) mview.findViewById(R.id.checkbox_other);
-
-        subCategoryRecycleView = (RecyclerView) mview.findViewById(R.id.sub_category_list);
-        subCategoryRecycleView.setLayoutManager(new FlowLayoutManager());
-        groceryCategoryList = new ArrayList<>(Arrays.asList( "Grãos", "Bebidas", "Laticínio",
-                "Carnes", "Oleos", "Frutas e Verduras"));
-        hygieneCategoryList = new ArrayList<>(Arrays.asList( "Sabonetes", "Detergentes", "Limpeza",
-                "Hidratantes"));
-        otherCategoryList = new ArrayList<>(Arrays.asList( "Outros"));
-
-        cb_grocery.setChecked(true);
-        mListAdapter = new SubCategoryListAdapter(groceryCategoryList);
-        subCategoryRecycleView.setAdapter(mListAdapter);
-
-        cb_grocery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_grocery.isChecked()) {
-                    cb_other.setChecked(false);
-                    cb_hygiene.setChecked(false);
-                    mListAdapter = new SubCategoryListAdapter(groceryCategoryList);
-                    subCategoryRecycleView.setAdapter(mListAdapter);
-                }
-            }
-        });
-
-        cb_hygiene.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_hygiene.isChecked()) {
-                    cb_other.setChecked(false);
-                    cb_grocery.setChecked(false);
-                    mListAdapter = new SubCategoryListAdapter(hygieneCategoryList);
-                    subCategoryRecycleView.setAdapter(mListAdapter);
-                }
-            }
-        });
-
-        cb_other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_other.isChecked()) {
-                    cb_hygiene.setChecked(false);
-                    cb_grocery.setChecked(false);
-                    mListAdapter = new SubCategoryListAdapter(otherCategoryList);
-                    subCategoryRecycleView.setAdapter(mListAdapter);
-                }
-            }
-        });
+        categoryList = new ArrayList<>(Arrays.asList( "Alimento", "Higiene", "Limpeza",
+                "Eletrônico", "Mobília", "Outros"));
 
         priceClick(mview);
         addSale(mview, inflater, container);
@@ -175,7 +121,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             @Override
             public void afterTextChanged(Editable s) {
                 if (productCodeET.getText().toString().toString().length()==12) {
-                    openDialog(inflater,container, productNameET, productCodeET);
+                    openDialog(inflater, container, productNameET, productCodeET);
                 }
 
 
@@ -193,7 +139,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN
                         ) {
-                        openDialog(inflater,container, productNameET, productCodeET);
+                        openDialog(inflater, container, productNameET, productCodeET);
 //                    Log.v("TECLADO", "done");
                     return true;
                 }
@@ -246,11 +192,57 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     private void openDialog(LayoutInflater inflater, ViewGroup container, final EditText productNameET, EditText productCodeET) {
 
-        final View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
+
+        final View mvDialog = inflater.inflate((R.layout.create_product_dialog),container,false);
+
         final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
         final EditText nameDialog = (EditText) mvDialog.findViewById(R.id.product_name_input_dialog);
         final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
         final EditText categoryDialog = (EditText) mvDialog.findViewById(R.id.product_category_input_dialog);
+        final EditText subCategoryDialog = (EditText) mvDialog.findViewById(R.id.product_subcategory_input_dialog);
+
+
+
+        final TextView tvSub = (TextView) mvDialog.findViewById(R.id.tv);
+
+
+        final RecyclerView categoryRecycleView = (RecyclerView) mvDialog.findViewById(R.id.category_list);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryRecycleView.setLayoutManager(llm);
+        final CategoryAdapter categoryAdapter = new CategoryAdapter(categoryList,tvSub);
+        categoryRecycleView.setAdapter(categoryAdapter);
+
+
+        final RecyclerView subCategoryRecycleView = (RecyclerView) mvDialog.findViewById(R.id.sub_category_list);
+        final LinearLayoutManager llm1 = new LinearLayoutManager(getActivity());
+        llm1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        tvSub.setText(categoryAdapter.getCbSelected());
+        final SubCategoryListAdapter[] mListAdapter = new SubCategoryListAdapter[1];
+        tvSub.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mListAdapter[0] = new SubCategoryListAdapter(tvSub.getText().toString());
+                subCategoryRecycleView.setLayoutManager(llm1);
+                subCategoryRecycleView.setAdapter(mListAdapter[0]);
+
+            }
+        });
+
+
+        LinearLayout llCategory = (LinearLayout) mvDialog.findViewById(R.id.ll_category);
+        LinearLayout llCategoryIpunt = (LinearLayout) mvDialog.findViewById(R.id.category_ll);
+        LinearLayout llSubCategoryInput = (LinearLayout) mvDialog.findViewById(R.id.subcategory_ll);
 
         codeDialog.setText(productCodeET.getText().toString());
         codeDialog.setEnabled(false);
@@ -262,15 +254,26 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             Log.v("PRODUCT", productsList.get(i).toString());
             if(cod.equals(productsList.get(i).getBarcode())){
                 productExists = true;
+                llCategory.setVisibility(LinearLayout.GONE);
                 Product product = productsList.get(i);
                 productName = product.getName();
                 nameDialog.setText(productName);
                 nameDialog.setEnabled(false);
                 brandDialog.setText(product.getBrand());
                 brandDialog.setEnabled(false);
+                categoryAdapter.setClicled(product.getCategory());
                 categoryDialog.setText(product.getCategory());
                 categoryDialog.setEnabled(false);
+                subCategoryDialog.setText(product.getSubcategory());
+                subCategoryDialog.setEnabled(false);
+                llCategoryIpunt.setVisibility(LinearLayout.VISIBLE);
+                llSubCategoryInput.setVisibility(LinearLayout.VISIBLE);
+
                 break;
+            }else {
+                llCategoryIpunt.setVisibility(LinearLayout.GONE);
+                llSubCategoryInput.setVisibility(LinearLayout.GONE);
+
             }
 
         }
@@ -306,16 +309,18 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                         public void onClick(DialogInterface dialog, int which) {
                             productNameET.setText(nameDialog.getText().toString());
                             productNameET.setEnabled(false);
-
-                            if (nameDialog.getText().toString().equals("") ||
+                            String selectedCategory = categoryAdapter.getCbSelected();
+                            String selectedSubCategory = mListAdapter[0]==(null)? "": mListAdapter[0].getCbSelected();
+                            if ((nameDialog.getText().toString().equals("") ||
                                     brandDialog.getText().toString().equals("") ||
                                     codeDialog.getText().toString().equals("") ||
-                                    categoryDialog.getText().toString().equals("")){
+                                    selectedCategory.equals("")||
+                                    selectedSubCategory.equals("")) && !productExistsFinal){
                                 Toast.makeText(getContext(), "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
                                 productNameET.setText("");
                             } else {
                                 if(!productExistsFinal) {
-                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
+                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory);
                                     postProduct(product);
                                     updateProductList();
                                 }
@@ -330,11 +335,13 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                     })
                     .setIcon(R.drawable.ic_add)
                     .show();
+
         }else {
             Toast.makeText(getContext(), "O código de barras deve conter 12 dígitos", Toast.LENGTH_LONG).show();
             productNameET.setText("");
         }
     }
+
 
     private void dateDialog(Button expireDateBtn) {
         final View viewDialog = View.inflate(getActivity(), R.layout.date_piker_dialog, null);
@@ -486,6 +493,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     @Override
     public void OnPostProductFinished(boolean finished) {
+
+    }
+
+    public void setSubCategory(View mvDialog, String cbSelected) {
 
     }
 }

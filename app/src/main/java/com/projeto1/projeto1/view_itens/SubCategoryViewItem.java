@@ -29,4 +29,8 @@ public class SubCategoryViewItem extends FrameLayout {
         ((CheckBox)findViewById(R.id.checkbox)).setText(name);
     }
 
+    public CheckBox getCheckBox() {
+        return ((CheckBox)findViewById(R.id.checkbox));
+
+    }
 }
