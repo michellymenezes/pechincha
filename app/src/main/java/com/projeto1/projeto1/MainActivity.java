@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         //TODO terminar objeto
 
-        Market market = new Market(null,"Supermercados Ideal",address," ", "08.957.326/0001-13",localization);
-        HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
-        marketsTask.execute();
+        //Market market = new Market(null,"Supermercados Ideal",address," ", "08.957.326/0001-13",localization);
+        //HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
+        //marketsTask.execute();
 
         modifyActioonBar();
 
