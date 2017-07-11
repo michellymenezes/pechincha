@@ -22,15 +22,26 @@ public class User implements Parcelable{
     private Double reputation;
     private ArrayList<String> preferences;
 
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    private String facebookId;
+
     public User(String name, String email, String createdAt) {
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
     }
 
-    public User(String name, String id, String email, String image, String createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
+        this.facebookId = facebookId;
         this.email = email;
         this.image = image;
         this.createdAt = createdAt;
@@ -43,6 +54,7 @@ public class User implements Parcelable{
     protected User(Parcel in) {
         name = in.readString();
         id = in.readString();
+        facebookId = in.readString();
         email = in.readString();
         image = in.readString();
         createdAt = in.readString();
@@ -64,9 +76,10 @@ public class User implements Parcelable{
         }
     };
 
-    public User(String name, String id, String email, String image, String createdAt, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
+        this.facebookId = facebookId;
         this.email = email;
         this.image = image;
         this.createdAt = createdAt;
@@ -154,6 +167,7 @@ public class User implements Parcelable{
         return "User{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
+                ", facebookId='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
@@ -173,6 +187,7 @@ public class User implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(id);
+        dest.writeString(facebookId);
         dest.writeString(email);
         dest.writeString(image);
         dest.writeString(createdAt);

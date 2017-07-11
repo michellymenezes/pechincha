@@ -25,12 +25,13 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
-import com.projeto1.projeto1.listeners.LoginListener;
+import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
+import com.projeto1.projeto1.listeners.PostUserListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Address;
 import com.projeto1.projeto1.models.Localization;
@@ -41,7 +42,7 @@ import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener, LoginListener, MarketListener {
+public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener,  MarketListener{
 
     private static final String TAG = "MAIN_ACTIVITY";
     private TextView info;
@@ -83,16 +84,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         }
 
-        /** POST USUARIO**/
-        /*
-        if (user != null){
-            HerokuPostUserTask postUserTask = new HerokuPostUserTask(user,getBaseContext(),String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this);
-            postUserTask.execute();
-        } */
-
         /** GET TODOS OS USUARIOS**/
-        /* HerokuGetUserTask userTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this);
-        userTask.execute(); */
+        //HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this, user);
+        //getUserTask.execute();
 
 
         /**POST DE PROMOÇÕES**/
@@ -116,10 +110,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         Localization localization = new Localization(-7.2134805,-35.885104);
 
         //TODO terminar objeto
+        /*
         Market market = new Market(null,"Supermercados Ideal",address,"", "08.957.326/0001-13",localization);
         HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
         marketsTask.execute();
-
+*/
         modifyActioonBar();
 
     }
@@ -304,20 +299,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         this.sales = sales;
     }
 
-    @Override
-    public void OnPostLoginFinished(boolean finished) {
-
-    }
-
-    @Override
-    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
-
-    }
-
-    @Override
-    public void OnGetUserFinished(boolean ready, User user) {
-
-    }
 
 
     @Override
@@ -329,4 +310,5 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     public void OnPostMarketsFinished(boolean finished) {
 
     }
+
 }

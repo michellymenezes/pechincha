@@ -4,7 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.listeners.LoginListener;
+import com.projeto1.projeto1.listeners.GetUserListener;
+import com.projeto1.projeto1.listeners.PostUserListener;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
@@ -39,9 +40,9 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    private LoginListener mListener;
+    private PostUserListener mListener;
 
-    public HerokuPostUserTask(User user, Context context, String endpoint, LoginListener mListener) {
+    public HerokuPostUserTask(User user, Context context, String endpoint, PostUserListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.mListener = mListener;
@@ -69,8 +70,9 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
                 preferences: [String],
             }*/
 
-            String parameters = "userID= " + user.getId() + "&fullname=" + user.getName()  + "&email=" + user.getEmail() + "&avatar=" + user.getImage() +
-                    "&created_at=" + user.getCreatedAt() + "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences();
+            String parameters = "facebookId=" + user.getFacebookId() + "&fullName=" + user.getName()+ "&username="+ user.getName() +
+                    "&email=" + user.getEmail() + "&avatar=" + user.getImage() +"&created_at=" + user.getCreatedAt() +
+                    "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences();
 
             url = new URL(ENDPOINT_ADDRESS);
 
@@ -109,6 +111,14 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
                 }
 
                 conn.disconnect();
+            } else {
+                BufferedReader br1 = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String line = "", error = "";
+                while ((line = br1.readLine()) != null) {
+                    error += line;
+                }
+                Log.d(TAG, error);
+                return false;
             }
 
         } catch (MalformedURLException e) {

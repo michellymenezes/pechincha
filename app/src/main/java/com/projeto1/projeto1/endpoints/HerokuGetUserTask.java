@@ -3,9 +3,7 @@ package com.projeto1.projeto1.endpoints;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.listeners.LoginListener;
-import com.projeto1.projeto1.models.Product;
-import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
@@ -17,11 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -40,16 +34,16 @@ public class HerokuGetUserTask extends AsyncTask {
 
     private String responseMessage = "";
     private String endpoint;
-    private LoginListener mListener;
+    private GetUserListener mListener;
 
 
-    public HerokuGetUserTask(String url, LoginListener listener) {
+    public HerokuGetUserTask(String url, GetUserListener listener) {
         endpoint = url;
         users = new ArrayList<User>();
         mListener = listener;
     }
 
-    public HerokuGetUserTask(String url, LoginListener listener, User user) {
+    public HerokuGetUserTask(String url, GetUserListener listener, User user) {
         endpoint = url;
         userToFind = user;
         mListener = listener;
@@ -91,7 +85,7 @@ public class HerokuGetUserTask extends AsyncTask {
 
 
                 for (int i = 0; i < usersJSON.length(); i++) {
-                    if ( usersJSON.getJSONObject(i).length() >4){
+                    if ( usersJSON.getJSONObject(i).has("facebookId")){
                         //Models
                         //String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences
 
@@ -105,8 +99,8 @@ public class HerokuGetUserTask extends AsyncTask {
                                     reputation: Double,
                                     preferences: [String],
                         }*/
-
                         String id = usersJSON.getJSONObject(i).getString("_id");
+                        String faceoockId = usersJSON.getJSONObject(i).getString("facebookId");
                         String name = usersJSON.getJSONObject(i).getString("fullname");
                         String email = usersJSON.getJSONObject(i).getString("email");
                         String createdAt = usersJSON.getJSONObject(i).getString("created_at");
@@ -115,7 +109,7 @@ public class HerokuGetUserTask extends AsyncTask {
                         //TODO ajustar preferences
                         String preferences = usersJSON.getJSONObject(i).getString("preferences");
 
-                        users.add(new User(name, id, email, image, createdAt, reputation, new ArrayList<String>()));
+                        users.add(new User(name, id,faceoockId, email, image, createdAt, reputation, new ArrayList<String>()));
 
                     }
 
@@ -149,23 +143,22 @@ public class HerokuGetUserTask extends AsyncTask {
     private boolean FindUser(){
         getAllUsers();
         for (User user: users){
-            if (user.getId().equals(userToFind.getId())){
+            if (user.getFacebookId().equals(userToFind.getFacebookId())){
                 findUser = true;
                 return true;
             }
         }
         return false;
+
+
     }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         if (userToFind != null) {
-            if (findUser){
-                mListener.OnGetUserFinished(true, this.userToFind);
-            } else {
-                mListener.OnGetUserFinished(false, this.userToFind);
-            }
+            mListener.OnGetUserFinished(findUser, this.userToFind);
+            Log.d(TAG, String.valueOf(findUser));
         } else {
             if (users != null){
                 mListener.OnGetAllUsersFinished(true, this.users);
