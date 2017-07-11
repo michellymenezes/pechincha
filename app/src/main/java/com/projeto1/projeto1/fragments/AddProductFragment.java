@@ -161,10 +161,30 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
 
 
+        productCodeET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (productCodeET.getText().toString().toString().length()==12) {
+                    openDialog(inflater,container, productNameET, productCodeET);
+                }
 
 
+            }
+        });
 
         productCodeET.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+
+
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 // Identifier of the action. This will be either the identifier you supplied,
@@ -172,103 +192,15 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN
-                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-                    final View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
-                    final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
-                    final EditText nameDialog = (EditText) mvDialog.findViewById(R.id.product_name_input_dialog);
-                    final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
-                    final EditText categoryDialog = (EditText) mvDialog.findViewById(R.id.product_category_input_dialog);
-
-                    codeDialog.setText(productCodeET.getText().toString());
-                    codeDialog.setEnabled(false);
-                    boolean productExists = false;
-                    String productName = "";
-                    Log.v("size", String.valueOf(productsList.size()));
-                    for(int i = 0; i < productsList.size(); i++){
-                        String cod = productCodeET.getText().toString();
-                        Log.v("PRODUCT", productsList.get(i).toString());
-                        if(cod.equals(productsList.get(i).getBarcode())){
-                            productExists = true;
-                            Product product = productsList.get(i);
-                            productName = product.getName();
-                            nameDialog.setText(productName);
-                            nameDialog.setEnabled(false);
-                            brandDialog.setText(product.getBrand());
-                            brandDialog.setEnabled(false);
-                            categoryDialog.setText(product.getCategory());
-                            categoryDialog.setEnabled(false);
-                            break;
-                        }
-
-                    }
-
-
-
-                    //keyboard down
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(productCodeET.getWindowToken(),
-                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
-
-                    String positiveAction = "";
-                    String negativeAction = "";
-                    String productAction = "";
-
-                    if (productExists) {
-                        positiveAction = "Ok";
-                        negativeAction = "";
-                        productAction = "Informações do Produto";
-                    }else{
-                        positiveAction = "Salvar";
-                        negativeAction = "Cancel";
-                        productAction =  "Cadastre o produto";
-                    }
-
-                    final boolean productExistsFinal = productExists;
-
-                    if ((productCodeET.getText().toString().length() == 12)){
-                        new AlertDialog.Builder(getContext())
-                                .setTitle(productAction)
-                                .setView(mvDialog)
-                                .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        productNameET.setText(nameDialog.getText().toString());
-                                        productNameET.setEnabled(false);
-
-                                        if (nameDialog.getText().toString().equals("") ||
-                                                brandDialog.getText().toString().equals("") ||
-                                                codeDialog.getText().toString().equals("") ||
-                                                categoryDialog.getText().toString().equals("")){
-                                            Toast.makeText(getContext(), "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
-                                            productNameET.setText("");
-                                        } else {
-                                            if(!productExistsFinal) {
-                                                Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
-                                                postProduct(product);
-                                                updateProductList();
-                                            }
-                                        }
-
-                                    }
-                                })
-                                .setNegativeButton(negativeAction, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        productNameET.setText("");
-                                    }
-                                })
-                                .setIcon(R.drawable.ic_add)
-                                .show();
-                    }else {
-                        Toast.makeText(getContext(), "O código de barras deve conter dígitos", Toast.LENGTH_LONG).show();
-
-                    }
-
+                        ) {
+                        openDialog(inflater,container, productNameET, productCodeET);
 //                    Log.v("TECLADO", "done");
                     return true;
                 }
                 // Return true if you have consumed the action, else false.
                 return false;
             }
+
         });
         final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
         // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
@@ -310,6 +242,98 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             }
         });
 
+    }
+
+    private void openDialog(LayoutInflater inflater, ViewGroup container, final EditText productNameET, EditText productCodeET) {
+
+        final View mvDialog = (View) inflater.inflate((R.layout.create_product_dialog),container,false);
+        final EditText codeDialog = (EditText) mvDialog.findViewById(R.id.product_code_input_dialog);
+        final EditText nameDialog = (EditText) mvDialog.findViewById(R.id.product_name_input_dialog);
+        final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
+        final EditText categoryDialog = (EditText) mvDialog.findViewById(R.id.product_category_input_dialog);
+
+        codeDialog.setText(productCodeET.getText().toString());
+        codeDialog.setEnabled(false);
+        boolean productExists = false;
+        String productName = "";
+        Log.v("size", String.valueOf(productsList.size()));
+        for(int i = 0; i < productsList.size(); i++){
+            String cod = productCodeET.getText().toString();
+            Log.v("PRODUCT", productsList.get(i).toString());
+            if(cod.equals(productsList.get(i).getBarcode())){
+                productExists = true;
+                Product product = productsList.get(i);
+                productName = product.getName();
+                nameDialog.setText(productName);
+                nameDialog.setEnabled(false);
+                brandDialog.setText(product.getBrand());
+                brandDialog.setEnabled(false);
+                categoryDialog.setText(product.getCategory());
+                categoryDialog.setEnabled(false);
+                break;
+            }
+
+        }
+
+
+
+        //keyboard down
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(productCodeET.getWindowToken(),
+                InputMethodManager.RESULT_UNCHANGED_SHOWN);
+
+        String positiveAction = "";
+        String negativeAction = "";
+        String productAction = "";
+
+        if (productExists) {
+            positiveAction = "Ok";
+            negativeAction = "";
+            productAction = "Informações do Produto";
+        }else{
+            positiveAction = "Salvar";
+            negativeAction = "Cancel";
+            productAction =  "Cadastre o produto";
+        }
+
+        final boolean productExistsFinal = productExists;
+
+        if ((productCodeET.getText().toString().length() == 12)){
+            new AlertDialog.Builder(getContext())
+                    .setTitle(productAction)
+                    .setView(mvDialog)
+                    .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            productNameET.setText(nameDialog.getText().toString());
+                            productNameET.setEnabled(false);
+
+                            if (nameDialog.getText().toString().equals("") ||
+                                    brandDialog.getText().toString().equals("") ||
+                                    codeDialog.getText().toString().equals("") ||
+                                    categoryDialog.getText().toString().equals("")){
+                                Toast.makeText(getContext(), "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
+                                productNameET.setText("");
+                            } else {
+                                if(!productExistsFinal) {
+                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), codeDialog.getText().toString(), categoryDialog.getText().toString());
+                                    postProduct(product);
+                                    updateProductList();
+                                }
+                            }
+
+                        }
+                    })
+                    .setNegativeButton(negativeAction, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            productNameET.setText("");
+                        }
+                    })
+                    .setIcon(R.drawable.ic_add)
+                    .show();
+        }else {
+            Toast.makeText(getContext(), "O código de barras deve conter 12 dígitos", Toast.LENGTH_LONG).show();
+            productNameET.setText("");
+        }
     }
 
     private void dateDialog(Button expireDateBtn) {
