@@ -40,6 +40,7 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
+    //TODO Fazer checagem se já existe o mercado antes de adicionar
     public HerokuPostMarketsTask(Market market, Context context, String endpoint, MarketListener listener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
@@ -54,11 +55,6 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
-/*
-            JSONObject mkt = new JSONObject();
-            mkt.put("name", market.getName());
-            mkt.put("image", market.getImage());
-            mkt.put("cnpj", market.getCnpj());
 
             JSONObject adrs = new JSONObject();
             adrs.put("street", market.getAdress().getStreet());
@@ -73,39 +69,11 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
             loc.put("longitude", market.getLocalization().getLongitude());
             loc.put("latitude", market.getLocalization().getLatitude());
 
-            mkt.put("address", adrs);
-            mkt.put("localization", loc);
-            */
-
-
-            //BD
-            //_id":"59636ffadcb5250004873373", automatico
-            // "name":"Hiper Extra",
-            // "image":"path/to/image",
-            // "cnpj":"CNPJ",
-            // "address":{"street":"Av. Floriano Peixoto",
-            //              "number":"12A",
-            //              "complement":"Ali",
-            //              "neighborhood":"Centro",
-            //              "city":"Campina Grande",
-            //              "state":"Paraiba",
-            //              "country":"Brazil",
-            //              "_id":"59636ffadcb5250004873371"}, automatico
-            // "localization":{"longitude":-23.02,
-            //              "latitude":20.02,
-            //              "_id":"59636ffadcb5250004873372"}, automatico
-            // "__v":0} automatico
-
 
             String parameters = "name=" + market.getName() + "&image=" + market.getImage() +
                     "&cnpj=" + market.getCnpj() +
-                    "&address={street=" + market.getAdress().getStreet() +
-                    "&number=" + market.getAdress().getNumber() + "&complement=" + market.getAdress().getComplement() +
-                    "&neighborhood=" + market.getAdress().getNeighborhood() +
-                    "&city=" + market.getAdress().getCity() + "&state=" + market.getAdress().getCity() +
-                    "&country=" + market.getAdress().getCountry() + "}"+
-                    "&localization={longitude=" + market.getLocalization().getLongitude() +
-                    "&latitude=" + market.getLocalization().getLatitude() + "}";
+                    "&address=" + adrs+
+                    "&localization=" + loc;
            // parameters = jsonObject.toString();
             Log.d(TAG, "Parameters: " +parameters);
             url = new URL(ENDPOINT_ADDRESS);
@@ -148,7 +116,17 @@ public class HerokuPostMarketsTask extends AsyncTask<Void, Void, Boolean> {
                 }*/
 
                 conn.disconnect();
+            } else {
+                BufferedReader br1 = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String line = "", error = "";
+                while ((line = br1.readLine()) != null) {
+                    error += line;
+                }
+                Log.d(TAG, error);
+                return false;
             }
+
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

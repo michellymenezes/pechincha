@@ -8,8 +8,7 @@ import java.util.ArrayList;
  * Created by rafaelle on 06/07/17.
  */
 
-public interface LoginListener {
-    void OnPostLoginFinished(boolean finished);
+public interface GetUserListener {
     void OnGetAllUsersFinished(boolean ready, ArrayList<User> users);
-    void OnGetUserFinished(boolean ready, User user);
+    void OnGetUserFinished(boolean find, User user);
 }
