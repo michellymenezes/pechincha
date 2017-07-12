@@ -101,6 +101,14 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
                 }*/
 
                 conn.disconnect();
+            } else {
+                BufferedReader br1 = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String line = "", error = "";
+                while ((line = br1.readLine()) != null) {
+                    error += line;
+                }
+                Log.d(TAG, error);
+                return false;
             }
 
         } catch (MalformedURLException e) {

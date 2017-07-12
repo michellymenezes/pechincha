@@ -78,7 +78,7 @@ public class HerokuGetSalesTask extends AsyncTask {
                             String marketId = salesJSON.getJSONObject(i).getString("market");
                             Double salePrice = salesJSON.getJSONObject(i).getDouble("salePrice");
                             Double regularPrice = salesJSON.getJSONObject(i).getDouble("regularPrice");
-                            Date expirationDate =  df.parse(salesJSON.getJSONObject(i).getString("expirationDate"));
+                            String expirationDate =  df.format(salesJSON.getJSONObject(i).getString("expirationDate"));
                             Date publicationDate = df.parse(salesJSON.getJSONObject(i).getString("publicationDate"));
                             String authorId = salesJSON.getJSONObject(i).getString("author");
                             // int quantity = salesJSON.getJSONObject(i).getInt("quantity");

@@ -14,13 +14,13 @@ public class Sale {
     private String marketId;
     private Double salePrice;
     private Double regularPrice;
-    private Date expirationDate;
+    private String expirationDate;
     private Date publicationDate;
     private String authorId;
     private int quantity;
     private String quantUni;
 
-    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, Date expirationDate, String authorId, int quantity, String quantUni) {
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni) {
         this.productId = productId;
         this.marketId = marketId;
         this.salePrice = salePrice;
@@ -45,7 +45,7 @@ public class Sale {
         this.id = " ";
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, Date expirationDate, Date publicationDate, String authorId, int quantity) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -97,11 +97,11 @@ public class Sale {
         this.regularPrice = regularPrice;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 

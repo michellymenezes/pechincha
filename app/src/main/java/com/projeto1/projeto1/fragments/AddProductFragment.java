@@ -37,8 +37,11 @@ import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.shawnlin.numberpicker.NumberPicker;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -183,10 +186,25 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productMarket = productMarketET.getText().toString();
                 Double productPrice = Double.parseDouble(productPriceET.getText().toString().substring(2));
 
-                //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, new Date(2017,7,22), "aabbcc112233", 1, "Uni");
-                post(sale);
+/*
+            Para criar, tem que salvar o id de Market, User e o código de barras do produto.
+            Tem que fazer um get pra pegar esses ids, da mesma maneira que foi feito em Product.
 
+                TimeZone tz = TimeZone.getTimeZone("UTC");
+                SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+                df.setTimeZone(tz);
+                String expirationDate = null;
+                try {
+                    expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //TODO criar objeto e salvar no banco.
+                Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
+                post(sale);
+*/
             }
         });
 
