@@ -115,6 +115,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
+    @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         this.products = products;
 

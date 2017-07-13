@@ -161,6 +161,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
+    @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList = products;
         marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);

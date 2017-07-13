@@ -314,4 +314,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     }
 
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
 }

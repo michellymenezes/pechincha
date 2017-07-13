@@ -134,6 +134,11 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     }
 
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
     public void setSale(Sale sale){
         this.sale = sale;
     }

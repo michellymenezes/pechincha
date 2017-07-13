@@ -24,21 +24,20 @@
         android:gravity="bottom"
         android:visibility="visible">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="5dp"
+            android:completionThreshold="2"
             android:paddingRight="5dp"
             android:layout_alignParentLeft="false"
             android:backgroundTint="@android:color/transparent"
             android:drawableRight="@drawable/ic_search"
-            android:focusableInTouchMode="false"
             android:gravity="center"
-            android:hint="Pesquisar Produtos"
+            android:hint="O quê você procura?"
             android:imeOptions="actionSearch"
             android:inputType="textCapWords"
-            android:text="O quê você procura?"
             android:textColor="@android:color/tertiary_text_dark"
             android:textSize="18dp"
             />
