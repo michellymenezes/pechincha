@@ -136,13 +136,13 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_brand"
                     android:layout_marginLeft="5dp"
-
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:background="@drawable/rounded_bg_product_item"
                     android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/brand_input"
+                    <AutoCompleteTextView
+                        android:id="@+id/market_input"
+                        android:completionThreshold="1"
                         android:layout_width="match_parent"
                         android:textSize="14dp"
                         android:layout_height="wrap_content"

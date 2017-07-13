@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -60,10 +63,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private EditText productPriceET;
     private HerokuGetProductsTask produtcsTask;
     private List<String> categoryList;
-
-
-
-
+    private ArrayList<String> mMarketSugestions;
 
 
     /**
@@ -94,6 +94,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
 
         productsList = new ArrayList<>();
+        mMarketSugestions = new ArrayList<>(Arrays.asList("Hiper Extra","Ideal Centro","Redecompras Centro","Supermercados Ideal"));
         updateProductList();
 
 
@@ -155,7 +156,52 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             }
 
         });
-        final EditText productMarketET = (EditText) mview.findViewById(R.id.brand_input);
+        final AutoCompleteTextView productMarketET = (AutoCompleteTextView) mview.findViewById(R.id.market_input);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mMarketSugestions);
+        productMarketET.setAdapter(adapter);
+
+        final String[] selectedMarket = {""};
+
+        productMarketET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) productMarketET.showDropDown();
+            }
+        });
+
+        productMarketET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                productMarketET.showDropDown();
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mMarketSugestions);
+                productMarketET.setAdapter(adapter);
+                productMarketET.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+                        selectedMarket[0] = (String) adapterView.getItemAtPosition(pos);
+                        Log.v("MARKET NAME", selectedMarket[0]);
+                        Log.v("MARKET ID", getMarketIdByName(selectedMarket[0]));
+
+
+                    }
+                });
+
+
+            }
+        });
+
+
         // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
         final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
         final Button expireDateBtn = (Button)  mview.findViewById(R.id.expire_date);
@@ -210,6 +256,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
                 String expirationDate = null;
+                String market = getMarketIdByName(selectedMarket[0]);
+
                 try {
                     expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
                 } catch (ParseException e) {
@@ -217,11 +265,41 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 }
 
                 //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
+                Sale sale = new Sale(productId, market, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
                 post(sale);
 
             }
         });
+
+    }
+
+    private String getMarketIdByName(String s) {
+        String str = "";
+        switch (s) {
+            case "Hiper Extra": {
+                str = "59636ffadcb5250004873373";
+
+                break;
+            }
+            case "Ideal Centro": {
+                str =  "5967096fc4985a00046f3bf1";
+
+                break;
+            }
+            case "Redecompras Centro": {
+                str =  "5962f20b4a0cd90004064df6";
+                break;
+
+            }
+            case "Supermercados Ideal": {
+                str =  "59677b320a8d4a0004f8c419";
+                break;
+
+            }
+            default:
+                str =  "5967096fc4985a00046f3bf1";
+        }
+        return str;
 
     }
 
