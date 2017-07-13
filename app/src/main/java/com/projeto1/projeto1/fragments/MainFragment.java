@@ -85,6 +85,10 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
         final AutoCompleteTextView searchView = (AutoCompleteTextView) mview.findViewById(R.id.search_bar);
 
+        final ImageButton searchBtn = (ImageButton) mview.findViewById(R.id.search_btn);
+
+
+
 
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,6 +105,13 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             @Override
             public void afterTextChanged(Editable s) {
                 mArraySugestions = getSalesName();
+                if(searchView.getText().toString().length()>0) {
+                    searchBtn.setImageResource(R.drawable.ic_close);
+                    searchBtn.setTag(new Boolean(true));
+                }else{
+                    searchBtn.setImageResource(R.drawable.ic_search);
+                    searchBtn.setTag(new Boolean(false));
+                }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mArraySugestions);
                 searchView.setAdapter(adapter);
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,6 +129,16 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
                     }
                 });
+
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(((Boolean)searchBtn.getTag())==true){
+                    searchView.setText("");
+                }
 
             }
         });
