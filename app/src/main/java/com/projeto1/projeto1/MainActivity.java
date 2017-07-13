@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         }
 
         /** GET TODOS OS USUARIOS**/
-        //HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this, user);
+        //HerokuGetUsersTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),this, user);
         //getUserTask.execute();
 
 
