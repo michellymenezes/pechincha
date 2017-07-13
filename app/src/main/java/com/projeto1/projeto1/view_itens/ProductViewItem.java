@@ -33,7 +33,8 @@ public class ProductViewItem extends FrameLayout {
     }
 
     public void displayPrice(Double price) {
-        ((TextView)findViewById(R.id.product_price)).setText(String.format( "%.2f", price ));
+        String priceSt = String.format( "%.2f", price );
+        ((TextView)findViewById(R.id.product_price)).setText("R$" + priceSt);
 
     }
 

@@ -156,8 +156,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         marketName = (TextView) mview.findViewById(R.id.name_supermarket);
         validity = (TextView) mview.findViewById(R.id.validity);
 
-        mOld_price.setText(sale.getRegularPrice().toString());
-        currentPrice.setText(sale.getSalePrice().toString());
+        mOld_price.setText("R$"+sale.getRegularPrice().toString());
+        currentPrice.setText("R$"+sale.getSalePrice().toString());
         mName_product.setText(product.getName());
         mBarcod.setText(product.getBarcode());
         marketName.setText(market.getName());
