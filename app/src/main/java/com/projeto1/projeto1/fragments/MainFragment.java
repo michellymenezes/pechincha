@@ -200,7 +200,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
              ) {
             for (Sale sale: mASales
                  ) {
-                if(product.getId().equals(sale.getProductId())) array.add(product.getName());
+                if(product.getId().equals(sale.getProductId()) && !array.contains(product.getName())) array.add(product.getName());
             }
 
         }
