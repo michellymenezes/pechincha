@@ -174,4 +174,9 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     public void OnPostProductFinished(boolean finished) {
 
     }
+
+    @Override
+    public void OnGetProductReady(boolean b, Product product) {
+
+    }
 }

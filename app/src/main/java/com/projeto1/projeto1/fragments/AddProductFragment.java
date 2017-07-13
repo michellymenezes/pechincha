@@ -537,6 +537,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     }
 
+    @Override
+    public void OnGetProductReady(boolean b, Product product) {
+
+    }
+
     public void setSubCategory(View mvDialog, String cbSelected) {
 
     }

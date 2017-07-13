@@ -84,13 +84,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ((ProductViewItem) holder.itemView).displayPrice(items.get(position).getSalePrice());
         ((ProductViewItem) holder.itemView).d(market);
 
-        RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
+        final RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
 
         saleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO CARREGAR AS INFORMAÇOES DA PROMOÇAO NA TELA DE VISUALIZACAO
-                ((MainActivity) activity).changeFragment(SaleDetailsFragment.getInstance(),SaleDetailsFragment.TAG,true);
+                ((MainActivity) activity).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
             }
         });
 
@@ -122,6 +122,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void OnPostProductFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetProductReady(boolean b, Product product) {
 
     }
 

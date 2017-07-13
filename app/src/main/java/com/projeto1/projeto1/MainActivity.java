@@ -25,14 +25,10 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostMarketsTask;
-import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
-import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
-import com.projeto1.projeto1.listeners.PostUserListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Address;
 import com.projeto1.projeto1.models.Localization;
@@ -56,6 +52,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private ArrayList<Sale> sales;
     private HerokuGetSalesTask mTask;
     private User user;
+    private Sale selectedSale;
 
     //Menu
     private ActionBarDrawerToggle mToggle;
@@ -290,6 +287,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     public void OnPostProductFinished(boolean finished) {
+    }
+
+    @Override
+    public void OnGetProductReady(boolean b, Product product) {
+
     }
 
     public ArrayList<Sale> getSales() {

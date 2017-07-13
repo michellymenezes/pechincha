@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface MarketListener {
     void OnGetMarketsReady(boolean ready, ArrayList<Market> markets);
     void OnPostMarketsFinished(boolean finished);
+
+    void OnGetMarketReady(boolean b, Market market);
 }
