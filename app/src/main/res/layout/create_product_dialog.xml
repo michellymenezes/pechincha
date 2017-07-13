@@ -187,7 +187,38 @@
                 android:hint="Sub Categoria do Produto"
                 android:inputType="textCapWords"
                 />
+
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/subcategory_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_subcategory_product_id"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/product_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_alignParentRight="true"
+                android:imeOptions="actionDone"
+                android:visibility="invisible"
+                android:inputType="textCapWords"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+
 
 </LinearLayout>

@@ -110,6 +110,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private void addSale(final View mview, final LayoutInflater inflater, final ViewGroup container) {
         final EditText productNameET = (EditText) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
+        final EditText productIdET = (EditText) mview.findViewById(R.id.product_id_input);
+
 
 
         productCodeET.addTextChangedListener(new TextWatcher() {
@@ -126,7 +128,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             @Override
             public void afterTextChanged(Editable s) {
                 if (productCodeET.getText().toString().toString().length()==12) {
-                    openDialog(inflater, container, productNameET, productCodeET);
+                    openDialog(inflater, container, productNameET, productCodeET, productIdET);
                 }
 
 
@@ -144,7 +146,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || event.getAction() == KeyEvent.ACTION_DOWN
                         ) {
-                        openDialog(inflater, container, productNameET, productCodeET);
+                        openDialog(inflater, container, productNameET, productCodeET, productIdET);
 //                    Log.v("TECLADO", "done");
                     return true;
                 }
@@ -185,6 +187,19 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
                 Double productPrice = Double.parseDouble(productPriceET.getText().toString().substring(2));
+                String productId = productIdET.getText().toString();
+
+                updateProductList();
+
+                if(productId.equals("")){
+                    for (Product p: productsList
+                         ) {
+                        if(p.getBarcode().equals(productCode)){
+                            productId = p.getId();
+                        }
+                    }
+
+                }
 
 /*
             Para criar, tem que salvar o id de Market, User e o código de barras do produto.
@@ -202,7 +217,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 }
 
                 //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
+                Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
                 post(sale);
 
             }
@@ -210,7 +225,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     }
 
-    private void openDialog(LayoutInflater inflater, ViewGroup container, final EditText productNameET, EditText productCodeET) {
+    private void openDialog(LayoutInflater inflater, ViewGroup container, final EditText productNameET, EditText productCodeET, final EditText productIdET) {
 
 
         final View mvDialog = inflater.inflate((R.layout.create_product_dialog),container,false);
@@ -220,6 +235,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         final EditText brandDialog = (EditText) mvDialog.findViewById(R.id.product_brand_input_dialog);
         final EditText categoryDialog = (EditText) mvDialog.findViewById(R.id.product_category_input_dialog);
         final EditText subCategoryDialog = (EditText) mvDialog.findViewById(R.id.product_subcategory_input_dialog);
+        final EditText productId = (EditText) mvDialog.findViewById(R.id.product_id);
 
 
 
@@ -288,6 +304,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 subCategoryDialog.setEnabled(false);
                 llCategoryIpunt.setVisibility(LinearLayout.VISIBLE);
                 llSubCategoryInput.setVisibility(LinearLayout.VISIBLE);
+                productId.setText(product.getId());
+
 
                 break;
             }else {
@@ -328,6 +346,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                     .setPositiveButton(positiveAction, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             productNameET.setText(nameDialog.getText().toString());
+                            productIdET.setText(productId.getText().toString());
                             productNameET.setEnabled(false);
                             String selectedCategory = categoryAdapter.getCbSelected();
                             String selectedSubCategory = mListAdapter[0]==(null)? "": mListAdapter[0].getCbSelected();
