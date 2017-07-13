@@ -81,7 +81,7 @@ public class HerokuGetUsersTask extends AsyncTask {
 
 
                 for (int i = 0; i < usersJSON.length(); i++) {
-                    //if ( usersJSON.getJSONObject(i).has("facebookId")){
+                    if ( usersJSON.getJSONObject(i).has("facebookId")){
                         //Models
                         //String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences
 
@@ -96,7 +96,7 @@ public class HerokuGetUsersTask extends AsyncTask {
                                     preferences: [String],
                         }*/
                         String id = usersJSON.getJSONObject(i).getString("_id");
-                        //String faceoockId = usersJSON.getJSONObject(i).getString("facebookId");
+                        String facebookId = usersJSON.getJSONObject(i).getString("facebookId");
                         String name = usersJSON.getJSONObject(i).getString("fullName");
                         String email = usersJSON.getJSONObject(i).getString("email");
                         String createdAt = usersJSON.getJSONObject(i).getString("createdAt");
@@ -107,9 +107,9 @@ public class HerokuGetUsersTask extends AsyncTask {
 
                         // users.add(new User(name, id,faceoockId, email, image, createdAt, reputation, new ArrayList<String>()));
 
-                        users.add(new User(name, id," ", email, image, createdAt, reputation, new ArrayList<String>()));
+                        users.add(new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>()));
 
-                    // }
+                     }
 
                 }
 
@@ -142,8 +142,7 @@ public class HerokuGetUsersTask extends AsyncTask {
     private boolean FindUser(){
         if (!users.isEmpty()){
             for (User user: users){
-                Log.d(TAG, user.getEmail() + " outro usuário: "+userToFind.getEmail());
-                if (user.getEmail().equals(userToFind.getEmail())){
+                if (user.getFacebookId().equals(userToFind.getFacebookId())){
                     return true;
                 }
             }
@@ -159,7 +158,7 @@ public class HerokuGetUsersTask extends AsyncTask {
         if (userToFind != null) {
             Boolean findUser = FindUser();
             mListener.OnGetUserFinished(findUser, this.userToFind);
-            Log.d(TAG, String.valueOf(findUser));
+            Log.d(TAG, "Encontrou usuário: " + String.valueOf(findUser));
         } else {
             mListener.OnGetAllUsersFinished((users != null), this.users);
 

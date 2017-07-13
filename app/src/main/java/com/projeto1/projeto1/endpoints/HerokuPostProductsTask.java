@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
 
     private final String ENDPOINT_ADDRESS;
     private final Context context;
+    private final User user;
     private Product product;
     private ProductListener mListener;
 
@@ -43,11 +45,12 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    public HerokuPostProductsTask(Product product, Context context, String endpoint, ProductListener listener) {
+    public HerokuPostProductsTask(Product product, Context context, String endpoint, ProductListener listener, User user) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.product = product;
         mListener = listener;
+        this.user = user;
 
     }
 
@@ -60,7 +63,7 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
             String parameters = "name=" + product.getName() + "&brand=" + product.getBrand() +
                     "&description=" + product.getDescription() + "&image=" + product.getImage() +
                     "&barCode=" + product.getBarcode() + "&category=" + product.getCategory() +
-                    "&subcategory=" + product.getSubcategory();
+                    "&subcategory=" + product.getSubcategory() + "&author=" + user.getFacebookId();
 
             url = new URL(ENDPOINT_ADDRESS);
 

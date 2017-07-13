@@ -33,11 +33,6 @@ public class HerokuGetUserTask extends AsyncTask {
     private GetUserListener mListener;
 
 
-    public HerokuGetUserTask(String url, GetUserListener listener) {
-        endpoint = url;
-        mListener = listener;
-    }
-
     public HerokuGetUserTask(String url, GetUserListener listener, User user) {
         endpoint = url;
         userToFind = user;
@@ -53,7 +48,8 @@ public class HerokuGetUserTask extends AsyncTask {
     private boolean getUser(){
         URL url;
         try {
-            url = new URL(endpoint);
+
+            url = new URL(endpoint + '/' + user.getId());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -77,7 +73,7 @@ public class HerokuGetUserTask extends AsyncTask {
 
 
                 String id = usersJSON.getString("_id");
-                //String faceoockId = usersJSON.getJSONObject(i).getString("facebookId");
+                String facebookId = usersJSON.getString("facebookId");
                 String name = usersJSON.getString("fullName");
                 String email = usersJSON.getString("email");
                 String createdAt = usersJSON.getString("createdAt");
@@ -87,7 +83,7 @@ public class HerokuGetUserTask extends AsyncTask {
                 String preferences = usersJSON.getString("preferences");
 
 
-                user = new User(name, id," ", email, image, createdAt, reputation, new ArrayList<String>());
+                user = new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>());
 
 
 

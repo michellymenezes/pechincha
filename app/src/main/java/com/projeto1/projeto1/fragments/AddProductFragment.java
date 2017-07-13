@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryAdapter;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -35,6 +36,7 @@ import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.models.User;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.text.DateFormat;
@@ -186,10 +188,13 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productName = productNameET.getText().toString();
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
-                Double productPrice = Double.parseDouble(productPriceET.getText().toString().substring(2));
+                String price = productPriceET.getText().toString().substring(2);
+                String[] parts = price.split(",");
+                String price2 = parts[0]+ "." + parts[1];
+                Double productPrice = Double.parseDouble(price2);
                 String productId = productIdET.getText().toString();
 
-                updateProductList();
+                  updateProductList();
 
                 if(productId.equals("")){
                     for (Product p: productsList
@@ -217,9 +222,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 }
 
                 //TODO criar objeto e salvar no banco.
-                Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
-                post(sale);
 
+                Sale sale = new Sale(productId, "59636ffadcb5250004873373", productPrice, 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
+
+                //Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
+                post(sale);
             }
         });
 
@@ -444,8 +451,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                     String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
 
                     current = "R" + formatted;
-                    productPriceET.setText("R" + formatted);
-                    productPriceET.setSelection(formatted.length()+1);
+                    productPriceET.setText(formatted);
+                    productPriceET.setSelection(formatted.length());
 
                     productPriceET.addTextChangedListener(this);
                 }
@@ -493,7 +500,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     private void postProduct(Product product){
-        HerokuPostProductsTask herokuPostProductsTask = new HerokuPostProductsTask(product, getContext(), String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)),this);
+        User user = SharedPreferencesUtils.getUser(getContext());
+        HerokuPostProductsTask herokuPostProductsTask = new HerokuPostProductsTask(product, getContext(), String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)),this, user);
         herokuPostProductsTask.execute();
     }
     @Override
