@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private ArrayList<Product> products;
     private AppBarLayout mAppBarLayout;
     private ArrayList<Sale> sales;
+    private  ArrayList<Sale> salesSearch;
     private HerokuGetSalesTask mTask;
     private User user;
     private Sale selectedSale;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         setContentView(R.layout.activity_main);
         initMenu();
 
+        salesSearch = new ArrayList<>();
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
 
@@ -277,6 +279,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         return products;
     }
 
+
+
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
     }
@@ -320,4 +324,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     }
 
+    public ArrayList<Sale> getSalesSearch() {
+        return salesSearch;
+    }
+
+    public void setSalesSearch(ArrayList<Sale> salesSearch) {
+        this.salesSearch = salesSearch;
+    }
 }

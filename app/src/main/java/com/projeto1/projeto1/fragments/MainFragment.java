@@ -1,19 +1,26 @@
 package com.projeto1.projeto1.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
@@ -40,6 +47,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     private ArrayList<Product> productsList;
     private HerokuGetProductsTask produtcsTask;
     private HerokuGetSalesTask salesTask;
+    private SeachResultFragment mSearResultFragment;
 
 
     /**
@@ -67,33 +75,53 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         updateSaleList();
         mview = inflater.inflate(R.layout.fragment_main, container, false);
 
+
         productsList = new ArrayList<>();
         mASales = new ArrayList<>();
         mArraySugestions = new ArrayList<>();
+        mSearResultFragment = SeachResultFragment.getInstance();
 
         final String[] selectedText = {""};
 
         final AutoCompleteTextView searchView = (AutoCompleteTextView) mview.findViewById(R.id.search_bar);
 
 
-        searchView.setOnClickListener(new View.OnClickListener() {
+        searchView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                searchView.setText("");
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 mArraySugestions = getSalesName();
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mArraySugestions);
                 searchView.setAdapter(adapter);
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-
                         //this is the way to find selected object/item
                         selectedText[0] = (String) adapterView.getItemAtPosition(pos);
-                        Log.v("STRING", selectedText[0]);
+                        ArrayList<Sale> salesSearch = new ArrayList<Sale>();
+                        Log.v("SELECTED " ,selectedText[0]);
+                        salesSearch = getSalesByName(selectedText[0]);
+                        hideKeyboard(getActivity());
+                        ((MainActivity) getActivity()).setSalesSearch(salesSearch);
+                        ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);
+
+
                     }
                 });
+
             }
         });
+
 
         final FloatingActionButton addProductBtn = (FloatingActionButton) mview.findViewById(R.id.scan_fab);
 
@@ -230,5 +258,30 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     public void OnGetProductReady(boolean b, Product product) {
 
 
+    }
+
+    public ArrayList<Sale> getSalesByName(String s) {
+        ArrayList<Sale> array = new ArrayList<>();
+        for (Product product: productsList
+                ) {
+            for (Sale sale: mASales
+                    ) {
+                if(product.getId().equals(sale.getProductId()) && product.getName().equals(s)) array.add(sale);
+            }
+
+        }
+        Log.v("SIZE", String.valueOf(array.size()));
+        return array;
+    }
+
+    private void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
