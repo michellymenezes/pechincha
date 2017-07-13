@@ -189,7 +189,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 /*
             Para criar, tem que salvar o id de Market, User e o código de barras do produto.
             Tem que fazer um get pra pegar esses ids, da mesma maneira que foi feito em Product.
-
+*/
                 TimeZone tz = TimeZone.getTimeZone("UTC");
                 SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
@@ -204,7 +204,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 //TODO criar objeto e salvar no banco.
                 Sale sale = new Sale(productCode, productMarket, productPrice, 2.0, expirationDate, "5962d8338ae5fd00042b7fc3", 1, "Uni");
                 post(sale);
-*/
+
             }
         });
 

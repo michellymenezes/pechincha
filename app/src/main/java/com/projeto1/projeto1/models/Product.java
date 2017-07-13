@@ -5,7 +5,7 @@ package com.projeto1.projeto1.models;
  */
 
 public class Product {
-
+    private String id;
     private String name;
     private String brand;
     private String description;
@@ -22,6 +22,16 @@ public class Product {
         this.barcode = barcode;
         this.category = category;
         this.subcategory = subcategory;
+    }
+    public Product(String id, String name, String brand, String description, String image, String barcode, String category, String subcategory) {
+        this.name = name;
+        this.brand = brand;
+        this.description = description;
+        this.image = image;
+        this.barcode = barcode;
+        this.category = category;
+        this.subcategory = subcategory;
+        this.id = id;
     }
 
     public Product(String name, String brand, String barcode, String category){
@@ -91,10 +101,19 @@ public class Product {
         this.subcategory = subcategory;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +

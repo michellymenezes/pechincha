@@ -14,6 +14,8 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.models.Market;
+import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class OtherProductsFragment extends Fragment {
     private RecyclerView categoryRecycleView;
     private RecyclerView productRecycleView;
     private List<Sale> salesList;
+    private List<Market> marketsList;
+    private List<Product> productsList;
     private HerokuGetSalesTask salesTask;
     private MainActivity myMainActivity;
 
@@ -85,7 +89,7 @@ public class OtherProductsFragment extends Fragment {
 
         //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList);
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);

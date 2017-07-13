@@ -13,10 +13,16 @@ import android.view.ViewGroup;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.listeners.MarketListener;
+import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.models.Market;
+import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
@@ -27,7 +33,7 @@ import java.util.List;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class GroceryProductsFragment extends Fragment implements SaleListener{
+public class GroceryProductsFragment extends Fragment implements SaleListener, MarketListener, ProductListener{
 
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
@@ -39,7 +45,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener{
     private RecyclerView categoryRecycleView;
     private RecyclerView productRecycleView;
     private List<Sale> salesList;
+    private List<Market> marketsList;
+    private List<Product> productsList;
     private HerokuGetSalesTask salesTask;
+    private HerokuGetProductsTask productTask;
+    private HerokuGetMarketsTask marketTask;
     private MainActivity myMainActivity;
 
     /**
@@ -87,9 +97,13 @@ public class GroceryProductsFragment extends Fragment implements SaleListener{
         salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
         salesTask.execute();
 
+
+
+
+
         //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);
@@ -119,15 +133,45 @@ public class GroceryProductsFragment extends Fragment implements SaleListener{
     @Override
     public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
         salesList =  sales;
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList);
-        productRecycleView.setAdapter(mProductAdapter);
-
+   //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+   //     productRecycleView.setAdapter(mProductAdapter);
+        productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
+        productTask.execute();
         Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
 
     }
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
+        marketsList = markets;
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+        productRecycleView.setAdapter(mProductAdapter);
+
+
+    }
+
+    @Override
+    public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
+        productsList = products;
+        marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
+        marketTask.execute();
+   //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+   //     productRecycleView.setAdapter(mProductAdapter);
+
+    }
+
+    @Override
+    public void OnPostProductFinished(boolean finished) {
 
     }
 }
