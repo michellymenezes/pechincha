@@ -15,7 +15,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.MainActivity;
@@ -153,7 +153,7 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
         if (logged) {
 
             Log.d(TAG, "Entro aqui");
-            //HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+            //HerokuGetUsersTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
             //       this, user);
             //getUserTask.execute();
             HerokuPostUserTask userTask = new HerokuPostUserTask(user,
@@ -173,7 +173,7 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
     }
 
     public void onLoginFinished(User user1) {
-        HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user1);
         getUserTask.execute();
     }

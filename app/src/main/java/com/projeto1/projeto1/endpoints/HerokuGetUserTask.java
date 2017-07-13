@@ -8,6 +8,7 @@ import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,15 +21,11 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 
-/**
- * Created by rafaelle on 07/07/17.
- */
-
 public class HerokuGetUserTask extends AsyncTask {
 
     private static final String TAG = "HEROKU_GET_USER_TASK";
 
-    private ArrayList<User> users;
+    private User user;
     private User userToFind;
 
     private String responseMessage = "";
@@ -38,7 +35,6 @@ public class HerokuGetUserTask extends AsyncTask {
 
     public HerokuGetUserTask(String url, GetUserListener listener) {
         endpoint = url;
-        users = new ArrayList<User>();
         mListener = listener;
     }
 
@@ -46,16 +42,15 @@ public class HerokuGetUserTask extends AsyncTask {
         endpoint = url;
         userToFind = user;
         mListener = listener;
-        users = new ArrayList<User>();
     }
 
     @Override
     protected Boolean doInBackground(Object[] params) {
-            return  getAllUsers();
+            return  getUser();
 
     }
 
-    private boolean getAllUsers(){
+    private boolean getUser(){
         URL url;
         try {
             url = new URL(endpoint);
@@ -76,42 +71,25 @@ public class HerokuGetUserTask extends AsyncTask {
                 while ((line = br.readLine()) != null) {
                     responseMessage += line;
                 }
-                JSONArray usersJSON = new JSONArray(responseMessage);
+                JSONObject usersJSON = new JSONObject(responseMessage);
                 Log.d(TAG, String.valueOf(usersJSON));
 
 
-                for (int i = 0; i < usersJSON.length(); i++) {
-                    //if ( usersJSON.getJSONObject(i).has("facebookId")){
-                        //Models
-                        //String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences
 
-                        /* BD
-                        user {
-                            _id: String,
-                                    fullname: String,
-                                    email: String,
-                                    created_at: String,
-                                    image: String,
-                                    reputation: Double,
-                                    preferences: [String],
-                        }*/
-                        String id = usersJSON.getJSONObject(i).getString("_id");
-                        //String faceoockId = usersJSON.getJSONObject(i).getString("facebookId");
-                        String name = usersJSON.getJSONObject(i).getString("fullName");
-                        String email = usersJSON.getJSONObject(i).getString("email");
-                        String createdAt = usersJSON.getJSONObject(i).getString("createdAt");
-                        String image = usersJSON.getJSONObject(i).getString("avatar");
-                        Double reputation = usersJSON.getJSONObject(i).getDouble("reputation");
-                        //TODO ajustar preferences
-                        String preferences = usersJSON.getJSONObject(i).getString("preferences");
+                String id = usersJSON.getString("_id");
+                //String faceoockId = usersJSON.getJSONObject(i).getString("facebookId");
+                String name = usersJSON.getString("fullName");
+                String email = usersJSON.getString("email");
+                String createdAt = usersJSON.getString("createdAt");
+                String image = usersJSON.getString("avatar");
+                Double reputation = usersJSON.getDouble("reputation");
+                //TODO ajustar preferences
+                String preferences = usersJSON.getString("preferences");
 
-                        // users.add(new User(name, id,faceoockId, email, image, createdAt, reputation, new ArrayList<String>()));
 
-                        users.add(new User(name, id," ", email, image, createdAt, reputation, new ArrayList<String>()));
+                user = new User(name, id," ", email, image, createdAt, reputation, new ArrayList<String>());
 
-                    // }
 
-                }
 
                 return true;
 
@@ -138,38 +116,15 @@ public class HerokuGetUserTask extends AsyncTask {
 
     }
 
-    //TODO modificar checagem para facebookID
-    private boolean FindUser(){
-        if (!users.isEmpty()){
-            for (User user: users){
-                Log.d(TAG, user.getEmail() + " outro usuário: "+userToFind.getEmail());
-                if (user.getEmail().equals(userToFind.getEmail())){
-                    return true;
-                }
-            }
-        }
-
-        return false;
-
-    }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        if (userToFind != null) {
-            Boolean findUser = FindUser();
-            mListener.OnGetUserFinished(findUser, this.userToFind);
-            Log.d(TAG, String.valueOf(findUser));
+        if (user != null) {
+            mListener.OnGetUserFinished(true, this.user);
+            Log.d(TAG, user.toString());
         } else {
-            mListener.OnGetAllUsersFinished((users != null), this.users);
-
-            /*
-            if (users != null){
-                mListener.OnGetAllUsersFinished(true, this.users);
-
-            } else {
-                mListener.OnGetAllUsersFinished(false, this.users);
-            } */
+            mListener.OnGetUserFinished(false, this.user);
 
         }
     }
