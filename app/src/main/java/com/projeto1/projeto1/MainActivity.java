@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -30,6 +31,7 @@ import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Address;
 import com.projeto1.projeto1.models.Localization;
 import com.projeto1.projeto1.models.Market;
@@ -106,8 +108,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         Address address = new Address("Vila Nova da Rainha","461", "ponto de cem reis", "Campina Grande", "PB", "Brasil", " ");
         Localization localization = new Localization(-7.2134805,-35.885104);
-
-        //TODO terminar objeto
 
         //Market market = new Market(null,"Supermercados Ideal",address," ", "08.957.326/0001-13",localization);
         //HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
@@ -210,10 +210,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                 break;
 
             case R.id.nav_config:
-                changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG, false);
+                Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_about:
+                Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_logout:
@@ -311,6 +312,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
 
     }
 

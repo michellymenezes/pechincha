@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -75,6 +76,48 @@ public class MainFragment extends Fragment {
 
             }
         });
+
+        ImageButton hygiene_btn = (ImageButton) mview.findViewById(R.id.hygiene_btn);
+        hygiene_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        ImageButton cleaning_btn = (ImageButton) mview.findViewById(R.id.cleaning_btn);
+        cleaning_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        ImageButton electronic_btn = (ImageButton) mview.findViewById(R.id.electronic_btn);
+        electronic_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        ImageButton furniture_btn = (ImageButton) mview.findViewById(R.id.furniture_btn);
+        furniture_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        ImageButton other_btn = (ImageButton) mview.findViewById(R.id.other_btn);
+        other_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         return mview;
     }
 

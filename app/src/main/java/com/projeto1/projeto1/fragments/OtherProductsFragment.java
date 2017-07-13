@@ -89,7 +89,7 @@ public class OtherProductsFragment extends Fragment {
 
         //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList, getContext());
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);

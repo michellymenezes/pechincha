@@ -16,5 +16,6 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="not_ready">Desculpe, ainda não está pronto :)</string>
 
 </resources>

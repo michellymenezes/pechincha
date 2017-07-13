@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.listeners.MarketListener;
@@ -39,10 +40,10 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private HerokuGetProductTask productTask;
     private Sale sale;
     private MainActivity myMainActivity;
-
-
-
-
+    private TextView mOld_price;
+    private TextView mName_product;
+    private TextView mBarcod;
+    private TextView mValidity;
 
 
     /**
@@ -70,18 +71,27 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
+        mOld_price = (TextView) mview.findViewById(R.id.old_price);
+        mName_product = (TextView) mview.findViewById(R.id.name_product);
+        mBarcod = (TextView) mview.findViewById(R.id.barcode);
+        mValidity = (TextView) mview.findViewById(R.id.validity);
 
-       // productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId() , this);
-        //productTask.execute();
+
+
+        sale = SharedPreferencesUtils.getSelectedSale(getContext());
+
+
+        if (sale != null){
+            productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId() , this);
+            productTask.execute();
+        }
+
 
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
 
-        TextView old_price = (TextView) mview.findViewById(R.id.old_price);
-        old_price.setText("4.99");
-        old_price.setPaintFlags(old_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-        TextView name_product = (TextView) mview.findViewById(R.id.name_product);
-        //name_product.setText(product.getName());
+        mOld_price.setText("4.99");
+        mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
         startAdapter();
@@ -122,15 +132,31 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnGetProductReady(boolean b, Product product) {
         this.product = product;
+
+        if (mview!=null){
+            //mOld_price.setText("4.99");
+            //mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if (product != null){
+                mName_product.setText(product.getName());
+                mBarcod.setText(product.getBarcode());
+                //mValidity.setText();
+
+            }
+        }
+
     }
 
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
-
     }
 
     @Override
     public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
 
     }
 
