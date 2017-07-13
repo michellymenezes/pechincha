@@ -46,6 +46,7 @@ import java.util.List;
         private HerokuGetSalesTask salesTask;
         private HerokuGetProductsTask productTask;
         private HerokuGetMarketsTask marketTask;
+        private HerokuGetProductsTask produtcsTask;
         private MainActivity myMainActivity;
 
         /**
@@ -128,6 +129,11 @@ import java.util.List;
      @SuppressLint("LongLogTag")
      @Override
      public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+         //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+         //     productRecycleView.setAdapter(mProductAdapter);
+         productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
+         productTask.execute();
+         Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
 
      }
 
@@ -164,6 +170,7 @@ import java.util.List;
          //     productRecycleView.setAdapter(mProductAdapter);
 
      }
+
 
      @Override
      public void OnPostProductFinished(boolean finished) {
