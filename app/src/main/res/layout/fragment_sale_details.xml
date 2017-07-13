@@ -411,6 +411,7 @@
                     android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="top|center"
+                    android:id="@+id/validity"
                     />
             </LinearLayout>
             <LinearLayout

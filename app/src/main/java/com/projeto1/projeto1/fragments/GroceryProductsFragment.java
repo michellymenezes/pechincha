@@ -103,7 +103,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
         //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);
@@ -149,7 +149,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
         marketsList = markets;
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
         productRecycleView.setAdapter(mProductAdapter);
 
 
@@ -182,6 +182,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
     @Override
     public void OnGetProductReady(boolean b, Product product) {
+
+    }
+
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
 
     }
 }

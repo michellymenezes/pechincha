@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 /**
@@ -33,6 +34,24 @@ public class SharedPreferencesUtils {
         Gson gson = new Gson();
         String json = gson.toJson(user);
         editor.putString("USER", json);
+        editor.commit();
+    }
+
+    public static Sale getSelectedSale(Context context) {
+        SharedPreferences settings = context.getSharedPreferences("SALE_SELECTED", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = settings.getString("SALE_SELECTED", null);
+        Sale obj = gson.fromJson(json, Sale.class);
+        return  obj;
+    }
+
+    public static void setSelectedSale(Context context, Sale sale){
+
+        SharedPreferences settings = context.getSharedPreferences("SALE_SELECTED", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(sale);
+        editor.putString("SALE_SELECTED", json);
         editor.commit();
     }
 }

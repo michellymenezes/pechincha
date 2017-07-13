@@ -107,6 +107,7 @@
                     android:background="@drawable/bg_select_category"
                     android:textColor="@android:color/transparent"
                     android:textAlignment="center"
+                    android:id="@+id/hygiene_btn"
                     />
 
                 <TextView
@@ -126,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
+                    android:id="@+id/cleaning_btn"
                     android:layout_width="60dp"
                     android:layout_gravity="center"
                     android:layout_height="60dp"
@@ -160,10 +162,10 @@
                 android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
                 android:orientation="vertical"
-
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
+                    android:id="@+id/electronic_btn"
                     android:layout_width="60dp"
                     android:layout_gravity="center"
                     android:layout_height="60dp"
@@ -192,6 +194,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
+                    android:id="@+id/furniture_btn"
                     android:layout_width="60dp"
                     android:layout_gravity="center"
                     android:layout_height="60dp"
@@ -221,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
+                    android:id="@+id/other_btn"
                     android:layout_width="60dp"
                     android:layout_gravity="center"
                     android:layout_height="60dp"
