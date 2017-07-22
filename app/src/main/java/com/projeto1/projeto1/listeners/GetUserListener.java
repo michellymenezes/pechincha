@@ -11,4 +11,5 @@ import java.util.ArrayList;
 public interface GetUserListener {
     void OnGetAllUsersFinished(boolean ready, ArrayList<User> users);
     void OnGetUserFinished(boolean find, User user);
+    void OnPostUserFinished(boolean finished);
 }

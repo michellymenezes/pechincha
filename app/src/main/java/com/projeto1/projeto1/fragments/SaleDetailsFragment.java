@@ -195,4 +195,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         marketTask.execute();
 
     }
+
+    @Override
+    public void OnPostUserFinished(boolean finished) {
+
+    }
 }

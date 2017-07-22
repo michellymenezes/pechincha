@@ -3,6 +3,7 @@ package com.projeto1.projeto1.endpoints;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.listeners.GetUserListener;
@@ -41,9 +42,9 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    private PostUserListener mListener;
+    private GetUserListener mListener;
 
-    public HerokuPostUserTask(User user, Context context, String endpoint, PostUserListener mListener) {
+    public HerokuPostUserTask(User user, Context context, String endpoint, GetUserListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.mListener = mListener;
@@ -135,7 +136,13 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
-        mListener.OnPostLoginFinished(isSuccessfulRegister);
+        if (isSuccessfulRegister) {
+            Toast.makeText(context, "User cadastrado com sucesso", Toast.LENGTH_LONG).show();
+            mListener.OnPostUserFinished(true);
+        }
+        else {
+            mListener.OnPostUserFinished(false);
+
+        }
     }
 }

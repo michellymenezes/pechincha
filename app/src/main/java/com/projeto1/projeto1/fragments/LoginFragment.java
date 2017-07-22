@@ -37,7 +37,7 @@ import java.util.Date;
  * Created by rafaelle on 20/06/17.
  */
 
-public class LoginFragment extends Fragment implements GetUserListener, PostUserListener {
+public class LoginFragment extends Fragment implements GetUserListener {
 
     public static final String TAG = "LOGIN_FRAGMENT";
     private View mView;
@@ -112,8 +112,8 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
                                     String email = object.getString("email");
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
-                                    String birthday = object.getString("birthday");
-                                    user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(),birthday,gender, (double) 1,new ArrayList<String>());
+                                   // String birthday = object.getString("birthday");
+                                    user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(), (double) 1,new ArrayList<String>());
                                     logged = true;
                                     onLoginFinished(user);
 
@@ -164,10 +164,6 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
     }
 
 
-    @Override
-    public void OnPostLoginFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
-    }
 
     public void onLoginFinished(User user1) {
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
@@ -190,5 +186,11 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
         } else {
             SharedPreferencesUtils.setUser(getContext(),user);
         }
+    }
+
+    @Override
+    public void OnPostUserFinished(boolean finished) {
+        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
     }
 }
