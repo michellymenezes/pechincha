@@ -188,7 +188,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String productName = productNameET.getText().toString();
                 String productCode = productCodeET.getText().toString();
                 String productMarket = productMarketET.getText().toString();
-                String price = productPriceET.getText().toString().substring(2);
+                String price = productPriceET.getText().toString().substring(1);
                 String productId = productIdET.getText().toString();
 
                   updateProductList();
