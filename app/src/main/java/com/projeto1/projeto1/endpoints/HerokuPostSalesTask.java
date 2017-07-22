@@ -107,7 +107,7 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
                 while ((line = br1.readLine()) != null) {
                     error += line;
                 }
-                Log.d(TAG, error);
+                Log.wtf(TAG, error);
                 return false;
             }
 
