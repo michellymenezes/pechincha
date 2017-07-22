@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.PostUserListener;
 import com.projeto1.projeto1.models.User;
@@ -103,10 +104,11 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
                 Iterator<String> keys = jsonObject.keys();
 
                 while (keys.hasNext()) {
-
                     String key = (String) keys.next();
-                    if (key.equals("success")) {
-                        isSuccessfulRegister = jsonObject.getString("success").contains("success");
+                    if (key.equals("_id")) {
+                        user.setId(jsonObject.getString("_id"));
+                        SharedPreferencesUtils.setUser(context, user);
+                        break;
                     }
                 }
 

@@ -19,11 +19,14 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,7 @@ import java.util.ArrayList;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener {
+public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener, GetUserListener {
 
 
     public static final String TAG = "SALE_DETAILS_FRAGMENT";
@@ -40,8 +43,10 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private Product product;
     private HerokuGetProductTask productTask;
     private HerokuGetMarketTask marketTask;
+    private HerokuGetUserTask userTask;
     private Sale sale;
     private Market market;
+    private User user;
     private MainActivity myMainActivity;
     private TextView mOld_price;
     private TextView mName_product;
@@ -50,6 +55,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView currentPrice;
     private TextView marketName;
     private TextView validity;
+    private TextView username;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -130,8 +136,10 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnGetProductReady(boolean b, Product product) {
         this.product = product;
-        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId() , this);
-        marketTask.execute();
+        User user = SharedPreferencesUtils.getUser(getContext());
+        user.setId(sale.getAuthorId());
+        userTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this, user);
+        userTask.execute();
 
     }
 
@@ -155,6 +163,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         currentPrice = (TextView) mview.findViewById(R.id.current_price);
         marketName = (TextView) mview.findViewById(R.id.name_supermarket);
         validity = (TextView) mview.findViewById(R.id.validity);
+        username = (TextView) mview.findViewById(R.id.user_name);
+
 
         mOld_price.setText("R$"+sale.getRegularPrice().toString());
         currentPrice.setText("R$"+sale.getSalePrice().toString());
@@ -162,6 +172,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         mBarcod.setText(product.getBarcode());
         marketName.setText(market.getName());
         validity.setText(sale.getExpirationDate());
+        username.setText(user.getName());
 
 
         mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -170,5 +181,18 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     public void setSale(Sale sale){
         this.sale = sale;
+    }
+
+    @Override
+    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
+
+    }
+
+    @Override
+    public void OnGetUserFinished(boolean find, User user) {
+        this.user = user;
+        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId() , this);
+        marketTask.execute();
+
     }
 }

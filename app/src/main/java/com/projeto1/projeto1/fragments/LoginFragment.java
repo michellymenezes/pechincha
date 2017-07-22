@@ -2,6 +2,7 @@ package com.projeto1.projeto1.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.SharedElementCallback;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +115,6 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
                                     String birthday = object.getString("birthday");
                                     user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(),birthday,gender, (double) 1,new ArrayList<String>());
                                     logged = true;
-                                    SharedPreferencesUtils.setUser(getContext(), user);
                                     onLoginFinished(user);
 
 
@@ -149,7 +149,7 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
 
 
         });
-/*
+        /*
         if (logged) {
 
             Log.d(TAG, "Entro aqui");
@@ -160,9 +160,6 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
                     getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
             userTask.execute();
         }*/
-
-
-
 
     }
 
@@ -190,6 +187,8 @@ public class LoginFragment extends Fragment implements GetUserListener, PostUser
             HerokuPostUserTask userTask = new HerokuPostUserTask(user,
                     getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
             userTask.execute();
+        } else {
+            SharedPreferencesUtils.setUser(getContext(),user);
         }
     }
 }
