@@ -53,7 +53,6 @@ public class ProfileFragment extends Fragment {
         mview = inflater.inflate(R.layout.fragment_profile, container, false);
 
         userToShow = SharedPreferencesUtils.getUserSelected(getContext());
-        userToShow = SharedPreferencesUtils.getUser(getContext());
 
         if (userToShow!=null){
             LinearLayout myProfileInf = (LinearLayout) mview.findViewById(R.id.my_profile_inf);
