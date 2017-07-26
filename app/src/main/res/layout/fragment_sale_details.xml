@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.projeto1.projeto1.fragments.SaleDetailsFragment">
+    tools:context="coprojeto1m.projeto1..fragments.SaleDetailsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
+            android:id="@+id/user_menu"
             android:text="User name"
             android:textColor="@android:color/white"
             />

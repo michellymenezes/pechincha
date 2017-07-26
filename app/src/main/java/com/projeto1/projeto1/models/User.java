@@ -197,4 +197,9 @@ public class User implements Parcelable{
         dest.writeStringList(preferences);
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((User)obj).getId().equals(this.id);
+    }
 }

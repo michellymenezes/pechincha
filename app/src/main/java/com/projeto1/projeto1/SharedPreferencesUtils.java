@@ -54,4 +54,23 @@ public class SharedPreferencesUtils {
         editor.putString("SALE_SELECTED", json);
         editor.commit();
     }
+
+    public static void setUserSelected(Context context, User user){
+
+        SharedPreferences settings = context.getSharedPreferences("USER_SELECTED", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        editor.putString("USER_SELECTED", json);
+        editor.commit();
+    }
+
+    public static User getUserSelected(Context context) {
+        SharedPreferences settings = context.getSharedPreferences("USER_SELECTED", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = settings.getString("USER_SELECTED", null);
+        User obj = gson.fromJson(json, User.class);
+        return  obj;
+    }
+
 }
