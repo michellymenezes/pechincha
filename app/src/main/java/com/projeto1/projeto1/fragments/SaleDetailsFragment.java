@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
@@ -56,6 +57,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView marketName;
     private TextView validity;
     private TextView username;
+    private ImageView userImage;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -174,9 +176,16 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         validity.setText(sale.getExpirationDate());
         username.setText(user.getName());
 
-
         mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
+        userImage = (ImageView) mview.findViewById(R.id.user_img);
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesUtils.setUserSelected(getContext(), user);
+                ((MainActivity) getActivity()).changeFragment(ProfileFragment.getInstance(), ProfileFragment.TAG, true);
+            }
+        });
     }
 
     public void setSale(Sale sale){

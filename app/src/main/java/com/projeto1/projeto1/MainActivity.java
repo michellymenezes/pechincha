@@ -230,8 +230,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                 SharedPreferencesUtils.setUser(this, null);
                 changeFragment(loginFragment, LoginFragment.TAG, false);
                 break;
-
-
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
