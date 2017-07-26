@@ -27,7 +27,7 @@
                     android:id="@+id/product_image"
                     android:layout_width="100dp"
                     android:layout_height="110dp"
-                    android:src="@drawable/feijaosevemix"
+                    android:src="@drawable/ic_groceries"
                     android:scaleType="fitCenter"
                     />
 
@@ -95,7 +95,7 @@
                 android:layout_height="30dp"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:textStyle="bold"
-                android:text="Feijão ServMix"
+                android:text="Nome produto"
                 android:textSize="20dp"/>
             <ImageView
                 android:id="@+id/sm_location"
@@ -104,7 +104,6 @@
                 android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_map_pin_marked"/>
-
             <TextView
                 android:id="@+id/name_supermarket"
                 android:layout_toRightOf="@+id/sm_location"
@@ -113,7 +112,7 @@
                 android:layout_width="170dp"
                 android:layout_marginLeft="3dp"
                 android:layout_height="20dp"
-                android:text="Walmart"
+                android:text="Supermercado"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="15dp"/>
 
@@ -135,12 +134,13 @@
                     android:layout_gravity="center"
                     android:background="@drawable/bg_checbox_favorite"
                     android:button="@null"
+                    android:clickable="false"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:textSize="10dp"
-                    android:text="200"
+                    android:text="0"
                     android:textColor="@android:color/tertiary_text_dark"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -224,6 +224,7 @@
                         android:background="@drawable/ic_circle_checked"
                         android:textColor="@android:color/transparent"
                         android:textAlignment="center"
+                        android:id="@+id/report"
                         />
 
                     <TextView
@@ -251,6 +252,7 @@
                         android:background="@drawable/ic_circle_checked"
                         android:textColor="@android:color/transparent"
                         android:textAlignment="center"
+                        android:id="@+id/att"
                         />
 
                     <TextView
@@ -270,6 +272,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
+                        android:id="@+id/evaluate"
                         android:layout_width="50dp"
                         android:layout_gravity="center"
                         android:layout_height="50dp"

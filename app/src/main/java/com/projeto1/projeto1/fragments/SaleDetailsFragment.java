@@ -170,8 +170,10 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         mOld_price.setText("R$"+sale.getRegularPrice().toString());
         currentPrice.setText("R$"+sale.getSalePrice().toString());
-        mName_product.setText(product.getName());
-        mBarcod.setText(product.getBarcode());
+        if (product !=null){
+            mName_product.setText(product.getName());
+            mBarcod.setText(product.getBarcode());
+        }
         marketName.setText(market.getName());
         validity.setText(sale.getExpirationDate());
         username.setText(user.getName());
