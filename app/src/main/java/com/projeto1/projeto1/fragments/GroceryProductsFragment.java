@@ -112,40 +112,6 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
         productRecycleView.setLayoutManager(llm2);
         productRecycleView.setAdapter(mProductAdapter);
 
-
-        ImageView evaluate = (ImageView) mview.findViewById(R.id.evaluate);
-        evaluate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        ImageView att = (ImageView) mview.findViewById(R.id.att);
-        evaluate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        ImageView report = (ImageView) mview.findViewById(R.id.report);
-        evaluate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        CheckBox like = (CheckBox) mview.findViewById(R.id.like_btn);
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         return mview;
     }
 
