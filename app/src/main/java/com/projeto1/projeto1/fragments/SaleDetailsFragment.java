@@ -112,7 +112,6 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
 
-
         marketDetail();
 
 
@@ -208,7 +207,24 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtils.setUserSelected(getContext(), user);
-                ((MainActivity) getActivity()).changeFragment(ProfileFragment.getInstance(), ProfileFragment.TAG, true);
+                final View viewDialog = View.inflate(getActivity(), R.layout.fragment_profile, null);
+                TextView createdAt = (TextView) viewDialog.findViewById(R.id.created_at);
+                TextView userName = (TextView) viewDialog.findViewById(R.id.user_name);
+                TextView userEmail = (TextView) viewDialog.findViewById(R.id.email);
+                TextView userReputation = (TextView) viewDialog.findViewById(R.id.reputation);
+                createdAt.setText(user.getCreatedAt());
+                userName.setText(user.getName());
+                userEmail.setText(user.getEmail());
+                userReputation.setText(String.valueOf(user.getReputation()));
+                new AlertDialog.Builder(getContext())
+                        .setTitle("")
+                        .setView(viewDialog)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(R.drawable.ic_map_pin_marked)
+                        .show();
             }
         });
     }

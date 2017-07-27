@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:layout_height="260dp"
+        android:layout_height="210dp"
         android:layout_gravity="center"
         android:background="@drawable/bg_details_screen">
 
@@ -27,6 +27,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:scaleType="center"
             android:background="@drawable/circle_bg_image"
             android:layout_height="80dp"
