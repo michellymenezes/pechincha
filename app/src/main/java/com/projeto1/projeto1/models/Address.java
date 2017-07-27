@@ -79,6 +79,11 @@ public class Address {
         this.complement = complement;
     }
 
+    public  String getFormattedAddress() {
+        return  street + ", " + number + ", " + neighborhood + ", " + city + ", " + state + ", " + country;
+    }
+
+
     @Override
     public String toString() {
         return "Address{" +

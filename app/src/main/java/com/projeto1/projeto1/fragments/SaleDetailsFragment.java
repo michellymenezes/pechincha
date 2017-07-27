@@ -1,16 +1,11 @@
 package com.projeto1.projeto1.fragments;
 
-import com.projeto1.projeto1.MainActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +19,6 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
-import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
@@ -124,6 +118,14 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             @Override
             public void onClick(View v) {
                 final View viewDialog = View.inflate(getActivity(), R.layout.supermarket_info_dialog, null);
+                TextView marketNameDialog = (TextView) viewDialog.findViewById(R.id.market_name);
+                TextView marketAddressDialog = (TextView) viewDialog.findViewById(R.id.market_address);
+                TextView marketCnpjDialog = (TextView) viewDialog.findViewById(R.id.market_cnpj);
+
+                marketNameDialog.setText(market.getName());
+                marketAddressDialog.setText(market.getAdress().getFormattedAddress());
+                marketCnpjDialog.setText("CNPJ: " + market.getCnpj());
+
                 new AlertDialog.Builder(getContext())
                         .setTitle("")
                         .setView(viewDialog)
