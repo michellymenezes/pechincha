@@ -3,14 +3,18 @@ package com.projeto1.projeto1.fragments;
 import com.projeto1.projeto1.MainActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +58,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView mBarcod;
     private TextView mValidity;
     private TextView currentPrice;
-    private TextView marketName;
+    private Button marketName;
     private TextView validity;
     private TextView username;
     private ImageView userImage;
@@ -84,7 +88,18 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
+
+        mOld_price = (TextView) mview.findViewById(R.id.old_price);
+        mName_product = (TextView) mview.findViewById(R.id.name_product);
+        mBarcod = (TextView) mview.findViewById(R.id.barcode);
+        mValidity = (TextView) mview.findViewById(R.id.validity);
+        currentPrice = (TextView) mview.findViewById(R.id.current_price);
+        marketName = (Button) mview.findViewById(R.id.name_supermarket);
+        validity = (TextView) mview.findViewById(R.id.validity);
+        username = (TextView) mview.findViewById(R.id.user_name);
 
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
@@ -98,13 +113,29 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
 
-
-
-        startAdapter();
-
+        marketDetail();
 
 
         return mview;
+    }
+
+    private void marketDetail() {
+        marketName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final View viewDialog = View.inflate(getActivity(), R.layout.supermarket_info_dialog, null);
+                new AlertDialog.Builder(getContext())
+                        .setTitle("")
+                        .setView(viewDialog)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(R.drawable.ic_map_pin_marked)
+                        .show();
+            }
+        });
     }
 
     private void startAdapter() {
@@ -158,14 +189,6 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     public void OnGetMarketReady(boolean b, Market market) {
         this.market = market;
 
-        mOld_price = (TextView) mview.findViewById(R.id.old_price);
-        mName_product = (TextView) mview.findViewById(R.id.name_product);
-        mBarcod = (TextView) mview.findViewById(R.id.barcode);
-        mValidity = (TextView) mview.findViewById(R.id.validity);
-        currentPrice = (TextView) mview.findViewById(R.id.current_price);
-        marketName = (TextView) mview.findViewById(R.id.name_supermarket);
-        validity = (TextView) mview.findViewById(R.id.validity);
-        username = (TextView) mview.findViewById(R.id.user_name);
 
 
         mOld_price.setText("R$"+sale.getRegularPrice().toString());
