@@ -31,12 +31,15 @@ import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
+import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
+import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
@@ -54,7 +57,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class AddProductFragment extends Fragment  implements SaleListener, ProductListener {
+public class AddProductFragment extends Fragment  implements SaleListener, ProductListener, MarketListener {
 
 
     public static final String TAG = "ADD_PRODUCT_FRAGMENT";
@@ -65,7 +68,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private EditText productPriceET;
     private HerokuGetProductsTask produtcsTask;
     private List<String> categoryList;
-    private ArrayList<String> mMarketSugestions;
+    private ArrayList<Market> mMarketSugestions;
 
 
     /**
@@ -96,8 +99,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
 
         productsList = new ArrayList<>();
-        mMarketSugestions = new ArrayList<>(Arrays.asList("Hiper Extra","Ideal Centro","Redecompras Centro","Supermercados Ideal"));
+        //mMarketSugestions = new ArrayList<>(Arrays.asList("Hiper Extra","Ideal Centro","Redecompras Centro","Supermercados Ideal"));
+        mMarketSugestions = new ArrayList<>();
         updateProductList();
+        updateMarketList();
 
 
 
@@ -159,7 +164,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
         });
         final AutoCompleteTextView productMarketET = (AutoCompleteTextView) mview.findViewById(R.id.market_input);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mMarketSugestions);
+        ArrayAdapter<Market> adapter = new ArrayAdapter<Market>(getContext(), R.layout.row_layout, mMarketSugestions);
         productMarketET.setAdapter(adapter);
 
         final String[] selectedMarket = {""};
@@ -186,7 +191,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mMarketSugestions);
+                ArrayAdapter<Market> adapter = new ArrayAdapter<Market>(getContext(), R.layout.row_layout, mMarketSugestions);
                 productMarketET.setAdapter(adapter);
                 productMarketET.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -279,32 +284,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     private String getMarketIdByName(String s) {
-        String str = "";
-        switch (s) {
-            case "Hiper Extra": {
-                str = "59636ffadcb5250004873373";
 
-                break;
-            }
-            case "Ideal Centro": {
-                str =  "5967096fc4985a00046f3bf1";
-
-                break;
-            }
-            case "Redecompras Centro": {
-                str =  "5962f20b4a0cd90004064df6";
-                break;
-
-            }
-            case "Supermercados Ideal": {
-                str =  "59677b320a8d4a0004f8c419";
-                break;
-
-            }
-            default:
-                str =  "5967096fc4985a00046f3bf1";
-        }
-        return str;
+        return "";
 
     }
 
@@ -569,6 +550,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         produtcsTask.execute();
     }
 
+    private void updateMarketList(){
+        HerokuGetMarketsTask herokuGetMarketsTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
+        herokuGetMarketsTask.execute();
+    }
+
 
     private void post(Sale sale){
         HerokuPostSalesTask herokuPostSalesTask = new HerokuPostSalesTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)),this);
@@ -629,4 +615,26 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     public void setSubCategory(View mvDialog, String cbSelected) {
 
     }
+
+    @Override
+    public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
+
+        mMarketSugestions = markets;
+
+        for (Market name : markets) {
+
+        }
+
+    }
+
+    @Override
+    public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
 }
