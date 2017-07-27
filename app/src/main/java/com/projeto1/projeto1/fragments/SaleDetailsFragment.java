@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
@@ -207,15 +208,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtils.setUserSelected(getContext(), user);
-                final View viewDialog = View.inflate(getActivity(), R.layout.fragment_profile, null);
-                TextView createdAt = (TextView) viewDialog.findViewById(R.id.created_at);
+                final View viewDialog = View.inflate(getActivity(), R.layout.user_info_dialog, null);
+                RatingBar ratingBar = (RatingBar) viewDialog.findViewById(R.id.ratingBar);
                 TextView userName = (TextView) viewDialog.findViewById(R.id.user_name);
-                TextView userEmail = (TextView) viewDialog.findViewById(R.id.email);
-                TextView userReputation = (TextView) viewDialog.findViewById(R.id.reputation);
-                createdAt.setText(user.getCreatedAt());
+                ratingBar.setRating(Float.valueOf(String.valueOf(user.getReputation())));
                 userName.setText(user.getName());
-                userEmail.setText(user.getEmail());
-                userReputation.setText(String.valueOf(user.getReputation()));
+
                 new AlertDialog.Builder(getContext())
                         .setTitle("")
                         .setView(viewDialog)

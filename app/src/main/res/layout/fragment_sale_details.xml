@@ -100,22 +100,24 @@
                 android:textSize="20dp"/>
             <ImageView
                 android:id="@+id/sm_location"
-                android:layout_below="@id/name_product"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
                 android:src="@drawable/ic_map_pin_marked"/>
             <Button
                 android:id="@+id/name_supermarket"
                 android:layout_toRightOf="@+id/sm_location"
-                android:layout_below="@id/name_product"
                 android:gravity="left|bottom"
                 android:background="@android:color/transparent"
                 android:layout_width="170dp"
                 android:layout_marginLeft="3dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:textAllCaps="false"
+                android:layout_marginBottom="10dp"
                 android:text="Supermercado"
+                android:layout_alignParentBottom="true"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="13dp"/>
 
