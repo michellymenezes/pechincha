@@ -54,7 +54,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class AddProductFragment extends Fragment  implements SaleListener, ProductListener, MarketListener {
@@ -68,7 +70,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private EditText productPriceET;
     private HerokuGetProductsTask produtcsTask;
     private List<String> categoryList;
-    private ArrayList<Market> mMarketSugestions;
+    Map<String,String> mMarketSugestions = new HashMap<String,String>();
+
 
 
     /**
@@ -100,7 +103,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
         productsList = new ArrayList<>();
         //mMarketSugestions = new ArrayList<>(Arrays.asList("Hiper Extra","Ideal Centro","Redecompras Centro","Supermercados Ideal"));
-        mMarketSugestions = new ArrayList<>();
         updateProductList();
         updateMarketList();
 
@@ -164,7 +166,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
         });
         final AutoCompleteTextView productMarketET = (AutoCompleteTextView) mview.findViewById(R.id.market_input);
-        ArrayAdapter<Market> adapter = new ArrayAdapter<Market>(getContext(), R.layout.row_layout, mMarketSugestions);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, getKeys(mMarketSugestions));
         productMarketET.setAdapter(adapter);
 
         final String[] selectedMarket = {""};
@@ -191,7 +193,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayAdapter<Market> adapter = new ArrayAdapter<Market>(getContext(), R.layout.row_layout, mMarketSugestions);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, getKeys(mMarketSugestions));
                 productMarketET.setAdapter(adapter);
                 productMarketET.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -263,7 +265,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
                 String expirationDate = null;
-                String market = getMarketIdByName(selectedMarket[0]);
+                String marketId = getMarketIdByName(selectedMarket[0]);
+
+                if (marketId.equals("-1")){
+                    marketId = "5962f20b4a0cd90004064df6";
+                }
 
                 try {
                     expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
@@ -274,7 +280,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 //TODO criar objeto e salvar no banco.
 
 
-                Sale sale = new Sale(productId, "5962f20b4a0cd90004064df6", Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
+                Sale sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
 
                 //Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
                 post(sale);
@@ -283,10 +289,19 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     }
 
+    private ArrayList<String> getKeys(Map<String, String> mMarketSugestions) {
+        ArrayList<String> markets = new ArrayList<>();
+        markets.addAll(mMarketSugestions.keySet());
+        return  markets;
+    }
+
     private String getMarketIdByName(String s) {
+        if (mMarketSugestions.containsKey(s)){
+            return mMarketSugestions.get(s);
 
-        return "";
-
+        } else {
+             return "-1";
+        }
     }
 
     private void openDialog(LayoutInflater inflater, ViewGroup container, final EditText productNameET, EditText productCodeET, final EditText productIdET) {
@@ -619,9 +634,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
 
-        mMarketSugestions = markets;
-
         for (Market name : markets) {
+            mMarketSugestions.put( name.getName(), name.getId());
 
         }
 
