@@ -24,7 +24,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
-
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
@@ -32,8 +33,8 @@ import com.projeto1.projeto1.fragments.ProfileFragment;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Market;
-import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.Product;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
@@ -194,7 +195,22 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            String scanFormat = scanningResult.getFormatName();
+
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    scanContent, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+       // mCallbackManager.onActivityResult(requestCode, resultCode, data);
 //        setContentView(R.layout.test);
     }
 
@@ -276,6 +292,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         return mCallbackManager;
     }
+
 
 
     public ArrayList<Product> getProducts() {
