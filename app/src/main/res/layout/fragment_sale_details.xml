@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        android:layout_height="200dp">
+        android:layout_height="220dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -76,7 +76,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_weight="4.2"
+        android:layout_weight="3"
         android:layout_height="100dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -86,7 +86,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_weight="1.4"
+            android:layout_weight="1"
             android:layout_height="0dp">
             <TextView
                 android:id="@+id/name_product"
@@ -202,7 +202,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:id="@+id/circle_container"
             android:layout_height="0dp"
             android:gravity="center"
@@ -210,19 +210,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="1.3"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_gravity="center"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_report"
                         android:textSize="12dp"
@@ -248,9 +248,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_gravity="center"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_update_price"
                         android:textSize="12dp"
@@ -272,15 +272,15 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:gravity="center">
                     <ImageButton
                         android:id="@+id/evaluate"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_gravity="center"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:elevation="2dp"
                         android:src="@drawable/ic_customer"
                         android:textSize="12dp"
@@ -311,40 +311,40 @@
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1.3"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:orientation="vertical">
-            <Button
-                android:layout_width="50dp"
-                android:layout_marginTop="3dp"
-                android:layout_height="50dp"
-                android:text="3.0"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="18dp"
-                android:paddingTop="8dp"
-                android:gravity="top|center"
-                android:background="@drawable/ic_badge"/>
-            <RatingBar
-                android:layout_width="80dp"
-                android:layout_height="20dp"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:numStars = "5"
-                android:rating   = "3"
-                />
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_weight="1.3"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
+            <!--<Button-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="3.0"-->
+                <!--android:textColor="@android:color/darker_gray"-->
+                <!--android:textSize="18dp"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:gravity="top|center"-->
+                <!--android:background="@drawable/ic_badge"/>-->
+            <!--<RatingBar-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:id="@+id/ratingBar"-->
+                <!--style="?android:attr/ratingBarStyleSmall"-->
+                <!--android:numStars = "5"-->
+                <!--android:rating   = "3"-->
+                <!--/>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:id="@+id/divider2"
-                android:layout_height="0.6dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/darker_gray"/>
-        </LinearLayout>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:id="@+id/divider2"-->
+                <!--android:layout_height="0.6dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:background="@android:color/darker_gray"/>-->
+        <!--</LinearLayout>-->
 
 
 
@@ -362,10 +362,10 @@
                 android:gravity="center"
                 >
                 <ImageButton
-                    android:layout_width="30dp"
+                    android:layout_width="40dp"
                     android:background="@drawable/rounded_icon_bg"
                     android:id="@+id/barcode_icon"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_barcode"
                     />
                 <TextView
@@ -396,9 +396,9 @@
                 android:gravity="center"
                 >
                 <ImageButton
-                    android:layout_width="30dp"
+                    android:layout_width="40dp"
                     android:background="@drawable/rounded_icon_bg"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_calendar"
                     />
                 <TextView
@@ -430,9 +430,9 @@
                 android:gravity="center"
                 >
                 <ImageButton
-                    android:layout_width="30dp"
+                    android:layout_width="40dp"
                     android:background="@drawable/rounded_icon_bg"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_food_scale_tool"
                     />
                 <TextView
