@@ -2,27 +2,25 @@ package com.projeto1.projeto1.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -33,7 +31,6 @@ import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class MainFragment extends Fragment implements SaleListener,ProductListener {
@@ -169,6 +166,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         hygiene_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
+                scanIntegrator.initiateScan();
                 Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
             }
         });
@@ -305,4 +304,6 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
 }
