@@ -71,6 +71,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private HerokuGetProductsTask produtcsTask;
     private List<String> categoryList;
     Map<String,String> mMarketSugestions = new HashMap<String,String>();
+    private String codeScan;
 
 
 
@@ -124,26 +125,35 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
 
 
-        productCodeET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (productCodeET.getText().toString().toString().length()==12) {
-                    openDialog(inflater, container, productNameET, productCodeET, productIdET);
-                }
 
 
-            }
-        });
+        codeScan = ((MainActivity) getActivity()).getScanContent();
+
+        if (codeScan.length()>0) {
+            productCodeET.setText(codeScan);
+            openDialog(inflater, container, productNameET, productCodeET, productIdET);
+        }
+
+//        productCodeET.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (productCodeET.getText().toString().toString().length()==12) {
+//                    openDialog(inflater, container, productNameET, productCodeET, productIdET);
+//                }
+//
+//
+//            }
+//        });
 
         productCodeET.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 

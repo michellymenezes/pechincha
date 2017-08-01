@@ -141,9 +141,39 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         });
 
 
-        final FloatingActionButton addProductBtn = (FloatingActionButton) mview.findViewById(R.id.scan_fab);
-
+        final ImageButton barCodeScan = (ImageButton) mview.findViewById(R.id.scan_fab);
+        final ImageButton addProduct = (ImageButton) mview.findViewById(R.id.write_post_btn);
+        final ImageButton addSupermarket = (ImageButton) mview.findViewById(R.id.add_supermarket_btn);
+        final ImageButton favoritesBtn = (ImageButton) mview.findViewById(R.id.favorites_btn);
+        final ImageButton profileBtn = (ImageButton) mview.findViewById(R.id.profile_btn);
         final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+
+            }
+        });
+        favoritesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+
+            }
+        });
+        addSupermarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+            }
+        });
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+            }
+        });
 
         grocery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,12 +182,12 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             }
         });
 
-        addProductBtn.setClickable(true);
 
-        addProductBtn.setOnClickListener(new View.OnClickListener() {
+        barCodeScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+                IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
+                scanIntegrator.initiateScan();
 
             }
         });
@@ -166,8 +196,6 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         hygiene_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
-                scanIntegrator.initiateScan();
                 Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
             }
         });

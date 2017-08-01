@@ -27,6 +27,7 @@ import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private Fragment profileFragment;
+    private Fragment addProductFragment;
+    private String scanContent;
 
 
     @Override
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         myMainFragment = MainFragment.getInstance();
         loginFragment = LoginFragment.getInstance();
         profileFragment = ProfileFragment.getInstance();
+        addProductFragment = AddProductFragment.getInstance();
+        scanContent = "";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
@@ -197,12 +202,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanningResult != null) {
-            String scanContent = scanningResult.getContents();
+            scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    scanContent, Toast.LENGTH_SHORT);
-            toast.show();
+            changeFragment(addProductFragment, AddProductFragment.TAG, true);
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -215,8 +217,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
 
-
-
+    public String getScanContent() {
+        return scanContent;
+    }
 
     // Deve ser implementado para dar ação aos itens do menu
     @Override

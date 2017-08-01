@@ -40,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/rounded_bg_product_item"
-                android:layout_margin="5dp"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp">
 
@@ -60,8 +59,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_barcode"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -93,8 +92,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_groceries"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -128,8 +127,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_map_pin_marked"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -160,8 +159,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_price"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -191,8 +190,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_food_scale_tool"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -218,8 +217,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_calendar"
                         android:background="@drawable/rounded_icon_bg"/>
 
@@ -244,11 +243,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
-
                     <EditText
                         android:id="@+id/product_id_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:textSize="14dp"
                         android:layout_alignParentRight="true"
                         android:visibility="invisible"

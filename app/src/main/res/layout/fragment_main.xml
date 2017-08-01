@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:background="@drawable/previeww">
     </LinearLayout>
     <LinearLayout
@@ -58,9 +58,9 @@
         android:orientation="vertical"
         android:layout_weight="2"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_bg_product_item"
+        android:layout_marginTop="10dp"
         android:elevation="2dp"
+        android:background="@drawable/rounded_bg_text_input"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         android:layout_height="0dp">
@@ -79,11 +79,10 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/grocery_btn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
-                    android:layout_height="60dp"
-                    android:elevation="2dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_grocery_blue"
                     android:textSize="12dp"
                     android:background="@drawable/bg_select_category"
@@ -107,11 +106,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageButton
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
-                    android:layout_height="60dp"
-                    android:elevation="2dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_hygiene_blue"
                     android:textSize="12dp"
                     android:background="@drawable/bg_select_category"
@@ -138,11 +136,10 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/cleaning_btn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_margin="3dp"
-                    android:elevation="2dp"
                     android:src="@drawable/ic_wiping"
                     android:textSize="12dp"
                     android:background="@drawable/bg_select_category"
@@ -176,11 +173,10 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/electronic_btn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
-                    android:layout_height="60dp"
-                    android:layout_margin="3dp"
-                    android:elevation="2dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:src="@drawable/ic_plug"
                     android:textSize="12dp"
                     android:background="@drawable/bg_select_category"
@@ -205,10 +201,9 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/furniture_btn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
-                    android:layout_height="60dp"
-                    android:elevation="2dp"
+                    android:layout_height="50dp"
                     android:layout_margin="3dp"
                     android:src="@drawable/ic_sofa"
                     android:textSize="12dp"
@@ -235,11 +230,10 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/other_btn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_gravity="center"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_margin="3dp"
-                    android:elevation="2dp"
                     android:src="@drawable/ic_other_gray"
                     android:textSize="12dp"
                     android:background="@drawable/bg_select_category"
@@ -261,18 +255,102 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginBottom="-60dp"
+        android:elevation="3dp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/scan_fab"
+            android:layout_centerInParent="true"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:elevation="2dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_code_scan"
+            android:layout_margin="3dp"
+            android:textSize="12dp"
+            android:background="@drawable/circle_bg_scan_btn"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
+    </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/scan_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="-25dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_sale_"
-        app:backgroundTint="@color/colorPrimaryDark"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:layout_height="45dp">
+
+        <ImageButton
+            android:id="@+id/profile_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_user"
+            android:textSize="12dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
+
+            <ImageButton
+                android:id="@+id/favorites_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_favorite_border"
+                android:textSize="12dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/transparent"
+                android:textAlignment="center"
+                />
+
+        <ImageButton
+            android:id="@+id/write_post_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_share_sale"
+            android:textSize="12dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
+
+        <ImageButton
+            android:id="@+id/add_supermarket_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_store"
+            android:textSize="12dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
+
+
+    </LinearLayout>
+
 
 
 </LinearLayout>
