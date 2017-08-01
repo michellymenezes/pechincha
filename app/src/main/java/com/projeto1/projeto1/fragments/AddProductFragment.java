@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -124,14 +125,17 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         final EditText productIdET = (EditText) mview.findViewById(R.id.product_id_input);
 
 
-
-
-
         codeScan = ((MainActivity) getActivity()).getScanContent();
 
         if (codeScan.length()>0) {
             productCodeET.setText(codeScan);
-            openDialog(inflater, container, productNameET, productCodeET, productIdET);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    openDialog(inflater, container, productNameET, productCodeET, productIdET);
+                }
+            }, 1000);
+            ((MainActivity) getActivity()).setScanContent("");
         }
 
 //        productCodeET.addTextChangedListener(new TextWatcher() {
@@ -391,16 +395,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 categoryDialog.setEnabled(false);
                 subCategoryDialog.setText(product.getSubcategory());
                 subCategoryDialog.setEnabled(false);
-                llCategoryIpunt.setVisibility(LinearLayout.VISIBLE);
-                llSubCategoryInput.setVisibility(LinearLayout.VISIBLE);
                 productId.setText(product.getId());
-
-
                 break;
-            }else {
-                llCategoryIpunt.setVisibility(LinearLayout.GONE);
-                llSubCategoryInput.setVisibility(LinearLayout.GONE);
-
             }
 
         }
@@ -420,15 +416,19 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             positiveAction = "Ok";
             negativeAction = "";
             productAction = "Informações do Produto";
+            llCategoryIpunt.setVisibility(LinearLayout.VISIBLE);
+            llSubCategoryInput.setVisibility(LinearLayout.VISIBLE);
         }else{
             positiveAction = "Salvar";
             negativeAction = "Cancel";
             productAction =  "Cadastre o produto";
+            llCategoryIpunt.setVisibility(LinearLayout.GONE);
+            llSubCategoryInput.setVisibility(LinearLayout.GONE);
         }
 
         final boolean productExistsFinal = productExists;
 
-        if ((productCodeET.getText().toString().length() == 12)){
+        if ((productCodeET.getText().toString().length() > 0)){
             new AlertDialog.Builder(getContext())
                     .setTitle(productAction)
                     .setView(mvDialog)

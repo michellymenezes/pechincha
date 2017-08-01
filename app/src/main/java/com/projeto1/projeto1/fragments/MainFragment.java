@@ -186,8 +186,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         barCodeScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
-                scanIntegrator.initiateScan();
+                ((MainActivity) getActivity()).startScanCode();
 
             }
         });
@@ -235,6 +234,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
         return mview;
     }
+
+
 
     private void updateSaleList() {
         salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);

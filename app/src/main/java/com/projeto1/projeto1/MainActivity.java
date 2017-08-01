@@ -2,6 +2,7 @@ package com.projeto1.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -204,7 +205,13 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         if (scanningResult != null) {
             scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            changeFragment(addProductFragment, AddProductFragment.TAG, true);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+                }
+            }, 1000);
+
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -217,8 +224,12 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
 
+
     public String getScanContent() {
         return scanContent;
+    }
+    public void setScanContent(String str) {
+        scanContent = str;
     }
 
     // Deve ser implementado para dar ação aos itens do menu
@@ -353,5 +364,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     public void setSalesSearch(ArrayList<Sale> salesSearch) {
         this.salesSearch = salesSearch;
+    }
+
+    public void startScanCode() {
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
+
     }
 }
