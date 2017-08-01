@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -116,6 +117,14 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         priceClick(mview);
         addSale(mview, inflater, container);
 
+        ImageButton scanBtn = (ImageButton) mview.findViewById(R.id.scan_btn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).startScanCode();
+            }
+        });
+
         return mview;
     }
 
@@ -134,7 +143,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 public void run() {
                     openDialog(inflater, container, productNameET, productCodeET, productIdET);
                 }
-            }, 1000);
+            }, 500);
             ((MainActivity) getActivity()).setScanContent("");
         }
 

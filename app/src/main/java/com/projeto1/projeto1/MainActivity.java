@@ -205,12 +205,15 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         if (scanningResult != null) {
             scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
-                }
-            }, 1000);
+            if(scanContent != null) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        changeFragment(AddProductFragment.getInstance(), AddProductFragment.TAG, true);
+                    }
+                }, 1000);
+            }
+
 
         }
         else{
@@ -226,7 +229,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
 
     public String getScanContent() {
-        return scanContent;
+        if(scanContent != null) return scanContent;
+        else return "";
     }
     public void setScanContent(String str) {
         scanContent = str;

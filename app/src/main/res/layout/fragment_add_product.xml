@@ -25,7 +25,7 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:textSize="15dp"
-                android:text="Compatilhe uma promoção"
+                android:text="Compartilhe uma promoção"
                 android:textColor="@android:color/tertiary_text_dark"/>
             <ImageView
                 android:layout_width="match_parent"
@@ -38,8 +38,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="2dp"
                 android:orientation="vertical"
-                android:background="@drawable/rounded_bg_product_item"
+                android:background="@drawable/rounded_bg_text_input"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp">
 
@@ -56,18 +60,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:weightSum="5"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_barcode"
-                        android:background="@drawable/rounded_icon_bg"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_code_product"
                         android:layout_marginLeft="5dp"
                         android:orientation="horizontal"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="5"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -83,6 +85,15 @@
                             />
                     </android.support.design.widget.TextInputLayout>
 
+                    <ImageButton
+                        android:id="@+id/scan_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
+                        android:elevation="1dp"
+                        android:background="@drawable/background_btn"
+                        android:src="@drawable/ic_code_scan_white"
+                        />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,14 +101,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_groceries"
-                        android:background="@drawable/rounded_icon_bg"/>
-
-
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_product"
@@ -123,18 +126,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="5"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_map_pin_marked"
-                        android:background="@drawable/rounded_icon_bg"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_brand"
                     android:layout_marginLeft="5dp"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:background="@drawable/rounded_bg_product_item"
@@ -151,6 +151,13 @@
                         android:inputType="textCapWords"
                         />
                 </android.support.design.widget.TextInputLayout>
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:elevation="1dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/background_btn"
+                        android:src="@drawable/ic_store"
+                        />
                     </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,11 +165,6 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_price"
-                        android:background="@drawable/rounded_icon_bg"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_price"
@@ -189,12 +191,6 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_food_scale_tool"
-                        android:background="@drawable/rounded_icon_bg"/>
-
                     <Button
                         android:id="@+id/quantity_input"
                         android:padding="3dp"
@@ -215,12 +211,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_calendar"
-                        android:background="@drawable/rounded_icon_bg"/>
 
                     <Button
                         android:id="@+id/expire_date"
