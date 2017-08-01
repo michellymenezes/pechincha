@@ -71,6 +71,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private HerokuGetProductsTask produtcsTask;
     private List<String> categoryList;
     Map<String,String> mMarketSugestions = new HashMap<String,String>();
+    private Button scanner_btn;
+    private Button manually_btn;
 
 
 
@@ -100,6 +102,17 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                              Bundle savedInstanceState) {
 
         mview = inflater.inflate(R.layout.fragment_add_product, container, false);
+
+        scanner_btn = (Button) mview.findViewById(R.id.barcode_scanner_btn);
+        manually_btn = (Button) mview.findViewById(R.id.manually_btn);
+
+        manually_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mview.findViewById(R.id.switch_).setVisibility(View.GONE);
+                mview.findViewById(R.id.manually_layout).setVisibility(View.VISIBLE);
+            }
+        });
 
         productsList = new ArrayList<>();
         //mMarketSugestions = new ArrayList<>(Arrays.asList("Hiper Extra","Ideal Centro","Redecompras Centro","Supermercados Ideal"));
@@ -244,7 +257,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 String price = productPriceET.getText().toString().substring(1);
                 String productId = productIdET.getText().toString();
 
-                  updateProductList();
+                updateProductList();
 
                 if(productId.equals("")){
                     for (Product p: productsList
@@ -258,7 +271,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
 /*
             Para criar, tem que salvar o id de Market, User e o código de barras do produto.
-            Tem que fazer um get pra pegar esses ids, da mesma maneira que foi feito em Product.
 */
                 TimeZone tz = TimeZone.getTimeZone("UTC");
                 SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
@@ -276,8 +288,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                //TODO criar objeto e salvar no banco.
 
 
                 Sale sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");

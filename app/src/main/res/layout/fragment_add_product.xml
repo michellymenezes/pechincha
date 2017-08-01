@@ -6,14 +6,84 @@
     android:orientation="vertical"
     tools:context="com.projeto1.projeto1.fragments.AddProductFragment">
 
+    <LinearLayout
+        android:id="@+id/switch_"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="Compatilhe uma promoção"
+                android:textColor="@android:color/tertiary_text_dark"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:background="@android:color/white"
+                android:src="@drawable/share_img"
+                android:layout_height="130dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="Informe o código de barras"
+                android:textColor="@android:color/tertiary_text_dark"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:id="@+id/barcode_scanner_btn"
+                    android:background="@drawable/bg_send_button"
+                    android:textColor="@android:color/white"
+                    android:layout_height="40dp"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:text="Escanear Código de Barras"
+                    android:layout_marginBottom="10dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:id="@+id/manually_btn"
+                    android:background="@drawable/bg_send_button"
+                    android:textColor="@android:color/white"
+                    android:layout_height="40dp"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:text="Digitar Código de Barras"/>
+
+
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
     <ScrollView
-        android:id="@+id/scrollView_id"
+        android:visibility="gone"
+        android:id="@+id/manually_layout"
         android:alpha="0.9"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        >
+        android:layout_marginRight="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
