@@ -6,17 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.projeto1.projeto1.view_itens.CategoryViewItem;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by samirsmedeiros on 18/06/17.
@@ -44,6 +37,15 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         View currFilter = ((CategoryViewItem) holder.itemView);
         ((CategoryViewItem) holder.itemView).displayName(items.get(position));
 
+        Button button = (Button) ((CategoryViewItem) holder.itemView).getButton();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, items.get(position).toString());
+            }
+
+        });
     }
 
 
