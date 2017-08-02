@@ -2,7 +2,6 @@ package com.projeto1.projeto1.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -27,7 +25,6 @@ import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
  public class SeachResultFragment extends Fragment implements SaleListener, MarketListener, ProductListener {
@@ -179,6 +176,11 @@ import java.util.List;
 
      @Override
      public void OnGetProductReady(boolean b, Product product) {
+
+     }
+
+     @Override
+     public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
      }
 
