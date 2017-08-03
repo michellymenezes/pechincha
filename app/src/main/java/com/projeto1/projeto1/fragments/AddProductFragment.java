@@ -389,6 +389,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         boolean productExists = false;
 
         productByCodeTask = new HerokuGetProductByBarcodeTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT_BY_BARCODE)) + "/" + productCodeET.getText().toString(), this);
+        productByCodeTask.execute();
 
         String productName = "";
         Log.v("size", String.valueOf(productsList.size()));
@@ -654,7 +655,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     @Override
     public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
-        Log.v(TAG, product.toString());
+        Log.v("SCANNER", product.toString());
 
     }
 

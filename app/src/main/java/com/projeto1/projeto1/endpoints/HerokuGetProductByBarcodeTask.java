@@ -7,6 +7,7 @@ import android.util.Log;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Product;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,7 +59,7 @@ public class HerokuGetProductByBarcodeTask extends AsyncTask {
                 while ((line = br.readLine()) != null) {
                     responseMessage += line;
                 }
-                JSONObject productsJSON = new JSONObject(responseMessage);
+                JSONObject productsJSON = new JSONObject(String.valueOf(new JSONArray(responseMessage).getJSONObject(0)));
                 Log.d(TAG, String.valueOf(productsJSON));
 
                 String id = productsJSON.getString("_id");
