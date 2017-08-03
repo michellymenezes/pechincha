@@ -392,25 +392,29 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         productByCodeTask = new HerokuGetProductByBarcodeTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT_BY_BARCODE)) + "/" + productCodeET.getText().toString(), this);
         productByCodeTask.execute();
 
-
         String productName = "";
-        if(product != null) {
-            Log.d("teste", "existe");
-            productExists = true;
-            llCategory.setVisibility(LinearLayout.GONE);
-            productName = product.getName();
-            nameDialog.setText(productName);
-            nameDialog.setEnabled(false);
-            brandDialog.setText(product.getBrand());
-            brandDialog.setEnabled(false);
-            categoryAdapter.setClicled(product.getCategory());
-            categoryDialog.setText(product.getCategory());
-            categoryDialog.setEnabled(false);
-            subCategoryDialog.setText(product.getSubcategory());
-            subCategoryDialog.setEnabled(false);
-            productId.setText(product.getId());
-        }else {
-            Log.d("teste", "nao existe");
+        Log.v("size", String.valueOf(productsList.size()));
+        for(int i = 0; i < productsList.size(); i++){
+            String cod = productCodeET.getText().toString();
+            Log.v("PRODUCT", productsList.get(i).toString());
+            if(cod.equals(productsList.get(i).getBarcode())){
+                productExists = true;
+                llCategory.setVisibility(LinearLayout.GONE);
+                Product product = productsList.get(i);
+                productName = product.getName();
+                nameDialog.setText(productName);
+                nameDialog.setEnabled(false);
+                brandDialog.setText(product.getBrand());
+                brandDialog.setEnabled(false);
+                categoryAdapter.setClicled(product.getCategory());
+                categoryDialog.setText(product.getCategory());
+                categoryDialog.setEnabled(false);
+                subCategoryDialog.setText(product.getSubcategory());
+                subCategoryDialog.setEnabled(false);
+                productId.setText(product.getId());
+                break;
+            }
+
         }
 
 
@@ -669,7 +673,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         }
 
     }
-
     @Override
     public void OnPostMarketsFinished(boolean finished) {
 
