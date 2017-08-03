@@ -59,25 +59,30 @@ public class HerokuGetProductByBarcodeTask extends AsyncTask {
                 while ((line = br.readLine()) != null) {
                     responseMessage += line;
                 }
-                JSONObject productsJSON = new JSONObject(String.valueOf(new JSONArray(responseMessage).getJSONObject(0)));
-                Log.d(TAG, String.valueOf(productsJSON));
 
-                String id = productsJSON.getString("_id");
-                String name = productsJSON.getString("name");
-                String brand = productsJSON.getString("brand");
-                String descripition = productsJSON.getString("description");
-                String image = productsJSON.getString("image");
-                String code = productsJSON.getString("barCode");
-                String category = productsJSON.getString("category");
- //               String subcategory = productsJSON.getString("subcategory");
+                JSONArray productsJSON = new JSONArray((responseMessage));
 
-                product = new Product(id,name,brand,descripition,image,code,category," ");
+                if(productsJSON.length() != 0) {
+                    JSONObject productJSON = new JSONObject(String.valueOf(productsJSON.getJSONObject(0)));
+                    Log.d(TAG, String.valueOf(productsJSON));
+
+                    String id = productJSON.getString("_id");
+                    String name = productJSON.getString("name");
+                    String brand = productJSON.getString("brand");
+                    String descripition = productJSON.getString("description");
+                    String image = productJSON.getString("image");
+                    String code = productJSON.getString("barCode");
+                    String category = productJSON.getString("category");
+                    //               String subcategory = productsJSON.getString("subcategory");
+
+                    product = new Product(id, name, brand, descripition, image, code, category, " ");
 
 
-
-
-
-                Log.d(TAG, "Product: " + product.toString());
+                    Log.d(TAG, "Product: " + product.toString());
+                }
+                else {
+                    product = null;
+                }
                 return true;
 
             } else {

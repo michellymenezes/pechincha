@@ -655,7 +655,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     @Override
     public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
-        Log.v("SCANNER", product.toString());
 
     }
 
