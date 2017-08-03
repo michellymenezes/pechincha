@@ -168,6 +168,11 @@ import java.util.List;
 
      }
 
+     @Override
+     public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+
+     }
+
 
      @Override
      public void OnPostProductFinished(boolean finished) {

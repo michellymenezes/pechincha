@@ -643,6 +643,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     @Override
+    public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+        
+    }
+
+    @Override
     public void OnPostProductFinished(boolean finished) {
 
     }
@@ -654,7 +659,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     @Override
     public void OnGetProductByBarcodeReady(boolean ready, Product product) {
-
 
     }
 

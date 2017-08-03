@@ -164,6 +164,11 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
+    public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+
+    }
+
+    @Override
     public void OnPostProductFinished(boolean finished) {
 
     }
