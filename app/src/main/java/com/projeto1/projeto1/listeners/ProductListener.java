@@ -13,4 +13,5 @@ public interface ProductListener {
     void OnPostProductFinished(boolean finished);
 
     void OnGetProductReady(boolean b, Product product);
+    void OnGetProductByBarcodeReady(boolean ready, Product product);
 }

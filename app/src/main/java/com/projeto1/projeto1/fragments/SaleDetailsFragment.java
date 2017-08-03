@@ -179,6 +179,11 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
+
+    }
+
+    @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
     }
 

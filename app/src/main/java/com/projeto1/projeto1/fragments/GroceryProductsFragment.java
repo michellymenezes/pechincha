@@ -10,20 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.CategoryListAdapter;
+import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
-import com.projeto1.projeto1.adapters.CategoryListAdapter;
-import com.projeto1.projeto1.adapters.ProductListAdapter;
-import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -185,6 +182,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
     @Override
     public void OnGetProductReady(boolean b, Product product) {
+
+    }
+
+    @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
     }
 

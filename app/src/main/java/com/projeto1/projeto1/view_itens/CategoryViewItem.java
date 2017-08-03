@@ -2,13 +2,9 @@ package com.projeto1.projeto1.view_itens;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.projeto1.projeto1.R;
 
@@ -32,6 +28,10 @@ public class CategoryViewItem extends FrameLayout {
     public void displayName(String name) {
         ((TextView)findViewById(R.id.btn_category)).setText(name);
 
+    }
+
+    public Button getButton() {
+        return (Button) findViewById(R.id.btn_category);
     }
 
 }

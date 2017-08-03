@@ -124,6 +124,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     }
 
+    @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
+
+    }
+
     public static class ProductItemHolder extends RecyclerView.ViewHolder {
 
 

@@ -33,14 +33,15 @@ import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryAdapter;
-import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
-import com.projeto1.projeto1.listeners.MarketListener;
-import com.projeto1.projeto1.listeners.ProductListener;
-import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetProductByBarcodeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
+import com.projeto1.projeto1.listeners.MarketListener;
+import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -71,6 +72,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     private List<Product> productsList;
     private EditText productPriceET;
     private HerokuGetProductsTask produtcsTask;
+    private HerokuGetProductByBarcodeTask productByCodeTask;
     private List<String> categoryList;
     Map<String,String> mMarketSugestions = new HashMap<String,String>();
     private String codeScan;
@@ -385,6 +387,9 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         codeDialog.setText(productCodeET.getText().toString());
         codeDialog.setEnabled(false);
         boolean productExists = false;
+
+        productByCodeTask = new HerokuGetProductByBarcodeTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT_BY_BARCODE)) + "/" + productCodeET.getText().toString(), this);
+
         String productName = "";
         Log.v("size", String.valueOf(productsList.size()));
         for(int i = 0; i < productsList.size(); i++){
@@ -643,6 +648,13 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
     @Override
     public void OnGetProductReady(boolean b, Product product) {
+
+    }
+
+    @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
+
+        Log.v(TAG, product.toString());
 
     }
 

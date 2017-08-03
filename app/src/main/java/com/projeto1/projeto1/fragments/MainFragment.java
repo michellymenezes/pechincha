@@ -2,9 +2,7 @@ package com.projeto1.projeto1.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,8 +17,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -305,6 +301,11 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     @Override
     public void OnGetProductReady(boolean b, Product product) {
 
+
+    }
+
+    @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
     }
 

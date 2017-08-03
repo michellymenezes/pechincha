@@ -341,6 +341,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     }
 
+    @Override
+    public void OnGetProductByBarcodeReady(boolean ready, Product product) {
+
+    }
+
     public ArrayList<Sale> getSales() {
         return sales;
     }
