@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private Fragment profileFragment;
     private Fragment addProductFragment;
     private String scanContent;
+    private String currentCategory;
 
 
     @Override
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         profileFragment = ProfileFragment.getInstance();
         addProductFragment = AddProductFragment.getInstance();
         scanContent = "";
+        currentCategory ="";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
@@ -333,6 +335,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
     @Override
+    public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+
+    }
+
+    @Override
     public void OnPostProductFinished(boolean finished) {
     }
 
@@ -383,5 +390,13 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
 
+    }
+
+    public String getCurrentCategory() {
+        return currentCategory;
+    }
+
+    public void setCurrentCategory(String currentCategory) {
+        this.currentCategory = currentCategory;
     }
 }

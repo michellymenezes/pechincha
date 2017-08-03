@@ -71,7 +71,7 @@ public class HygieneProductsFragment extends Fragment {
                 "Higiene Pessoal", "Loções", "Lenços e Papeis", "Para casa"));
 
         mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), categoryList);
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

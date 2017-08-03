@@ -75,7 +75,7 @@ public class OtherProductsFragment extends Fragment {
         categoryList = new ArrayList<>(Arrays.asList("Ração", "Utensílios Elétricos", "Brinquedos", "Bazar","Utensílios Cozinha" ));
 
         mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), categoryList);
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

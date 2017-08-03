@@ -79,11 +79,9 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
         salesList = new ArrayList<>();
 
-        categoryList = new ArrayList<>(Arrays.asList( "Grãos", "Bebidas", "Laticínio",
-                "Carnes", "Frutas e Verduras", "Oleos"));
 
         mview = inflater.inflate(R.layout.fragment_grocery_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), categoryList);
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -93,6 +91,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
         productRecycleView = (RecyclerView) mview.findViewById(R.id.product_list);
 
+        updateProductList();
         /* GET DE PROMOÇÕES */
         salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
         salesTask.execute();
@@ -132,7 +131,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     @SuppressLint("LongLogTag")
     @Override
     public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
-        salesList =  sales;
+        salesList =  getProductsSaleByCategory(sales);
    //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
    //     productRecycleView.setAdapter(mProductAdapter);
         productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
@@ -175,6 +174,22 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
     }
 
+    private List<Sale> getProductsSaleByCategory(ArrayList<Sale> sales) {
+        String category = ((MainActivity) getActivity()).getCurrentCategory();
+        List<Sale> salessList = new ArrayList<>();
+        for (Sale sale: sales){
+            for (Product product: productsList){
+                if(product.getId().equals(sale.getProductId()) && product.getCategory().equals(category)) salessList.add(sale);
+            }
+        }
+        return  salessList;
+    }
+
+    @Override
+    public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+
+    }
+
     @Override
     public void OnPostProductFinished(boolean finished) {
 
@@ -188,6 +203,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     @Override
     public void OnGetProductByBarcodeReady(boolean ready, Product product) {
 
+    }
+
+    public void updateProductList(){
+        productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);
+        productTask.execute();
     }
 
 

@@ -173,6 +173,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         grocery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MainActivity) getActivity()).setCurrentCategory("Alimento");
                 ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
@@ -190,7 +191,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         hygiene_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                ((MainActivity) getActivity()).setCurrentCategory("Higiene");
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
 
@@ -198,7 +200,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         cleaning_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                ((MainActivity) getActivity()).setCurrentCategory("Limpeza");
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
 
@@ -206,7 +209,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         electronic_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                ((MainActivity) getActivity()).setCurrentCategory("Eletrônico");
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
 
@@ -214,7 +218,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         furniture_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                ((MainActivity) getActivity()).setCurrentCategory("Mobília");
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
 
@@ -222,7 +227,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         other_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                ((MainActivity) getActivity()).setCurrentCategory("Outros");
+                ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
 
@@ -291,6 +297,11 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList = products;
         Log.v(TAG, "Quantidade de produtos: " + String.valueOf(productsList.size()));
+    }
+
+    @Override
+    public void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products) {
+
     }
 
     @Override

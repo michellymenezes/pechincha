@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public interface ProductListener {
     void OnGetProductsReady(boolean ready, ArrayList<Product> products);
+    void OnGetProductsByCategoryReady(boolean ready, ArrayList<Product> products);
     void OnPostProductFinished(boolean finished);
 
     void OnGetProductReady(boolean b, Product product);
