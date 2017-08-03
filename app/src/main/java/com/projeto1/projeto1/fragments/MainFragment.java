@@ -151,8 +151,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-
+                ((MainActivity) getActivity()).callProfileFragment();
             }
         });
         favoritesBtn.setOnClickListener(new View.OnClickListener() {

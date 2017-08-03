@@ -248,8 +248,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                 break;
 
             case R.id.nav_config:
-                SharedPreferencesUtils.setUserSelected(getBaseContext(), user);
-                changeFragment(profileFragment, ProfileFragment.TAG, true);
+                callProfileFragment();
                 //Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
 
                 break;
@@ -267,6 +266,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void callProfileFragment() {
+        SharedPreferencesUtils.setUserSelected(getBaseContext(), user);
+        changeFragment(profileFragment, ProfileFragment.TAG, true);
     }
 
 
