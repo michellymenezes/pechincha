@@ -203,6 +203,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanningResult != null) {
             scanContent = scanningResult.getContents();
@@ -224,8 +226,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             toast.show();
         }
 
-       // mCallbackManager.onActivityResult(requestCode, resultCode, data);
-//        setContentView(R.layout.test);
+
+
     }
 
 
