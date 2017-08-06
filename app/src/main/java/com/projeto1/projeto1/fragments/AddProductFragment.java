@@ -638,6 +638,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList = products;
         Log.v(TAG, "Quantidade de products: " + String.valueOf(productsList.size()));

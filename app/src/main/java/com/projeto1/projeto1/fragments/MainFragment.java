@@ -294,6 +294,11 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList = products;
         Log.v(TAG, "Quantidade de produtos: " + String.valueOf(productsList.size()));

@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,11 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.listeners.GetUserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener, GetUserListener {
+public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener, GetUserListener, SaleListener {
 
 
     public static final String TAG = "SALE_DETAILS_FRAGMENT";
@@ -57,6 +60,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView validity;
     private TextView username;
     private ImageView userImage;
+    private  HerokuPutSaleTask salePutTask;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -84,7 +88,6 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                              Bundle savedInstanceState) {
 
 
-
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
 
         mOld_price = (TextView) mview.findViewById(R.id.old_price);
@@ -101,6 +104,15 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
         if (sale != null){
+
+            //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
+
+            /*Sale newSale = sale;
+            newSale.setSalePrice(1.0);
+
+            salePutTask = new HerokuPutSaleTask(newSale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
+            salePutTask.execute();*/
+
             productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId() , this);
             productTask.execute();
         }
@@ -259,5 +271,24 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnPostUserFinished(boolean finished) {
 
+    }
+
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+        if (finished){
+            Log.v("EDICAO", "FOI!!!");
+        }else {
+            Log.v("EDICAO", "FLOPOU :(");
+        }
     }
 }

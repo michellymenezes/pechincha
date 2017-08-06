@@ -91,6 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 Log.d(TAG, salesList.get(position).toString());
 
                 SharedPreferencesUtils.setSelectedSale(context, salesList.get(position));
+
                 ((MainActivity) activity).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
             }
         });

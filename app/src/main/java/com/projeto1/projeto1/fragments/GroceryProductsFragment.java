@@ -26,7 +26,6 @@ import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -142,6 +141,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
 
     }
 

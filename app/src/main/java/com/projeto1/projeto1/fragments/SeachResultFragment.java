@@ -140,6 +140,11 @@ import java.util.List;
      }
 
      @Override
+     public void OnPutSaleFinished(boolean finished) {
+
+     }
+
+     @Override
      public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
          marketsList = markets;
          mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
