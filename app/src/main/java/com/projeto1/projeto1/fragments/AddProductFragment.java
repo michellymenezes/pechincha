@@ -389,7 +389,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         codeDialog.setEnabled(false);
         boolean productExists = false;
 
-        productByCodeTask = new HerokuGetProductByBarcodeTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT_BY_BARCODE)) + "/" + productCodeET.getText().toString(), this);
+        productByCodeTask = new HerokuGetProductByBarcodeTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT_BY_BARCODE)) + productCodeET.getText().toString(), this);
         productByCodeTask.execute();
 
         String productName = "";
