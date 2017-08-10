@@ -97,32 +97,32 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
 
         switch (str) {
             case "Alimento": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Grãos", "Bebidas", "Laticínio",
-                        "Carnes", "Oleos", "Frutas e Verduras"));
+                mArrySucategory = new ArrayList<>(Arrays.asList("Massas", "Lanches", "Grãos", "Bebidas", "Laticínio",
+                        "Carnes", "Oleos", "Frutas e Verduras", "Outros"));
                 break;
             }
-            case "Higiene": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Higiene"));
+            case "Cuidados pessoais": {
+                mArrySucategory = new ArrayList<>(Arrays.asList("Higiene", "Perfumaria", "Remédio", "Outros"));
 
                 break;
             }
             case "Limpeza": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Limpeza"));
+                mArrySucategory = new ArrayList<>(Arrays.asList("Objetos", "Sabão", "Desinfetantes", "Outros"));
                 break;
 
             }
             case "Eletrônico": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Eletronico"));
+                mArrySucategory = new ArrayList<>(Arrays.asList("Sala", "Cozinha", "Quarto", "Portátil", "Escritório", "Outros"));
                 break;
 
             }
             case "Mobília": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Mobilia"));
+                mArrySucategory = new ArrayList<>(Arrays.asList("Sala", "Cozinha", "Quarto", "Banheiro", "Escritório", "Outros"));
 
                 break;
             }
             case "Outros": {
-                mArrySucategory = new ArrayList<>(Arrays.asList("Ountros"));
+                mArrySucategory = new ArrayList<>(Arrays.asList("Outros"));
                 break;
 
             }
