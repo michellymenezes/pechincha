@@ -1,5 +1,6 @@
 package com.projeto1.projeto1.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,21 @@ public class Sale {
     private String authorId;
     private int quantity;
     private String quantUni;
+    private List<Historic> historic;
+
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni, List<Historic> historic) {
+        this.productId = productId;
+        this.marketId = marketId;
+        this.salePrice = salePrice;
+        this.regularPrice = regularPrice;
+        this.expirationDate = expirationDate;
+        this.authorId = authorId;
+        this.quantity = quantity;
+        this.quantUni = quantUni;
+        this.historic = historic;
+
+        this.id = " ";
+    }
 
     public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni) {
         this.productId = productId;
@@ -29,6 +45,7 @@ public class Sale {
         this.authorId = authorId;
         this.quantity = quantity;
         this.quantUni = quantUni;
+        this.historic = new ArrayList<Historic>();
 
         this.id = " ";
     }
@@ -55,6 +72,20 @@ public class Sale {
         this.publicationDate = publicationDate;
         this.authorId = authorId;
         this.quantity = quantity;
+        this.historic = new ArrayList<Historic>();
+    }
+
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic) {
+        this.id = id;
+        this.productId = productId;
+        this.marketId = marketId;
+        this.salePrice = salePrice;
+        this.regularPrice = regularPrice;
+        this.expirationDate = expirationDate;
+        this.publicationDate = publicationDate;
+        this.authorId = authorId;
+        this.quantity = quantity;
+        this.historic = historic;
     }
 
     public String getId() {
@@ -137,25 +168,12 @@ public class Sale {
         this.quantUni = quantUni;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Sale sale = (Sale) o;
-
-        if (quantity != sale.quantity) return false;
-        if (!productId.equals(sale.productId)) return false;
-        return marketId.equals(sale.marketId);
-
+    public List<Historic> getHistoric() {
+        return historic;
     }
 
-    @Override
-    public int hashCode() {
-        int result = productId.hashCode();
-        result = 31 * result + marketId.hashCode();
-        result = 31 * result + quantity;
-        return result;
+    public void setHistoric(List<Historic> historic) {
+        this.historic = historic;
     }
 
     @Override
@@ -166,11 +184,37 @@ public class Sale {
                 ", marketId='" + marketId + '\'' +
                 ", salePrice=" + salePrice +
                 ", regularPrice=" + regularPrice +
-                ", expirationDate=" + expirationDate +
+                ", expirationDate='" + expirationDate + '\'' +
                 ", publicationDate=" + publicationDate +
                 ", authorId='" + authorId + '\'' +
                 ", quantity=" + quantity +
                 ", quantUni='" + quantUni + '\'' +
+                ", historic=" + historic +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sale sale = (Sale) o;
+
+        if (quantity != sale.quantity) return false;
+        if (!id.equals(sale.id)) return false;
+        if (!productId.equals(sale.productId)) return false;
+        if (!marketId.equals(sale.marketId)) return false;
+        return quantUni != null ? quantUni.equals(sale.quantUni) : sale.quantUni == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + productId.hashCode();
+        result = 31 * result + marketId.hashCode();
+        result = 31 * result + quantity;
+        result = 31 * result + (quantUni != null ? quantUni.hashCode() : 0);
+        return result;
     }
 }
