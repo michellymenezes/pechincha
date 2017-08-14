@@ -7,11 +7,11 @@
     android:layout_height="match_parent">
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:id="@+id/btn_category"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textAllCaps="false"
         android:elevation="5dp"
         android:textSize="12dp"
