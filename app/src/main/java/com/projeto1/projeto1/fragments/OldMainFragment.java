@@ -75,7 +75,7 @@ public class OldMainFragment extends Fragment {
         ImageButton iconTab2 = (ImageButton)  viewTab2.findViewById(R.id.icon_tab);
         iconTab2.setImageResource(R.drawable.ic_hygiene);
         TextView tv_tab2 = (TextView)  viewTab2.findViewById(R.id.tv_tab);
-        tv_tab2.setText("Higiene");
+        tv_tab2.setText("Cuidados pessoais");
         tabLayout.getTabAt(1).setCustomView(viewTab2);
 
         View viewTab3 = (View) inflater.inflate(R.layout.custom_tab, null);

@@ -115,7 +115,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
 
 
-        categoryList = new ArrayList<>(Arrays.asList( "Alimento", "Higiene", "Limpeza",
+        categoryList = new ArrayList<>(Arrays.asList( "Alimento", "Cuidados pessoais", "Limpeza",
                 "Eletrônico", "Mobília", "Outros"));
 
         priceClick(mview);

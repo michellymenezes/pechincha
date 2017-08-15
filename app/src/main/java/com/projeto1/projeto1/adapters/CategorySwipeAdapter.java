@@ -54,7 +54,7 @@ public class CategorySwipeAdapter extends FragmentPagerAdapter {
             case 0 :
                 return "Alimentos";
             case 1 :
-                return "Higiene";
+                return "Cuidados pessoais";
 
             case 2 :
                 return "Outros";

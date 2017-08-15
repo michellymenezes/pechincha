@@ -191,7 +191,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         hygiene_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setCurrentCategory("Higiene");
+                ((MainActivity) getActivity()).setCurrentCategory("Cuidados pessoais");
                 ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });

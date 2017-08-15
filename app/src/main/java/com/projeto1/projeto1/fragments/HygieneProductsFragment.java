@@ -68,7 +68,7 @@ public class HygieneProductsFragment extends Fragment {
         salesList = new ArrayList<>();
 
         categoryList = new ArrayList<>(Arrays.asList( "Sabonetes", "Hidratantes",
-                "Higiene Pessoal", "Loções", "Lenços e Papeis", "Para casa"));
+                "Cuidados pessoais", "Loções", "Lenços e Papeis", "Para casa"));
 
         mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
         mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
