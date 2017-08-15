@@ -143,6 +143,7 @@ public class HerokuGetUsersTask extends AsyncTask {
         if (!users.isEmpty()){
             for (User user: users){
                 if (user.getFacebookId().equals(userToFind.getFacebookId())){
+                    this.userToFind = user;
                     return true;
                 }
             }

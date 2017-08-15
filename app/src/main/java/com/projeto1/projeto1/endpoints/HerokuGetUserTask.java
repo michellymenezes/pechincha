@@ -83,7 +83,7 @@ public class HerokuGetUserTask extends AsyncTask {
                 String preferences = usersJSON.getString("preferences");
 
 
-                user = new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>());
+                this.user = new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>());
 
 
 

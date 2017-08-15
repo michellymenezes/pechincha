@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Sale;
 
 import org.json.JSONArray;
@@ -21,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import javax.net.ssl.HttpsURLConnection;
@@ -81,11 +83,20 @@ public class HerokuGetSalesTask extends AsyncTask {
                             String expirationDate =  salesJSON.getJSONObject(i).getString("expirationDate");
                             Date publicationDate = df.parse(salesJSON.getJSONObject(i).getString("publicationDate"));
                             String authorId = salesJSON.getJSONObject(i).getString("author");
+
+                            List<Historic> historic = new ArrayList<Historic>();
+                            JSONArray historicList =  salesJSON.getJSONObject(i).getJSONArray("historic");
+                            for(int j = 0; j < historicList.length(); j++){
+
+                                double value = historicList.getJSONObject(i).getDouble("value");
+                                Date date = df.parse(historicList.getJSONObject(i).getString("saleDate"));
+                                historic.add(new Historic(date, value));
+                            }
                             // int quantity = salesJSON.getJSONObject(i).getInt("quantity");
                             // int unit = salesJSON.getJSONObject(i).getInt("unit");
 
 
-                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1);
+                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic);
 
                             sales.add(sale);
                         }

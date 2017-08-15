@@ -6,22 +6,22 @@ import java.util.Date;
  * Created by michelly on 14/08/17.
  */
 
-class Historic {
+public class Historic {
 
-    private Date date;
+    private Date saleDate;
     private double value;
 
     public Historic(Date date, double value) {
-        this.date = date;
+        this.saleDate = date;
         this.value = value;
     }
 
     public Date getDate() {
-        return date;
+        return saleDate;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.saleDate = date;
     }
 
     public double getValue() {
@@ -40,7 +40,7 @@ class Historic {
         Historic historic = (Historic) o;
 
         if (Double.compare(historic.value, value) != 0) return false;
-        return date.equals(historic.date);
+        return saleDate.equals(historic.saleDate);
 
     }
 
@@ -48,7 +48,7 @@ class Historic {
     public int hashCode() {
         int result;
         long temp;
-        result = date.hashCode();
+        result = saleDate.hashCode();
         temp = Double.doubleToLongBits(value);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
@@ -57,7 +57,7 @@ class Historic {
     @Override
     public String toString() {
         return "Historic{" +
-                "date=" + date +
+                "date=" + saleDate +
                 ", value=" + value +
                 '}';
     }
