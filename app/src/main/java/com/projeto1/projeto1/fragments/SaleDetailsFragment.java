@@ -6,19 +6,31 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.adapters.CategoryAdapter;
+import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
+import com.projeto1.projeto1.endpoints.HerokuGetProductByBarcodeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
@@ -60,7 +72,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView validity;
     private TextView username;
     private ImageView userImage;
-    private  HerokuPutSaleTask salePutTask;
+    private HerokuPutSaleTask salePutTask;
+    private ImageButton att;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -98,12 +111,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         marketName = (Button) mview.findViewById(R.id.name_supermarket);
         validity = (TextView) mview.findViewById(R.id.validity);
         username = (TextView) mview.findViewById(R.id.user_name);
-
+        att = (ImageButton) mview.findViewById(R.id.att);
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
 
 
-        if (sale != null){
+        if (sale != null) {
 
             //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
 
@@ -113,16 +126,26 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             salePutTask = new HerokuPutSaleTask(newSale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
             salePutTask.execute();*/
 
-            productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId() , this);
+            productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId(), this);
             productTask.execute();
         }
 
-
-
         marketDetail();
-
+        updateSale(inflater, container);
 
         return mview;
+    }
+
+    private void updateSale(final LayoutInflater inflater, final ViewGroup container) {
+        if (att != null) {
+            att.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateDialog(inflater, container);
+
+                }
+            });
+        }
     }
 
     private void marketDetail() {
@@ -214,10 +237,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         this.market = market;
 
 
-
-        mOld_price.setText("R$"+sale.getRegularPrice().toString());
-        currentPrice.setText("R$"+sale.getSalePrice().toString());
-        if (product !=null){
+        mOld_price.setText("R$" + sale.getRegularPrice().toString());
+        currentPrice.setText("R$" + sale.getSalePrice().toString());
+        if (product != null) {
             mName_product.setText(product.getName());
             mBarcod.setText(product.getBarcode());
         }
@@ -251,7 +273,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         });
     }
 
-    public void setSale(Sale sale){
+    public void setSale(Sale sale) {
         this.sale = sale;
     }
 
@@ -263,7 +285,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnGetUserFinished(boolean find, User user) {
         this.user = user;
-        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId() , this);
+        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
         marketTask.execute();
 
     }
@@ -285,10 +307,30 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnPutSaleFinished(boolean finished) {
-        if (finished){
+        if (finished) {
             Log.v("EDICAO", "FOI!!!");
-        }else {
+        } else {
             Log.v("EDICAO", "FLOPOU :(");
         }
     }
+
+    private void updateDialog(LayoutInflater inflater, ViewGroup container) {
+        final View viewDialog = View.inflate(getActivity(), R.layout.update_sale_dialog, null);
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Atualização de promoção")
+                .setView(viewDialog)
+                .setPositiveButton("Atualizar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Atualizar", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                //.setIcon(R.drawable.ic_calendar)
+                .show();
+    }
+
 }
