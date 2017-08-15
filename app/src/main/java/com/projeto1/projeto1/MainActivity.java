@@ -203,7 +203,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanningResult != null) {
@@ -221,6 +220,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         }
         else{
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
             Toast toast = Toast.makeText(getApplicationContext(),
                     "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
