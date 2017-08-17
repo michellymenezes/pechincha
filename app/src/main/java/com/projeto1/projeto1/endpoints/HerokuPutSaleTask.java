@@ -60,7 +60,7 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
                     "&expirationDate=" +sale.getExpirationDate() +
                     "&author=" + sale.getAuthorId() + "&historic=" + sale.getHistoric();
-            url = new URL(ENDPOINT_ADDRESS);
+            url = new URL(ENDPOINT_ADDRESS+"/"+sale.getId());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("PUT");

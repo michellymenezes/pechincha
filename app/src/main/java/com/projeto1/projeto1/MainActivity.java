@@ -32,6 +32,8 @@ import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
+import com.projeto1.projeto1.fragments.SaleDetailsFragment;
+import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Market;
@@ -41,9 +43,11 @@ import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener, ProductListener,  MarketListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductListener, MarketListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
+    private UpdateSaleFragment updateSaleFragment;
+
     private TextView info;
     private LoginButton loginButton;
     private MainFragment myMainFragment;
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private ArrayList<Product> products;
     private AppBarLayout mAppBarLayout;
     private ArrayList<Sale> sales;
-    private  ArrayList<Sale> salesSearch;
+    private ArrayList<Sale> salesSearch;
     private HerokuGetSalesTask mTask;
     private User user;
     private Sale selectedSale;
@@ -79,8 +83,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         loginFragment = LoginFragment.getInstance();
         profileFragment = ProfileFragment.getInstance();
         addProductFragment = AddProductFragment.getInstance();
+        updateSaleFragment = UpdateSaleFragment.getInstance();
         scanContent = "";
-        currentCategory ="";
+        currentCategory = "";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
@@ -162,7 +167,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
 
-
     public void changeFragment(Fragment frag, String tag, boolean saveInBackstack) {
 
         try {
@@ -171,6 +175,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             FragmentTransaction transaction = manager.beginTransaction();
 
             transaction.replace(R.id.content_layout, frag, tag);
+
 
             if (saveInBackstack) {
                 Log.d(TAG, "Change Fragment: addToBackTack " + tag);
@@ -208,7 +213,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         if (scanningResult != null) {
             scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            if(scanContent != null) {
+            if (scanContent != null) {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -218,8 +223,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             }
 
 
-        }
-        else{
+        } else {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
             Toast toast = Toast.makeText(getApplicationContext(),
                     "No scan data received!", Toast.LENGTH_SHORT);
@@ -227,15 +231,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         }
 
 
-
     }
-
 
 
     public String getScanContent() {
-        if(scanContent != null) return scanContent;
+        if (scanContent != null) return scanContent;
         else return "";
     }
+
     public void setScanContent(String str) {
         scanContent = str;
     }
@@ -304,7 +307,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-     if (mToggle.onOptionsItemSelected(item)){
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -320,11 +323,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     }
 
 
-
     public ArrayList<Product> getProducts() {
         return products;
     }
-
 
 
     public void setProducts(ArrayList<Product> products) {
@@ -362,7 +363,6 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     public void setSales(ArrayList<Sale> sales) {
         this.sales = sales;
     }
-
 
 
     @Override

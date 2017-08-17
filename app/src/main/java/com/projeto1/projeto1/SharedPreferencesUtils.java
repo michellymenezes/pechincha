@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.projeto1.projeto1.models.Market;
+import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
@@ -52,6 +54,42 @@ public class SharedPreferencesUtils {
         Gson gson = new Gson();
         String json = gson.toJson(sale);
         editor.putString("SALE_SELECTED", json);
+        editor.commit();
+    }
+
+    public static Product getProductFromSale(Context context) {
+        SharedPreferences settings = context.getSharedPreferences("PRODUCT_SELECTED", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = settings.getString("PRODUCT_SELECTED", null);
+        Product obj = gson.fromJson(json, Product.class);
+        return  obj;
+    }
+
+    public static void setProductFromSale(Context context, Product product){
+
+        SharedPreferences settings = context.getSharedPreferences("PRODUCT_SELECTED", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(product);
+        editor.putString("PRODUCT_SELECTED", json);
+        editor.commit();
+    }
+
+    public static Market getMarketFromSale(Context context) {
+        SharedPreferences settings = context.getSharedPreferences("MARKET_SELECTED", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = settings.getString("MARKET_SELECTED", null);
+        Market obj = gson.fromJson(json, Market.class);
+        return  obj;
+    }
+
+    public static void setMarketFromSale(Context context, Market market){
+
+        SharedPreferences settings = context.getSharedPreferences("MARKET_SELECTED", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(market);
+        editor.putString("MARKET_SELECTED", json);
         editor.commit();
     }
 

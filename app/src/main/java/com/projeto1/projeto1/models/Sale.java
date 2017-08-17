@@ -176,6 +176,10 @@ public class Sale {
         this.historic = historic;
     }
 
+    public void addHistoric(Historic hist){
+        this.historic.add(hist);
+    }
+
     @Override
     public String toString() {
         return "Sale{" +

@@ -115,6 +115,13 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
 
+        att.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changeFragment(UpdateSaleFragment.getInstance(),TAG,true);
+            }
+        });
+
 
         if (sale != null) {
 
@@ -131,7 +138,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         }
 
         marketDetail();
-        updateSale(inflater, container);
+        //updateSale(inflater, container);
 
         return mview;
     }
@@ -211,6 +218,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnGetProductReady(boolean b, Product product) {
         this.product = product;
+        SharedPreferencesUtils.setProductFromSale(getContext(), product);
         User user = SharedPreferencesUtils.getUser(getContext());
         user.setId(sale.getAuthorId());
         userTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this, user);
@@ -235,6 +243,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public void OnGetMarketReady(boolean b, Market market) {
         this.market = market;
+        SharedPreferencesUtils.setMarketFromSale(getContext(), market);
 
 
         mOld_price.setText("R$" + sale.getRegularPrice().toString());
