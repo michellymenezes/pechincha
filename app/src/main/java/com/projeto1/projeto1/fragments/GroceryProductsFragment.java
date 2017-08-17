@@ -18,6 +18,7 @@ import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.GetSubcategoryListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class GroceryProductsFragment extends Fragment implements SaleListener, MarketListener, ProductListener{
+public class GroceryProductsFragment extends Fragment implements SaleListener, MarketListener, ProductListener, GetSubcategoryListener{
 
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
@@ -78,9 +79,8 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
         salesList = new ArrayList<>();
 
-
         mview = inflater.inflate(R.layout.fragment_grocery_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory(), this);
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -94,10 +94,6 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
         /* GET DE PROMOÇÕES */
         salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
         salesTask.execute();
-
-
-
-
 
         //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
@@ -215,4 +211,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
 
+    @Override
+    public void OnSubcategorySelected(boolean selected, String subcategory) {
+        if (selected){
+            HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
+            sub.execute();
+        }
+    }
 }

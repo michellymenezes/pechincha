@@ -81,8 +81,6 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         final ImageButton searchBtn = (ImageButton) mview.findViewById(R.id.search_btn);
 
 
-
-
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

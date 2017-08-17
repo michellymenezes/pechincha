@@ -14,6 +14,8 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.GetSubcategoryListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -26,7 +28,7 @@ import java.util.List;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class HygieneProductsFragment extends Fragment {
+public class HygieneProductsFragment extends Fragment implements GetSubcategoryListener,SaleListener{
 
 
     public static final String TAG = "HYGIENE_PRODUCTS_FRAGMENT";
@@ -71,7 +73,7 @@ public class HygieneProductsFragment extends Fragment {
                 "Cuidados pessoais", "Loções", "Lenços e Papeis", "Para casa"));
 
         mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory(), this);
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -111,5 +113,29 @@ public class HygieneProductsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    @Override
+    public void OnSubcategorySelected(boolean selected, String subcategory) {
+        if (selected){
+            HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, (SaleListener) this);
+            sub.execute();
+        }
+    }
+
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
+
 
 }

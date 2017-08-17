@@ -7,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.GetSubcategoryListener;
+import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.view_itens.CategoryViewItem;
 
 import java.util.ArrayList;
@@ -17,16 +22,16 @@ import java.util.List;
  * Created by samirsmedeiros on 18/06/17.
  */
 
-public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryItemHolder>{
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryItemHolder> implements SaleListener{
 
-    private static final String TAG = "profile_list_adapter ";
+    private static final String TAG = "category_list_adapter ";
     private final List<String> items;
     private final Activity activity;
-    private String category;
+    private GetSubcategoryListener subcategoryListener;
 
 
-    public CategoryListAdapter(Activity activity, String category) {
-        this.category = category;
+    public CategoryListAdapter(Activity activity, String category, GetSubcategoryListener subcategoryListener) {
+        this.subcategoryListener = subcategoryListener;
         this.items = getSubcategory(category);
         this.activity = activity;
     }
@@ -47,6 +52,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             @Override
             public void onClick(View view) {
                 Log.d(TAG, items.get(position).toString());
+                subcategoryListener.OnSubcategorySelected(true, items.get(position).toString());
             }
 
         });
@@ -58,10 +64,22 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         return items.size();
     }
 
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
 
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
-
-
 
         public CategoryItemHolder(View itemView) {
             super(itemView);

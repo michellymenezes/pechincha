@@ -14,6 +14,8 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.GetSubcategoryListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -26,7 +28,7 @@ import java.util.List;
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class OtherProductsFragment extends Fragment {
+public class OtherProductsFragment extends Fragment implements GetSubcategoryListener,SaleListener {
 
 
     public static final String TAG = "GROCERY_PRODUCTS_FRAGMENT";
@@ -75,7 +77,7 @@ public class OtherProductsFragment extends Fragment {
         categoryList = new ArrayList<>(Arrays.asList("Ração", "Utensílios Elétricos", "Brinquedos", "Bazar","Utensílios Cozinha" ));
 
         mview = inflater.inflate(R.layout.fragment_hygiene_products, container, false);
-        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory());
+        mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory(), this);
 
         categoryRecycleView = (RecyclerView) mview.findViewById(R.id.product_categories);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -117,4 +119,27 @@ public class OtherProductsFragment extends Fragment {
         super.onDetach();
     }
 
+
+    @Override
+    public void OnSubcategorySelected(boolean selected, String subcategory) {
+        if (selected){
+            HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
+            sub.execute();
+        }
+    }
+
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
 }
