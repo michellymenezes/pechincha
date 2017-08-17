@@ -231,14 +231,21 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                 );
             }else{
                 Log.d(TAG, subcategory);
-                for (Product p: productsList){
-                    for (Sale s : salesList){
-                        Log.d(TAG, p.getSubcategory());
-                        if (s.getId().equals(p.getId())&& p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())){
+                ArrayList<Product> l = new ArrayList();
+                for (Product p: productsList) {
+                    if (p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())){
+                        l.add(p);
+                }
+                for (Sale s : salesList){
+                    for (Product pp: l){
+                        if (s.getId().equals(p.getId())){
                             saleSub.add(s);
+
                         }
+
                     }
                 }
+
                 Log.d(TAG, String.valueOf(saleSub.size()));
                 mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList,productsList, getContext());
                 productRecycleView.setAdapter(mProductAdapter);
