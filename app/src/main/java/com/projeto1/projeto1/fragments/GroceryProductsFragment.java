@@ -229,28 +229,28 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                 productRecycleView.setAdapter(mProductAdapter);
                 Log.d(TAG, subcategory
                 );
-            }else{
+            }else {
                 Log.d(TAG, subcategory);
                 ArrayList<Product> l = new ArrayList();
-                for (Product p: productsList) {
-                    if (p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())){
+                for (Product p : productsList) {
+                    if (p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())) {
                         l.add(p);
-                }
-                for (Sale s : salesList){
-                    for (Product pp: l){
-                        if (s.getId().equals(p.getId())){
-                            saleSub.add(s);
+                    }
+                    for (Sale s : salesList) {
+                        for (Product pp : l) {
+                            if (s.getId().equals(p.getId())) {
+                                saleSub.add(s);
+
+                            }
 
                         }
-
                     }
+
+                    Log.d(TAG, String.valueOf(saleSub.size()));
+                    mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList, productsList, getContext());
+                    productRecycleView.setAdapter(mProductAdapter);
                 }
-
-                Log.d(TAG, String.valueOf(saleSub.size()));
-                mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList,productsList, getContext());
-                productRecycleView.setAdapter(mProductAdapter);
             }
-
 
             //HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
             //sub.execute();
