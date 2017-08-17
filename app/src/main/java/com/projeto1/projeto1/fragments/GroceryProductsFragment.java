@@ -2,6 +2,7 @@ package com.projeto1.projeto1.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,8 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     private HerokuGetProductsTask productTask;
     private HerokuGetMarketsTask marketTask;
     private MainActivity myMainActivity;
+    private ArrayList<Sale> saleSub;
+    private ArrayList<Product> productsListAux;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,6 +81,9 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                              Bundle savedInstanceState) {
 
         salesList = new ArrayList<>();
+        saleSub = new ArrayList<>();
+        productsListAux = new ArrayList<>();
+        productsList = new ArrayList<>();
 
         mview = inflater.inflate(R.layout.fragment_grocery_products, container, false);
         mAdapter = new CategoryListAdapter(getActivity(), ((MainActivity) getActivity()).getCurrentCategory(), this);
@@ -166,7 +172,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
 
     @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
-        productsList = products;
+        productsListAux = products;
         marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
         marketTask.execute();
    //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
@@ -178,8 +184,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
         String category = ((MainActivity) getActivity()).getCurrentCategory();
         List<Sale> salessList = new ArrayList<>();
         for (Sale sale: sales){
-            for (Product product: productsList){
-                if(product.getId().equals(sale.getProductId()) && product.getCategory().equals(category)) salessList.add(sale);
+            for (Product product: productsListAux){
+                if(product.getId().equals(sale.getProductId()) && product.getCategory().equals(category)) {
+                    salessList.add(sale);
+                    productsList.add(product);
+                }
             }
         }
         return  salessList;
@@ -211,11 +220,29 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
 
+    @SuppressLint("LongLogTag")
     @Override
     public void OnSubcategorySelected(boolean selected, String subcategory) {
         if (selected){
-            HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
-            sub.execute();
+            if (subcategory.toLowerCase().equals("outros")){
+                mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
+                productRecycleView.setAdapter(mProductAdapter);
+            }else{
+                for (Product p: productsList){
+                    for (Sale s : salesList){
+                        if (s.getId().equals(p.getId())&& p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())){
+                            saleSub.add(s);
+                        }
+                    }
+                }
+                Log.d(TAG, String.valueOf(saleSub.size()));
+                mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList,productsList, getContext());
+                productRecycleView.setAdapter(mProductAdapter);
+            }
+
+
+            //HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
+            //sub.execute();
         }
     }
 }
