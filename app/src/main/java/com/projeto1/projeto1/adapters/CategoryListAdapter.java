@@ -92,7 +92,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         switch (str) {
             case "Alimento": {
                 mArrySucategory = new ArrayList<>(Arrays.asList("Massas", "Lanches", "Grãos", "Bebidas", "Laticínio",
-                        "Carnes", "Oleos", "Frutas e Verduras", "Outros"));
+                        "Carnes", "Oleos", "Frutas e Verduras", "Biscoito","Outros"));
                 break;
             }
             case "Cuidados pessoais": {

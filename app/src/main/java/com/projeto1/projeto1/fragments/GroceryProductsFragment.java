@@ -227,9 +227,13 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
             if (subcategory.toLowerCase().equals("outros")){
                 mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
                 productRecycleView.setAdapter(mProductAdapter);
+                Log.d(TAG, subcategory
+                );
             }else{
+                Log.d(TAG, subcategory);
                 for (Product p: productsList){
                     for (Sale s : salesList){
+                        Log.d(TAG, p.getSubcategory());
                         if (s.getId().equals(p.getId())&& p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())){
                             saleSub.add(s);
                         }
