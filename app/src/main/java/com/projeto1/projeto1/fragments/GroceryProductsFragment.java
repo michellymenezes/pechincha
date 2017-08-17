@@ -236,20 +236,19 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                     if (p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())) {
                         l.add(p);
                     }
-                    for (Sale s : salesList) {
-                        for (Product pp : l) {
-                            if (s.getId().equals(p.getId())) {
-                                saleSub.add(s);
-
-                            }
-
-                        }
-                    }
-
-                    Log.d(TAG, String.valueOf(saleSub.size()));
-                    mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList, productsList, getContext());
-                    productRecycleView.setAdapter(mProductAdapter);
                 }
+                for (Sale s : salesList) {
+                    for (Product pp : l) {
+                        if (s.getProductId().equals(pp.getId())) {
+                            saleSub.add(s);
+                        }
+
+                    }
+                }
+
+                Log.d(TAG, String.valueOf(saleSub.size()));
+                mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList, productsList, getContext());
+                productRecycleView.setAdapter(mProductAdapter);
             }
 
             //HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
