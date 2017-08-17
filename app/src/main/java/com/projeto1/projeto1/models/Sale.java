@@ -177,6 +177,9 @@ public class Sale {
     }
 
     public void addHistoric(Historic hist){
+        if (historic==null){
+            historic = new ArrayList<>();
+        }
         this.historic.add(hist);
     }
 

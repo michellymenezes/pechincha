@@ -56,9 +56,9 @@ public class Historic {
 
     @Override
     public String toString() {
-        return "Historic{" +
+        return "" +
                 "date=" + saleDate +
                 ", value=" + value +
-                '}';
+                "";
     }
 }

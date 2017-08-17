@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -52,7 +53,7 @@ import java.util.TimeZone;
 public class UpdateSaleFragment extends Fragment implements SaleListener, ProductListener{
 
 
-    public static final String TAG = "ADD_PRODUCT_FRAGMENT";
+    public static final String TAG = "UPDATE_SALE_FRAGMENT";
 
     private View mview;
     private String quantity;
@@ -156,17 +157,20 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
             @Override
             public void onClick(View v) {
                 String price = productPriceET.getText().toString().substring(1);
+                String newExpDate = expireDateBtn.getText().toString();
+
 
                 TimeZone tz = TimeZone.getTimeZone("UTC");
                 SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
-                String expirationDate = null;
+                Date expirationDate = null;
                 Date date = null;
 
                 try {
-                    date = new Date(f.parse("12-July-2018").getTime());
-                    expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
+                    //expirationDate=newExpDate;
+                    expirationDate = (new Date(f.parse(sale.getExpirationDate()).getTime()));
+                    Log.d(TAG, String.valueOf(expirationDate));
                     date = df.parse(sale.getExpirationDate());
 
                 } catch (ParseException e) {
@@ -178,11 +182,13 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 String price_adaptado = price.substring(1);
                 price_adaptado = price_adaptado.replaceAll(",", ".");
 
-                Sale update = new Sale(product.getId(), market.getId(), Double.parseDouble(price_adaptado), sale.getSalePrice(), expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
+                //Sale update = new Sale(product.getId(), market.getId(), Double.parseDouble(price_adaptado), sale.getSalePrice(), expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
+                sale.addHistoric(new Historic(expirationDate,sale.getSalePrice()));
+                sale.setExpirationDate(newExpDate);
+                sale.setSalePrice(Double.parseDouble(price_adaptado));
+                //sale.setQuantUni();
 
-                update.addHistoric(new Historic(date,sale.getSalePrice()));
-
-                updateSale(update);
+                updateSale(sale);
 
                 //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
             /*
@@ -292,11 +298,11 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
     @Override
     public void OnPostSaleFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
     }
 
     @Override
     public void OnPutSaleFinished(boolean finished) {
+        SharedPreferencesUtils.setSelectedSale(getContext(),sale);
         ((MainActivity)getActivity()).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
 
     }

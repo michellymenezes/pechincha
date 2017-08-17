@@ -2,11 +2,13 @@ package com.projeto1.projeto1.endpoints;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Sale;
 
 import org.json.JSONException;
@@ -56,11 +58,18 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
         URL url;
         try {
 
+            //historic: [ [Date, double] ]
+            String historic = sale.getHistoric().toString();
+            historic.replace("{","").replace("}","").replaceAll("\\s","").trim();
+            Log.d(TAG, historic);
+
+            //values[]=stringarrayitem1&values[]=stringarrayitem2&values[]=stringarrayitem3
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
                     "&expirationDate=" +sale.getExpirationDate() +
-                    "&author=" + sale.getAuthorId() + "&historic=" + sale.getHistoric();
-            url = new URL(ENDPOINT_ADDRESS+"/"+sale.getId());
+                    "&author=" + sale.getAuthorId() ;
+                    //+ "&historic="+ historic;
+            url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("PUT");
