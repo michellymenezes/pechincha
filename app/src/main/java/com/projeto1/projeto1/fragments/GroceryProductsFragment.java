@@ -230,6 +230,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                 Log.d(TAG, subcategory
                 );
             }else {
+                saleSub = new ArrayList<>();
                 Log.d(TAG, subcategory);
                 ArrayList<Product> l = new ArrayList();
                 for (Product p : productsList) {
