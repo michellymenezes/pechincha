@@ -179,13 +179,13 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
 
                 //Dando erro de formatação em price - valor adaptado
-                String price_adaptado = price.substring(1);
-                price_adaptado = price_adaptado.replaceAll(",", ".");
+              //  String price_adaptado = price.substring(1);
+              //  price_adaptado = price_adaptado.replaceAll(",", ".");
 
                 //Sale update = new Sale(product.getId(), market.getId(), Double.parseDouble(price_adaptado), sale.getSalePrice(), expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
                 sale.addHistoric(new Historic(expirationDate,sale.getSalePrice()));
                 sale.setExpirationDate(newExpDate);
-                sale.setSalePrice(Double.parseDouble(price_adaptado));
+                sale.setSalePrice(Double.parseDouble(price));
                 //sale.setQuantUni();
 
                 updateSale(sale);
