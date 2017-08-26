@@ -73,9 +73,9 @@ public class HerokuGetProductByBarcodeTask extends AsyncTask {
                     String image = productJSON.getString("image");
                     String code = productJSON.getString("barCode");
                     String category = productJSON.getString("category");
-                    //               String subcategory = productsJSON.getString("subcategory");
+                    String subcategory = productJSON.getString("subcategory");
 
-                    product = new Product(id, name, brand, descripition, image, code, category, " ");
+                    product = new Product(id, name, brand, descripition, image, code, category, subcategory);
 
 
                     Log.d(TAG, "Product: " + product.toString());

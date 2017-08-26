@@ -63,7 +63,8 @@ public class HerokuPostProductsTask extends AsyncTask<Void, Void, Boolean> {
             String parameters = "name=" + product.getName() + "&brand=" + product.getBrand() +
                     "&description=" + product.getDescription() + "&image=" + product.getImage() +
                     "&barCode=" + product.getBarcode() + "&category=" + product.getCategory() +
-                    "&subcategory=" + product.getSubcategory() + "&author=" + user.getFacebookId();
+                    "&subcategory=" + product.getSubcategory() + "&author=" + user.getFacebookId() +
+                    "&size=" + product.getSize() + "&sizeUnity=" + product.getSizeUnity();
 
             url = new URL(ENDPOINT_ADDRESS);
 

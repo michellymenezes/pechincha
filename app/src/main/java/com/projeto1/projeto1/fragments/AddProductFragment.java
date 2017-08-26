@@ -465,7 +465,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                                 productNameET.setText("");
                             } else {
                                 if(!productExistsFinal) {
-                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory);
+                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory, 1, "Uni");
                                     postProduct(product);
                                     updateProductList();
                                 }

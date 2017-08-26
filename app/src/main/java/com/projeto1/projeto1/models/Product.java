@@ -13,8 +13,10 @@ public class Product {
     private String barcode;
     private String category;
     private String subcategory;
+    private double size;
+    private String sizeUnity;
 
-    public Product(String name, String brand, String description, String image, String barcode, String category, String subcategory) {
+    public Product(String name, String brand, String description, String image, String barcode, String category, String subcategory, double size, String sizeUnity) {
         this.name = name;
         this.brand = brand;
         this.description = description;
@@ -22,6 +24,8 @@ public class Product {
         this.barcode = barcode;
         this.category = category;
         this.subcategory = subcategory;
+        this.size = size;
+        this.sizeUnity = sizeUnity;
     }
     public Product(String id, String name, String brand, String description, String image, String barcode, String category, String subcategory) {
         this.name = name;
@@ -42,6 +46,8 @@ public class Product {
         this.description = " ";
         this.image = " ";
         this.subcategory = " ";
+        this.size = 1;
+        this.sizeUnity = "Uni";
 
     }
 
@@ -109,6 +115,22 @@ public class Product {
         this.id = id;
     }
 
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public String getSizeUnity() {
+        return sizeUnity;
+    }
+
+    public void setSizeUnity(String sizeUnity) {
+        this.sizeUnity = sizeUnity;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -120,6 +142,8 @@ public class Product {
                 ", barcode='" + barcode + '\'' +
                 ", category='" + category + '\'' +
                 ", subcategory='" + subcategory + '\'' +
+                ", size=" + size +
+                ", sizeUnity='" + sizeUnity + '\'' +
                 '}';
     }
 

@@ -72,9 +72,9 @@ public class HerokuGetProductTask extends AsyncTask {
                 String image = productsJSON.getString("image");
                 String code = productsJSON.getString("barCode");
                 String category = productsJSON.getString("category");
- //               String subcategory = productsJSON.getString("subcategory");
+                String subcategory = productsJSON.getString("subcategory");
 
-                product = new Product(name,brand,descripition,image,code,category," ");
+                product = new Product(id, name,brand,descripition,image,code,category,subcategory);
 
 
 
