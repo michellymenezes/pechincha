@@ -2,7 +2,9 @@ package com.projeto1.projeto1.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by michelly on 14/06/17.
@@ -21,6 +23,10 @@ public class Sale {
     private int quantity;
     private String quantUni;
     private List<Historic> historic;
+    private int likeCount;
+    private int reportCount;
+    private Set<String> likeUsers;
+    private Set<String> reportUsers;
 
     public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni, List<Historic> historic) {
         this.productId = productId;
@@ -32,6 +38,10 @@ public class Sale {
         this.quantity = quantity;
         this.quantUni = quantUni;
         this.historic = historic;
+        this.likeCount = 0;
+        this.reportCount = 0;
+        this.likeUsers = new HashSet<String>();
+        this.reportUsers = new HashSet<String>();
 
         this.id = " ";
     }
@@ -46,6 +56,10 @@ public class Sale {
         this.quantity = quantity;
         this.quantUni = quantUni;
         this.historic = new ArrayList<Historic>();
+        this.likeCount = 0;
+        this.reportCount = 0;
+        this.likeUsers = new HashSet<String>();
+        this.reportUsers = new HashSet<String>();
 
         this.id = " ";
     }
@@ -58,6 +72,10 @@ public class Sale {
         this.authorId = authorId;
         this.quantity = quantity;
         this.quantUni = quantUni;
+        this.likeCount = 0;
+        this.reportCount = 0;
+        this.likeUsers = new HashSet<String>();
+        this.reportUsers = new HashSet<String>();
 
         this.id = " ";
     }
@@ -183,6 +201,72 @@ public class Sale {
         this.historic.add(hist);
     }
 
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
+    }
+
+    public Set<String> getLikeUsers() {
+        return likeUsers;
+    }
+
+    public void setLikeUsers(Set<String> likeUsers) {
+        this.likeUsers = likeUsers;
+    }
+
+    public Set<String> getReportUsers() {
+        return reportUsers;
+    }
+
+    public void setReportUsers(Set<String> reportUsers) {
+        this.reportUsers = reportUsers;
+    }
+
+    public boolean addRemoveLike(String userId){
+        if(likeUsers.contains(userId)){
+            likeUsers.remove(userId);
+            likeCount++;
+            return false;
+        }
+        else {
+            likeUsers.add(userId);
+            likeCount--;
+            return true;
+        }
+    }
+
+    public boolean hasLiked(String userId){
+        return likeUsers.contains(userId);
+    }
+
+    public boolean addRemoveReport(String userId){
+        if(reportUsers.contains(userId)){
+            reportUsers.remove(userId);
+            reportCount++;
+            return false;
+        }
+        else {
+            reportUsers.add(userId);
+            reportCount--;
+            return true;
+        }
+    }
+
+    public boolean hasReported(String userId){
+        return reportUsers.contains(userId);
+    }
+
     @Override
     public String toString() {
         return "Sale{" +
@@ -197,6 +281,10 @@ public class Sale {
                 ", quantity=" + quantity +
                 ", quantUni='" + quantUni + '\'' +
                 ", historic=" + historic +
+                ", likeCount=" + likeCount +
+                ", reportCount=" + reportCount +
+                ", likeUsers=" + likeUsers +
+                ", reportUsers=" + reportUsers +
                 '}';
     }
 
