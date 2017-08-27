@@ -27,7 +27,7 @@ public class Product {
         this.size = size;
         this.sizeUnity = sizeUnity;
     }
-    public Product(String id, String name, String brand, String description, String image, String barcode, String category, String subcategory) {
+    public Product(String id, String name, String brand, String description, String image, String barcode, String category, String subcategory, double size, String sizeUnity) {
         this.name = name;
         this.brand = brand;
         this.description = description;
@@ -36,6 +36,8 @@ public class Product {
         this.category = category;
         this.subcategory = subcategory;
         this.id = id;
+        this.size = size;
+        this.sizeUnity = sizeUnity;
     }
 
     public Product(String name, String brand, String barcode, String category){
