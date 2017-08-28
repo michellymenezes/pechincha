@@ -239,17 +239,16 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
 
         // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
-        final Button quantityBtn = (Button)  mview.findViewById(R.id.quantity_input);
         final Button expireDateBtn = (Button)  mview.findViewById(R.id.expire_date);
 
         productPriceET.setRawInputType(Configuration.KEYBOARD_12KEY);
 
-        quantityBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quantityDialog(quantityBtn);
-            }
-        });
+//        quantityBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                quantityDialog(quantityBtn);
+//            }
+//        });
 
         expireDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -344,6 +343,13 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         final EditText productId = (EditText) mvDialog.findViewById(R.id.product_id);
 
 
+        //Dados de quantidade
+        final NumberPicker picker = (NumberPicker) mvDialog.findViewById(R.id.number_picker);
+        final EditText productQuantityET = (EditText) mvDialog.findViewById(R.id.quantity_input);
+        picker.setDisplayedValues(null);
+        picker.setMinValue(1);
+        picker.setMaxValue(5);
+        picker.setDisplayedValues( new String[] { "Uni", "Kg", "g","ml","L"} );
 
         final TextView tvSub = (TextView) mvDialog.findViewById(R.id.tv);
 
@@ -385,6 +391,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         LinearLayout llCategory = (LinearLayout) mvDialog.findViewById(R.id.ll_category);
         LinearLayout llCategoryIpunt = (LinearLayout) mvDialog.findViewById(R.id.category_ll);
         LinearLayout llSubCategoryInput = (LinearLayout) mvDialog.findViewById(R.id.subcategory_ll);
+        LinearLayout llQuantityInput = (LinearLayout) mvDialog.findViewById(R.id.quantity_ll);
 
         codeDialog.setText(productCodeET.getText().toString());
         codeDialog.setEnabled(false);
@@ -401,9 +408,10 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             if(cod.equals(productsList.get(i).getBarcode())){
                 productExists = true;
                 llCategory.setVisibility(LinearLayout.GONE);
+                llQuantityInput.setVisibility(LinearLayout.GONE);
                 Product product = productsList.get(i);
                 productName = product.getName();
-                nameDialog.setText(productName);
+                nameDialog.setText(productName + " " + Integer.valueOf((int) product.getSize()) + " " + product.getSizeUnity());
                 nameDialog.setEnabled(false);
                 brandDialog.setText(product.getBrand());
                 brandDialog.setEnabled(false);
@@ -435,16 +443,18 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             productAction = "Informações do Produto";
             llCategoryIpunt.setVisibility(LinearLayout.VISIBLE);
             llSubCategoryInput.setVisibility(LinearLayout.VISIBLE);
+            llQuantityInput.setVisibility(LinearLayout.GONE);
         }else{
             positiveAction = "Salvar";
             negativeAction = "Cancel";
             productAction =  "Cadastre o produto";
             llCategoryIpunt.setVisibility(LinearLayout.GONE);
             llSubCategoryInput.setVisibility(LinearLayout.GONE);
+            llQuantityInput.setVisibility(LinearLayout.VISIBLE);
+
         }
 
         final boolean productExistsFinal = productExists;
-
         if ((productCodeET.getText().toString().length() > 0)){
             new AlertDialog.Builder(getContext())
                     .setTitle(productAction)
@@ -454,6 +464,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                             productNameET.setText(nameDialog.getText().toString());
                             productIdET.setText(productId.getText().toString());
                             productNameET.setEnabled(false);
+                            Double unity = Double.valueOf(productQuantityET.getText().toString());
                             String selectedCategory = categoryAdapter.getCbSelected();
                             String selectedSubCategory = mListAdapter[0]==(null)? "": mListAdapter[0].getCbSelected();
                             if ((nameDialog.getText().toString().equals("") ||
@@ -465,7 +476,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                                 productNameET.setText("");
                             } else {
                                 if(!productExistsFinal) {
-                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory, 1, "Uni");
+                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory, unity, picker.getDisplayedValues()[picker.getValue()-1]);
                                     postProduct(product);
                                     updateProductList();
                                 }

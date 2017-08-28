@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.projeto1.projeto1.fragments.OldMainFragment"
+    tools:context="com.projeto1.projeto1.fragments.MainFragment"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -32,7 +32,6 @@
                 android:textColor="#252547"
                 android:textStyle="bold"
                 android:layout_margin="10dp"/>
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
