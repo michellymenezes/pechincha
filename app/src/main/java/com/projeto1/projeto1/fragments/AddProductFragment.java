@@ -300,13 +300,13 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 try {
                     expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
                 } catch (ParseException e) {
+                    Log.v("ENTROU", "Errooooooooooooo");
                     e.printStackTrace();
                 }
 
                 //TODO criar objeto e salvar no banco.
 
-
-                Sale sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
+                Sale sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), new ArrayList<Historic>());
 
                 //Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
                 post(sale);

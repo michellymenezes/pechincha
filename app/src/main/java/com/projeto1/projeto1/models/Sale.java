@@ -28,15 +28,13 @@ public class Sale {
     private Set<String> likeUsers;
     private Set<String> reportUsers;
 
-    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni, List<Historic> historic) {
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, List<Historic> historic) {
         this.productId = productId;
         this.marketId = marketId;
         this.salePrice = salePrice;
         this.regularPrice = regularPrice;
         this.expirationDate = expirationDate;
         this.authorId = authorId;
-        this.quantity = quantity;
-        this.quantUni = quantUni;
         this.historic = historic;
         this.likeCount = 0;
         this.reportCount = 0;
@@ -46,15 +44,13 @@ public class Sale {
         this.id = " ";
     }
 
-    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, int quantity, String quantUni) {
+    public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId) {
         this.productId = productId;
         this.marketId = marketId;
         this.salePrice = salePrice;
         this.regularPrice = regularPrice;
         this.expirationDate = expirationDate;
         this.authorId = authorId;
-        this.quantity = quantity;
-        this.quantUni = quantUni;
         this.historic = new ArrayList<Historic>();
         this.likeCount = 0;
         this.reportCount = 0;
