@@ -28,6 +28,7 @@ import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
@@ -403,4 +404,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setCurrentCategory(String currentCategory) {
         this.currentCategory = currentCategory;
     }
+
 }

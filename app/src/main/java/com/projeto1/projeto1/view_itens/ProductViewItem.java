@@ -64,5 +64,7 @@ public class ProductViewItem extends FrameLayout {
     }
 
 
-
+    public void setCBText(String CBText) {
+        ((CheckBox)findViewById(R.id.like_btn)).setText(CBText);
+    }
 }

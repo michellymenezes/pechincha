@@ -82,6 +82,8 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
             android:background="@drawable/bg_checbox_favorite"
+            android:text=""
+            android:textColor="@android:color/transparent"
             android:button="@null"
             />
 

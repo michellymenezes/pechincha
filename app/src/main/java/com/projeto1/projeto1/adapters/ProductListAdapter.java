@@ -12,15 +12,21 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
 import com.projeto1.projeto1.MainActivity;
+import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
+import com.projeto1.projeto1.fragments.GroceryProductsFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
+import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
+import com.projeto1.projeto1.view_itens.ChecboxCategoryViewItem;
 import com.projeto1.projeto1.view_itens.ProductViewItem;
 
 import java.util.ArrayList;
@@ -30,7 +36,7 @@ import java.util.List;
  * Created by samirsmedeiros on 18/06/17.
  */
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder> implements ProductListener{
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder> implements ProductListener, SaleListener {
 
     private static final String TAG = "profile_list_adapter ";
     private final List<Sale> salesList;
@@ -41,6 +47,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private Resources resources;
     private HerokuGetProductsTask productTask;
     private HerokuGetMarketsTask marketTask;
+    private List<String> likedProducts;
+    private boolean onBind = false;
+
 
 
     public ProductListAdapter(Activity activity, List<Sale> salesList, List<Market> markets, List<Product> products, Context context) {
@@ -49,6 +58,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         this.markets = markets;
         this.products = products;
         this.context = context;
+        likedProducts = new ArrayList<>();
 
     }
     @Override
@@ -57,7 +67,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final ProductItemHolder holder, final int position) {
+    public void onBindViewHolder(ProductItemHolder holder, final int position) {
 
         String market = salesList.get(position).getMarketId();
         for (Market m:markets
@@ -68,6 +78,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
         }
 
+        final Sale saleItem = salesList.get(position);
         String product = salesList.get(position).getProductId();
         for (Product p:products
                 ) {
@@ -84,13 +95,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ((ProductViewItem) holder.itemView).displayPrice(salesList.get(position).getSalePrice());
         ((ProductViewItem) holder.itemView).displayLikeQuantity(salesList.get(position).getLikeCount());
         ((ProductViewItem) holder.itemView).d(market);
+        ((ProductViewItem) holder.itemView).setCBText(saleItem.getId());
+
         final CheckBox likeCB = ((ProductViewItem) holder.itemView).getLikeCB();
 
         likeCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                salesList.get(position).addRemoveLike(user.getId());
-                notifyDataSetChanged();
+                if(!onBind) {
+                    saleItem.addRemoveLike(user.getId());
+                    updateSale(saleItem);
+                    notifyDataSetChanged();
+                }
+
+
             }
         });
 
@@ -101,16 +119,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 //TODO CARREGAR AS INFORMAÇOES DA PROMOÇAO NA TELA DE VISUALIZACAO
 
-                Log.d(TAG, salesList.get(position).toString());
+                Log.d(TAG, saleItem.toString());
 
-                SharedPreferencesUtils.setSelectedSale(context, salesList.get(position));
+                SharedPreferencesUtils.setSelectedSale(context, saleItem);
 
                 ((MainActivity) activity).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
             }
         });
 
 
-
+        onBind = true;
+        holder.cb.setChecked(saleItem.getLikeUsers().contains(user.getId()));
+        onBind = false;
     }
 
 
@@ -148,14 +168,35 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     }
 
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
+
     public static class ProductItemHolder extends RecyclerView.ViewHolder {
 
+        public CheckBox cb;
 
         public ProductItemHolder(View itemView) {
             super(itemView);
+            cb = ((ProductViewItem)itemView).getLikeCB();
 
         }
     }
+
+    private void updateSale(Sale update) {
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
+        salePutTask.execute();    }
 
 
 }

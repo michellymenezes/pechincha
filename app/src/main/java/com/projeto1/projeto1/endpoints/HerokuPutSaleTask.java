@@ -135,7 +135,6 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
     @SuppressLint("LongLogTag")
     @Override
     protected void onPostExecute(Boolean success) {
-
         if (isSuccessfulRegister) {
             Toast.makeText(context, "Promoção Alterada com sucesso", Toast.LENGTH_LONG).show();
             mListener.OnPutSaleFinished(true);

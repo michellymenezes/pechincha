@@ -267,7 +267,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 .show();
     }
 
-    private void updateSale(Sale update) {
+    public void updateSale(Sale update) {
         HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
         salePutTask.execute();
     }
