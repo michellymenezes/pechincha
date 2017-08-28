@@ -69,7 +69,7 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
                     "&expirationDate=" +sale.getExpirationDate() +
                     "&author=" + sale.getAuthorId()  +
                     "&likeCount=" + sale.getLikeCount() + "&reportCount=" + sale.getReportCount() +
-                    "&likeUsers=" + sale.getLikeUsers() + "&reportUsers=" + sale.getReportUsers();
+                    "&likeUsers=" + sale.getLikeUsers().toArray() + "&reportUsers=" + sale.getReportUsers().toArray();
                     //+ "&historic="+ historic;
             url = new URL(ENDPOINT_ADDRESS);
 
