@@ -22,7 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 import javax.net.ssl.HttpsURLConnection;
@@ -88,15 +90,32 @@ public class HerokuGetSalesTask extends AsyncTask {
                             JSONArray historicList =  salesJSON.getJSONObject(i).getJSONArray("historic");
                             for(int j = 0; j < historicList.length(); j++){
 
-                                double value = historicList.getJSONObject(i).getDouble("value");
-                                Date date = df.parse(historicList.getJSONObject(i).getString("saleDate"));
+                                double value = historicList.getJSONObject(j).getDouble("value");
+                                Date date = df.parse(historicList.getJSONObject(j).getString("saleDate"));
                                 historic.add(new Historic(date, value));
                             }
+
+                            int likeCount = salesJSON.getJSONObject(i).getInt("likeCount");
+                            int reportCount = salesJSON.getJSONObject(i).getInt("reportCount");
+
+                            Set<String> likeUsers = new HashSet<String>();
+                            JSONArray likeList =  salesJSON.getJSONObject(i).getJSONArray("likeUsers");
+                            for(int j = 0; j < likeList.length(); j++){
+                                likeUsers.add(likeList.getString(j));
+                            }
+
+                            Set<String> reportUsers = new HashSet<String>();
+                            JSONArray reportList =  salesJSON.getJSONObject(i).getJSONArray("likeUsers");
+                            for(int j = 0; j < likeList.length(); j++){
+                                likeUsers.add(likeList.getString(j));
+                            }
+
+
                             // int quantity = salesJSON.getJSONObject(i).getInt("quantity");
                             // int unit = salesJSON.getJSONObject(i).getInt("unit");
 
 
-                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic);
+                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, reportCount, likeUsers, reportUsers);
 
                             sales.add(sale);
                         }

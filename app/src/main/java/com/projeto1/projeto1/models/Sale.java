@@ -80,7 +80,7 @@ public class Sale {
         this.id = " ";
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, int likeCount, int reportCount, Set<String> likeUsers, Set<String> reportUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -91,9 +91,13 @@ public class Sale {
         this.authorId = authorId;
         this.quantity = quantity;
         this.historic = new ArrayList<Historic>();
+        this.likeCount = likeCount;
+        this.reportCount = reportCount;
+        this.likeUsers = likeUsers;
+        this.reportUsers = reportUsers;
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic, int likeCount, int reportCount, Set<String> likeUsers, Set<String> reportUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -104,6 +108,10 @@ public class Sale {
         this.authorId = authorId;
         this.quantity = quantity;
         this.historic = historic;
+        this.likeCount = likeCount;
+        this.reportCount = reportCount;
+        this.likeUsers = likeUsers;
+        this.reportUsers = reportUsers;
     }
 
     public String getId() {

@@ -67,7 +67,9 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
                     "&expirationDate=" +sale.getExpirationDate() +
-                    "&author=" + sale.getAuthorId() ;
+                    "&author=" + sale.getAuthorId()  +
+                    "&likeCount=" + sale.getLikeCount() + "&reportCount=" + sale.getReportCount() +
+                    "&likeUsers=" + sale.getLikeUsers() + "&reportUsers=" + sale.getReportUsers();
                     //+ "&historic="+ historic;
             url = new URL(ENDPOINT_ADDRESS);
 

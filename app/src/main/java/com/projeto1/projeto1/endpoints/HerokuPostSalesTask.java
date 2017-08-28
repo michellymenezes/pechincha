@@ -60,7 +60,9 @@ public class HerokuPostSalesTask extends AsyncTask<Void, Void, Boolean> {
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
                     "&expirationDate=" +sale.getExpirationDate() +
-                    "&author=" + sale.getAuthorId()/* + "&historic=" + sale.getHistoric()*/;
+                    "&author=" + sale.getAuthorId()/* + "&historic=" + sale.getHistoric()*/ +
+                    "&likeCount=" + sale.getLikeCount() + "&reportCount=" + sale.getReportCount() +
+                    "&likeUsers=" + sale.getLikeUsers() + "&reportUsers=" + sale.getReportUsers();
             url = new URL(ENDPOINT_ADDRESS);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
