@@ -240,12 +240,12 @@ public class Sale {
     public boolean addRemoveLike(String userId){
         if(likeUsers.contains(userId)){
             likeUsers.remove(userId);
-            likeCount++;
+            likeCount--;
             return false;
         }
         else {
             likeUsers.add(userId);
-            likeCount--;
+            likeCount++;
             return true;
         }
     }

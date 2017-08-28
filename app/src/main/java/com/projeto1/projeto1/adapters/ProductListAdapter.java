@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
 import com.projeto1.projeto1.MainActivity;
@@ -18,6 +20,7 @@ import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.models.User;
 import com.projeto1.projeto1.view_itens.ProductViewItem;
 
 import java.util.ArrayList;
@@ -75,11 +78,21 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 break;
             }
         }
-
+        final User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
         View view = ((ProductViewItem) holder.itemView);
         ((ProductViewItem) holder.itemView).displayName(product);
         ((ProductViewItem) holder.itemView).displayPrice(salesList.get(position).getSalePrice());
+        ((ProductViewItem) holder.itemView).displayLikeQuantity(salesList.get(position).getLikeCount());
         ((ProductViewItem) holder.itemView).d(market);
+        final CheckBox likeCB = ((ProductViewItem) holder.itemView).getLikeCB();
+
+        likeCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                salesList.get(position).addRemoveLike(user.getId());
+                notifyDataSetChanged();
+            }
+        });
 
         final RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
 

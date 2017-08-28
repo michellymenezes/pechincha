@@ -85,6 +85,16 @@
             android:button="@null"
             />
 
+        <TextView
+            android:id="@+id/like_quantity"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:text="0"
+            android:gravity="right|center"
+            android:layout_toLeftOf="@+id/like_btn"/>
+
     </RelativeLayout>
 
 </LinearLayout>
