@@ -254,11 +254,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 changeFragment(MainFragment.getInstance(), MainFragment.TAG, false);
                 break;
 
+/*
             case R.id.nav_config:
                 callProfileFragment();
                 //Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
 
                 break;
+*/
 
             case R.id.nav_about:
                 Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
