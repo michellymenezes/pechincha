@@ -300,7 +300,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 try {
                     expirationDate = df.format(new Date(f.parse("12-July-2018").getTime()));
                 } catch (ParseException e) {
-                    Log.v("ENTROU", "Errooooooooooooo");
                     e.printStackTrace();
                 }
 
@@ -570,33 +569,6 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         });
     }
 
-
-
-    private void quantityDialog(final Button quantityBtn) {
-        final View viewDialog = View.inflate(getActivity(), R.layout.quantity_picker_dialog, null);
-
-        final NumberPicker picker = (NumberPicker) viewDialog.findViewById(R.id.number_picker);
-         final EditText productQuantityET = (EditText) viewDialog.findViewById(R.id.quantity_input);
-
-        picker.setDisplayedValues(null);
-        picker.setMinValue(1);
-        picker.setMaxValue(5);
-        picker.setDisplayedValues( new String[] { "Uni", "Kg", "g","ml","L"} );
-
-
-        new AlertDialog.Builder(getContext())
-                .setTitle("Quantidade e medida")
-                .setView(viewDialog)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        quantity = productQuantityET.getText().toString();
-                        quantityBtn.setText(quantity + " " +picker.getDisplayedValues()[picker.getValue()-1]);
-
-                    }
-                })
-                .setIcon(R.drawable.ic_food_scale_tool)
-                .show();
-    }
 
     public void updateProductList(){
         produtcsTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)), this);

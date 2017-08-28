@@ -2,6 +2,7 @@ package com.projeto1.projeto1.view_itens;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,10 @@ public class ProductViewItem extends FrameLayout {
         ((ImageView)findViewById(R.id.product_img)).setImageResource(img);
     }
 
+    public void displayLikeQuantity(int quantity) {
+        ((TextView)findViewById(R.id.like_quantity)).setText(quantity+"");
+    }
+
     public void displayBrandtImg(int img) {
         ((ImageView)findViewById(R.id.banner_img)).setImageResource(img);
     }
@@ -53,5 +58,11 @@ public class ProductViewItem extends FrameLayout {
     public RelativeLayout getRelativerLayout(){
         return (RelativeLayout)findViewById(R.id.product_container);
     }
+
+    public CheckBox getLikeCB(){
+        return (CheckBox)findViewById(R.id.like_btn);
+    }
+
+
 
 }
