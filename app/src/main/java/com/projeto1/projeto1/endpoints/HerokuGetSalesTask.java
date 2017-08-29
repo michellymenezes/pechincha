@@ -98,16 +98,16 @@ public class HerokuGetSalesTask extends AsyncTask {
                             int likeCount = salesJSON.getJSONObject(i).getInt("likeCount");
                             int reportCount = salesJSON.getJSONObject(i).getInt("reportCount");
 
-                            Set<String> likeUsers = new HashSet<String>();
+                            ArrayList<String> likeUsers = new ArrayList<String>();
                             JSONArray likeList =  salesJSON.getJSONObject(i).getJSONArray("likeUsers");
                             for(int j = 0; j < likeList.length(); j++){
                                 likeUsers.add(likeList.getString(j));
                             }
 
-                            Set<String> reportUsers = new HashSet<String>();
+                            ArrayList<String> reportUsers = new ArrayList<String>();
                             JSONArray reportList =  salesJSON.getJSONObject(i).getJSONArray("likeUsers");
-                            for(int j = 0; j < likeList.length(); j++){
-                                likeUsers.add(likeList.getString(j));
+                            for(int j = 0; j < reportList.length(); j++){
+                                reportUsers.add(reportList.getString(j));
                             }
 
 

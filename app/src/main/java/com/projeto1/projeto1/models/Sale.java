@@ -25,8 +25,8 @@ public class Sale {
     private List<Historic> historic;
     private int likeCount;
     private int reportCount;
-    private Set<String> likeUsers;
-    private Set<String> reportUsers;
+    private List<String> likeUsers;
+    private List<String> reportUsers;
 
     public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, List<Historic> historic) {
         this.productId = productId;
@@ -38,8 +38,8 @@ public class Sale {
         this.historic = historic;
         this.likeCount = 0;
         this.reportCount = 0;
-        this.likeUsers = new HashSet<String>();
-        this.reportUsers = new HashSet<String>();
+        this.likeUsers = new ArrayList<>();
+        this.reportUsers = new ArrayList<>();
 
         this.id = " ";
     }
@@ -54,8 +54,8 @@ public class Sale {
         this.historic = new ArrayList<Historic>();
         this.likeCount = 0;
         this.reportCount = 0;
-        this.likeUsers = new HashSet<String>();
-        this.reportUsers = new HashSet<String>();
+        this.likeUsers = new ArrayList<>();
+        this.reportUsers = new ArrayList<>();
 
         this.id = " ";
     }
@@ -70,13 +70,13 @@ public class Sale {
         this.quantUni = quantUni;
         this.likeCount = 0;
         this.reportCount = 0;
-        this.likeUsers = new HashSet<String>();
-        this.reportUsers = new HashSet<String>();
+        this.likeUsers = new ArrayList<>();
+        this.reportUsers = new ArrayList<>();
 
         this.id = " ";
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, int likeCount, int reportCount, Set<String> likeUsers, Set<String> reportUsers) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, int likeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -93,7 +93,7 @@ public class Sale {
         this.reportUsers = reportUsers;
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic, int likeCount, int reportCount, Set<String> likeUsers, Set<String> reportUsers) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic, int likeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -221,19 +221,19 @@ public class Sale {
         this.reportCount = reportCount;
     }
 
-    public Set<String> getLikeUsers() {
+    public List<String> getLikeUsers() {
         return likeUsers;
     }
 
-    public void setLikeUsers(Set<String> likeUsers) {
+    public void setLikeUsers(List<String> likeUsers) {
         this.likeUsers = likeUsers;
     }
 
-    public Set<String> getReportUsers() {
+    public List<String> getReportUsers() {
         return reportUsers;
     }
 
-    public void setReportUsers(Set<String> reportUsers) {
+    public void setReportUsers(List<String> reportUsers) {
         this.reportUsers = reportUsers;
     }
 
@@ -267,6 +267,31 @@ public class Sale {
         }
     }
 
+    public String likeToJson(){
+        String likes = "[";
+        for(int i = 0; i < likeUsers.size(); i++){
+            likes += "\"" + likeUsers.get(i) + "\"";
+            if(i < likeUsers.size()-1){
+                likes += ",";
+            }
+        }
+        likes += "]";
+        return likes;
+    }
+
+    public String reportToJson(){
+
+
+        String reports = "[";
+        for(int i = 0; i < reportUsers.size(); i++){
+            reports += "\"" + reportUsers.get(i) + "\"";
+            if(i < reportUsers.size()-1){
+                reports += ",";
+            }
+        }
+        reports += "]";
+        return reports;
+    }
     public boolean hasReported(String userId){
         return reportUsers.contains(userId);
     }
