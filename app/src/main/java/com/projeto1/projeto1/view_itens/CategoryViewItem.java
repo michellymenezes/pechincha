@@ -3,6 +3,7 @@ package com.projeto1.projeto1.view_itens;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -30,8 +31,8 @@ public class CategoryViewItem extends FrameLayout {
 
     }
 
-    public Button getButton() {
-        return (Button) findViewById(R.id.btn_category);
+    public CheckBox getButton() {
+        return (CheckBox) findViewById(R.id.btn_category);
     }
 
 }

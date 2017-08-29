@@ -6,9 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
+import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.fragments.GroceryProductsFragment;
 import com.projeto1.projeto1.listeners.GetSubcategoryListener;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Sale;
@@ -28,12 +32,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private final List<String> items;
     private final Activity activity;
     private GetSubcategoryListener subcategoryListener;
+    private List<String> cbItems;
 
 
     public CategoryListAdapter(Activity activity, String category, GetSubcategoryListener subcategoryListener) {
         this.subcategoryListener = subcategoryListener;
         this.items = getSubcategory(category);
         this.activity = activity;
+        cbItems = new ArrayList<>();
     }
     @Override
     public CategoryItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,16 +52,30 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         View currFilter = ((CategoryViewItem) holder.itemView);
         ((CategoryViewItem) holder.itemView).displayName(items.get(position));
 
-        Button button = (Button) ((CategoryViewItem) holder.itemView).getButton();
+        final CheckBox cbItem = (CheckBox) ((CategoryViewItem) holder.itemView).getButton();
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        cbItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, items.get(position).toString());
-                subcategoryListener.OnSubcategorySelected(true, items.get(position).toString());
-            }
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                if(!cbItem.isChecked() && cbItems.contains(cbItem.getText().toString())){
+                    ((MainActivity) activity).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
+                    cbItems.remove(cbItem.getText().toString());
+                }else if (cbItem.isChecked() && !cbItems.contains(cbItem.getText().toString())){
+                    Log.d(TAG, items.get(position).toString());
+                    subcategoryListener.OnSubcategorySelected(true, items.get(position).toString());
+                    cbItems.clear();
+                    cbItems.add(cbItem.getText().toString());
+                    notifyDataSetChanged();
+                }
+
+            }
         });
+
+        holder.cb.setChecked(cbItems.contains(holder.cb.getText()));
+
     }
 
 
@@ -81,9 +101,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
 
+        public CheckBox cb;
+
         public CategoryItemHolder(View itemView) {
             super(itemView);
-
+            cb = ((CategoryViewItem)itemView).getButton();
         }
     }
 
