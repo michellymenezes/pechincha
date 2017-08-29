@@ -103,6 +103,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!onBind) {
+                    Log.d("USER", user.getName());
                     saleItem.addRemoveLike(user.getId());
                     updateSale(saleItem);
                     notifyDataSetChanged();

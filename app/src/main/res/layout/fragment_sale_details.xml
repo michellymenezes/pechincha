@@ -131,17 +131,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_favorite_border"
-                    android:id="@+id/like_btn"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_checbox_favorite"
-                    android:button="@null"
-                    android:clickable="false"
-                    />
                 <TextView
+                    android:id="@+id/like_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:textSize="10dp"
@@ -150,6 +141,17 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     />
+                <CheckBox
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_favorite_border"
+                    android:id="@+id/like_btn"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_checbox_favorite"
+                    android:button="@null"
+                    android:clickable="true"
+                    />
+
 
             </LinearLayout>
 

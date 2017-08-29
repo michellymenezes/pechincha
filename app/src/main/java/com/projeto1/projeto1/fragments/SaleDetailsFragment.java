@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -62,6 +64,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private Sale sale;
     private Market market;
     private User user;
+    private User currentUser;
     private MainActivity myMainActivity;
     private TextView mOld_price;
     private TextView mName_product;
@@ -112,6 +115,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         validity = (TextView) mview.findViewById(R.id.validity);
         username = (TextView) mview.findViewById(R.id.user_name);
         att = (ImageButton) mview.findViewById(R.id.att);
+        currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
 
@@ -124,6 +128,28 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
         if (sale != null) {
+
+            final CheckBox cb_like = (CheckBox) mview.findViewById(R.id.like_btn);
+            final TextView like_quanity = (TextView) mview.findViewById(R.id.like_quantity);
+
+            boolean firstTime = true;
+            if (firstTime) {
+                cb_like.setChecked(sale.getLikeUsers().contains(currentUser.getId()));
+                firstTime = false;
+            }
+            like_quanity.setText(sale.getLikeCount()+"");
+
+            if(!firstTime) {
+                cb_like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        sale.addRemoveLike(currentUser.getId());
+                        Log.d("USER", currentUser.getName());
+                        like_quanity.setText(sale.getLikeCount() + "");
+                        updateSale(sale);
+                    }
+                });
+            }
 
             //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
 
@@ -140,7 +166,14 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         marketDetail();
         //updateSale(inflater, container);
 
+
+
         return mview;
+    }
+
+    public void updateSale(Sale update) {
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
+        salePutTask.execute();
     }
 
     private void updateSale(final LayoutInflater inflater, final ViewGroup container) {
