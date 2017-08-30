@@ -308,7 +308,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                     e.printStackTrace();
                 }
 
-                String newExpDate = date == null? expirationDate: date + expirationDate.substring(10, expirationDate.length());
+                String newExpDate = date == ""? expirationDate: date + expirationDate.substring(10, expirationDate.length());
 
 
                 //TODO criar objeto e salvar no banco.

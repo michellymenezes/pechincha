@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -66,6 +67,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     String date;
     private Button expireDateBtn;
     private EditText productQuantityET;
+    private boolean priceClicked;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -97,6 +99,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
         product = SharedPreferencesUtils.getProductFromSale(getContext());
         market = SharedPreferencesUtils.getMarketFromSale(getContext());
         date = "";
+        priceClicked = false;
 
         // not editable
         final TextView productNameET = (TextView) mview.findViewById(R.id.product_name_input);
@@ -168,10 +171,11 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = productPriceET.getText().toString().substring(1);
-                String newExpDate = date == null? sale.getExpirationDate(): date + sale.getExpirationDate().substring(10, sale.getExpirationDate().length());
+                String price = priceClicked? productPriceET.getText().toString().substring(1): productPriceET.getText().toString().substring(2);
+                Log.v("PRICEE", price);
+                Log.v("PRICEEs", sale.getSalePrice()+"");
 
-                Log.d("DATEFORMAT>>>>>>>>>>", newExpDate);
+                String newExpDate = date == ""? sale.getExpirationDate(): date + sale.getExpirationDate().substring(10, sale.getExpirationDate().length());
 
 
                 TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -199,10 +203,15 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 //Sale update = new Sale(product.getId(), market.getId(), Double.parseDouble(price_adaptado), sale.getSalePrice(), expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
                 sale.addHistoric(new Historic(expirationDate,sale.getSalePrice()));
                 sale.setExpirationDate(newExpDate);
-                sale.setSalePrice(Double.parseDouble(price));
                 //sale.setQuantUni();
 
-                updateSale(sale);
+                if(Double.parseDouble(price)==0 || Double.parseDouble(price) == sale.getSalePrice()) {
+                    Toast toast = Toast.makeText(getContext(), "O preço deve ser diferente do anterior e maior que zero!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else {
+                    sale.setSalePrice(Double.parseDouble(price));
+                    updateSale(sale);
+                }
 
                 //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
             /*
@@ -370,7 +379,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equals(current)){
                     productPriceET.removeTextChangedListener(this);
-
+                    priceClicked = true;
                     String cleanString = s.toString().replaceAll("[R$,.]", "");
 
                     double parsed = Double.parseDouble(cleanString);
