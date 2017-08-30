@@ -100,21 +100,31 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
         final TextView productNameET = (TextView) mview.findViewById(R.id.product_name_input);
         final EditText productCodeET = (EditText) mview.findViewById(R.id.product_code_input);
         final EditText productMarketET = (EditText) mview.findViewById(R.id.market_input);
+        final EditText productCurrPricetET = (EditText) mview.findViewById(R.id.current_price_input);
+
 
         productCodeET.setText(product.getBarcode());
-        productNameET.setText(product.getName());
+        productCodeET.setEnabled(false);
+        productNameET.setText(product.getName() + " " + ((int) product.getSize()) + product.getSizeUnity());
+        productNameET.setEnabled(false);
         productMarketET.setText(market.getName());
+        productMarketET.setEnabled(false);
 
         //Editable
-        quantityBtn = (Button) mview.findViewById(R.id.quantity_input);
+        //quantityBtn = (Button) mview.findViewById(R.id.quantity_input);
         expireDateBtn = (Button) mview.findViewById(R.id.expire_date);
         productPriceET = (EditText) mview.findViewById(R.id.price_input);
+        //quantityBtn.setText(String.valueOf(((int) product.getSize()) + product.getSizeUnity()));
 
-        quantityBtn.setText(String.valueOf(sale.getQuantity()));
-        expireDateBtn.setText(sale.getExpirationDate());
-        productPriceET.setText("R$ "+String.valueOf(sale.getSalePrice()));
+        String [] date =  sale.getExpirationDate().substring(0,10).split("-");
+        String expireDate = date[2] +"-"+ date[1] +"-"+ date[0];
+        expireDateBtn.setText(expireDate);
+        productCurrPricetET.setText("R$ "+String.valueOf(sale.getSalePrice()));
+        productCurrPricetET.setEnabled(false);
+        productPriceET.setText("R$0.00");
+        productPriceET.setEnabled(true);
 
-        //productQuantityET.setText(sale.getQuantity());
+//        productQuantityET.setText(sale.getQuantity());
 
         //quantityBtn.setText(quantity + " " + picker.getDisplayedValues()[picker.getValue() - 1]);
 
@@ -129,13 +139,13 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
         productPriceET.setRawInputType(Configuration.KEYBOARD_12KEY);
 
-        quantityBtn.setOnClickListener(new View.OnClickListener() {
+       /* quantityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 quantityDialog(quantityBtn);
             }
         });
-
+*/
         expireDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +167,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
             @Override
             public void onClick(View v) {
                 String price = productPriceET.getText().toString().substring(1);
-                String newExpDate = expireDateBtn.getText().toString();
+                String newExpDate = sale.getExpirationDate();
 
 
                 TimeZone tz = TimeZone.getTimeZone("UTC");
