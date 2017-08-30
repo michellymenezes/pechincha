@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.projeto1.projeto1.fragments.MainFragment"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/meliorBusaoLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/shopping_basket"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                android:textColor="#252547"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about1"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                android:textColor="#252547"
+                android:layout_margin="10dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/about2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about2"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                android:textColor="#252547"
+                android:layout_margin="10dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#252547"
+                android:layout_margin="10dp"/>
+
+
+
+        </LinearLayout>
+
+</LinearLayout>

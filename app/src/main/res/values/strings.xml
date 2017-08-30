@@ -26,4 +26,11 @@
     <string name="e_mail">E-mail:</string>
     <string name="preferences">Preferências:</string>
 
+    <!-- About Fragment-->
+    <string name="about1">Pechincha é um aplicativo colaborativo para o compartilhamento de promoções
+    de supermercados da cidade. Aqui você pode escanear um código de barras com a câmera de seu
+    smartphone e anunciar uma oferta para todos que fazem uso do aplicativo. Da mesma forma você
+    também fica sabendo das novidades quando outros usuários compartilham ;)</string>
+    <string name="about2">Não esqueça que é possível navegar entre as categorias em busca das promoções que
+    mais te interessam!</string>
 </resources>
