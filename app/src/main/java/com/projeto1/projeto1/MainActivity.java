@@ -29,6 +29,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
+import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private Fragment profileFragment;
+    private Fragment aboutFragment;
     private Fragment addProductFragment;
     private String scanContent;
     private String currentCategory;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         profileFragment = ProfileFragment.getInstance();
         addProductFragment = AddProductFragment.getInstance();
         updateSaleFragment = UpdateSaleFragment.getInstance();
+        aboutFragment = AboutFragment.getInstance();
         scanContent = "";
         currentCategory = "";
 
@@ -264,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 */
 
             case R.id.nav_about:
-                Toast.makeText(getBaseContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
+                changeFragment(AboutFragment.getInstance(), AboutFragment.TAG, true);
                 break;
 
             case R.id.nav_logout:
