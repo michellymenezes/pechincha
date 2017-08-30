@@ -23,6 +23,7 @@ android {
         it.resValue 'string', 'HEROKU_PRODUCTS_ENDPOINT_BY_CATEGORY', heroku_productsByCategoryEndPoint
         it.resValue 'string', 'HEROKU_SALE_ENDPOINT', heroku_salesEndPoint
         it.resValue 'string', 'HEROKU_SALE_ENDPOINT_BY_CATEGORY', heroku_salesByCategoryEndPoint
+        it.resValue 'string', 'HEROKU_SALE_ENDPOINT_BY_SEARCH', heroku_salesBySearch
         it.resValue 'string', 'HEROKU_USER_ENDPOINT', heroku_usersEndPoint
         it.resValue 'string', 'HEROKU_MARKET_ENDPOINT', heroku_marketsEndPoint
 

@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private Fragment profileFragment;
-    private Fragment aboutFragment;
     private Fragment addProductFragment;
     private String scanContent;
     private String currentCategory;
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         profileFragment = ProfileFragment.getInstance();
         addProductFragment = AddProductFragment.getInstance();
         updateSaleFragment = UpdateSaleFragment.getInstance();
-        aboutFragment = AboutFragment.getInstance();
         scanContent = "";
         currentCategory = "";
 
