@@ -205,8 +205,8 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 sale.setExpirationDate(newExpDate);
                 //sale.setQuantUni();
 
-                if(Double.parseDouble(price)==0 || Double.parseDouble(price) == sale.getSalePrice()) {
-                    Toast toast = Toast.makeText(getContext(), "O preço deve ser diferente do anterior e maior que zero!", Toast.LENGTH_SHORT);
+                if(Double.parseDouble(price)==0) {
+                    Toast toast = Toast.makeText(getContext(), "O preço deve ser e maior que zero!", Toast.LENGTH_SHORT);
                     toast.show();
                 }else {
                     sale.setSalePrice(Double.parseDouble(price));
