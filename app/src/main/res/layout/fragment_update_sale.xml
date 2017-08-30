@@ -25,12 +25,32 @@
                 android:text="Atualize a promoção"
                 android:textColor="@android:color/tertiary_text_dark"/>
             <ImageView
-                android:padding="20dp"
                 android:layout_width="match_parent"
                 android:background="@android:color/white"
                 android:src="@drawable/ic_groceries"
-                android:layout_height="130dp"
-                />
+                android:layout_height="110dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/product_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Nome do Poduto"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords"
+                        />
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -57,63 +77,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:weightSum="5"
                     android:orientation="horizontal">
-
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_code_product"
                         android:layout_marginLeft="5dp"
-                        android:orientation="horizontal"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="5"
+                        android:background="@drawable/rounded_bg"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
-                            android:clickable="false"
                             android:id="@+id/product_code_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="14dp"
                             android:layout_alignParentRight="true"
-                            android:imeOptions="actionDone"
-                            android:hint="Código do Produto"
-                            android:inputType="number"
-                            />
-                    </android.support.design.widget.TextInputLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_product"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            android:layout_alignParentRight="true"
-                            android:imeOptions="actionDone"
-                            android:text="Nome do Produto"
-                            android:inputType="textCapWords"
-                            />
-                        <TextView
-                            android:id="@+id/product_name_input"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14dp"
-                            android:layout_alignParentRight="true"
+                            android:hint="Codigo de Barras"
                             android:imeOptions="actionDone"
                             android:inputType="textCapWords"
                             />
@@ -126,6 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="5"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -136,7 +119,7 @@
                         android:layout_weight="5"
                         android:gravity="center"
                         android:layout_width="match_parent"
-                        android:background="@drawable/rounded_bg_product_item"
+                        android:background="@drawable/rounded_bg"
                         android:layout_height="wrap_content">
                         <EditText
                             android:id="@+id/market_input"
@@ -156,24 +139,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_price"
+                        android:id="@+id/input_layout_current_price"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
-                        android:background="@drawable/rounded_bg_product_item"
+                        android:background="@drawable/rounded_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <EditText
-                            android:id="@+id/price_input"
+                            android:id="@+id/current_price_input"
                             android:layout_width="match_parent"
                             android:textSize="14dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:imeOptions="actionDone"
-                            android:hint="Preço"
+                            android:hint="Preço atual"
                             android:inputType="numberDecimal"
                             />
                     </android.support.design.widget.TextInputLayout>
@@ -182,26 +166,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/quantity_input"
-                        android:padding="3dp"
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_price"
                         android:layout_marginLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="start|center"
-                        android:layout_alignParentRight="true"
-                        android:imeOptions="actionDone"
-                        android:hint="Quantidade"
-                        android:inputType="number"
-                        />
+                        android:gravity="center"
+                        android:background="@drawable/roundded_bg_blue" android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/price_input"
+                            android:layout_width="match_parent"
+                            android:textSize="14dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:imeOptions="actionDone"
+                            android:hint="Novo preço"
+                            android:inputType="numberDecimal"
+                            />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -212,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/roundded_bg_blue"
                         android:gravity="start|center"
                         android:layout_alignParentRight="true"
                         android:imeOptions="actionDone"
@@ -243,13 +234,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:weightSum="2"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="right">
+                >
 
 
                 <Button
                     android:layout_width="wrap_content"
                     android:id="@+id/cancel_btn"
+                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/bg_send_button"
@@ -264,7 +258,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:id="@+id/update_btn"
-                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/bg_send_button"
                     android:textColor="@android:color/white"
