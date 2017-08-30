@@ -192,13 +192,16 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             }
 
         });
-        final AutoCompleteTextView productMarketET = (AutoCompleteTextView) mview.findViewById(R.id.market_input);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, getKeys(mMarketSugestions));
+       final AutoCompleteTextView productMarketET = (AutoCompleteTextView) mview.findViewById(R.id.market_input);
+       /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, getKeys(mMarketSugestions));
         productMarketET.setAdapter(adapter);
 
-        final String[] selectedMarket = {""};
+        final String[] selectedMarket = {""};*/
 
-        productMarketET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        productMarketET.setText(((MainActivity) getActivity()).getChosenMarket().getName());
+        productMarketET.setEnabled(false);
+
+      /*  productMarketET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) productMarketET.showDropDown();
@@ -236,7 +239,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
             }
         });
-
+*/
 
         // final EditText productQuantityET = (EditText) mview.findViewById(R.id.quantity_input);
         final Button expireDateBtn = (Button)  mview.findViewById(R.id.expire_date);
@@ -291,7 +294,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
                 String expirationDate = null;
-                String marketId = getMarketIdByName(selectedMarket[0]);
+                String marketId = ((MainActivity) getActivity()).getChosenMarket().getId();
 
                 if (marketId.equals("-1")){
                     marketId = "5962f20b4a0cd90004064df6";

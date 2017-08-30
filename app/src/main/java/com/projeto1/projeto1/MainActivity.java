@@ -34,6 +34,7 @@ import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
+import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment addProductFragment;
     private String scanContent;
     private String currentCategory;
-
+    private Market chosenMarket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +219,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        changeFragment(AddProductFragment.getInstance(), AddProductFragment.TAG, true);
+
+                        changeFragment(SupermarketFragment.getInstance(), SupermarketFragment.TAG, true);
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Produto lido!", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }, 1000);
             }
@@ -405,4 +410,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.currentCategory = currentCategory;
     }
 
+    public void setChosenMarket(Market chosenMarket) {
+        this.chosenMarket = chosenMarket;
+    }
+
+    public Market getChosenMarket() {
+        return chosenMarket;
+    }
 }

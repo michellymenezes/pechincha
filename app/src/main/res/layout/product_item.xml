@@ -44,9 +44,7 @@
             android:padding="5dp"
             android:layout_toRightOf="@+id/product_img"
             android:layout_marginLeft="5dp"
-
             android:layout_below="@+id/product_name"
-
             />
 
         <ImageView

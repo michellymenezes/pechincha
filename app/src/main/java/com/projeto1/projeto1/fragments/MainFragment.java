@@ -164,7 +164,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+                ((MainActivity) getActivity()).changeFragment(SupermarketFragment.getInstance(),SupermarketFragment.TAG,true);
             }
         });
 
