@@ -73,6 +73,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView currentPrice;
     private Button marketName;
     private TextView validity;
+    private TextView quantity;
     private TextView username;
     private ImageView userImage;
     private HerokuPutSaleTask salePutTask;
@@ -113,6 +114,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         currentPrice = (TextView) mview.findViewById(R.id.current_price);
         marketName = (Button) mview.findViewById(R.id.name_supermarket);
         validity = (TextView) mview.findViewById(R.id.validity);
+        quantity = (TextView) mview.findViewById(R.id.quantity);
         username = (TextView) mview.findViewById(R.id.user_name);
         att = (ImageButton) mview.findViewById(R.id.att);
         currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
@@ -286,8 +288,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             mBarcod.setText(product.getBarcode());
         }
         marketName.setText(market.getName());
-        validity.setText(sale.getExpirationDate());
+        String [] date =  sale.getExpirationDate().substring(0,10).split("-");
+        String expireDate = date[2] +"-"+ date[1] +"-"+ date[0];
+        validity.setText(expireDate);
         username.setText(user.getName());
+        quantity.setText(((int)product.getSize()) +product.getSizeUnity()+"");
+
 
         mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 

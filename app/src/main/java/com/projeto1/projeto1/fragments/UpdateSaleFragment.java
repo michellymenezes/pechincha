@@ -63,6 +63,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     private Product product;
     private Market market;
     private Button quantityBtn;
+    String date;
     private Button expireDateBtn;
     private EditText productQuantityET;
 
@@ -95,6 +96,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
         product = SharedPreferencesUtils.getProductFromSale(getContext());
         market = SharedPreferencesUtils.getMarketFromSale(getContext());
+        date = "";
 
         // not editable
         final TextView productNameET = (TextView) mview.findViewById(R.id.product_name_input);
@@ -167,7 +169,9 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
             @Override
             public void onClick(View v) {
                 String price = productPriceET.getText().toString().substring(1);
-                String newExpDate = sale.getExpirationDate();
+                String newExpDate = date == null? sale.getExpirationDate(): date + sale.getExpirationDate().substring(10, sale.getExpirationDate().length());
+
+                Log.d("DATEFORMAT>>>>>>>>>>", newExpDate);
 
 
                 TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -215,7 +219,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
 
 
-    private void dateDialog(Button expireDateBtn) {
+    private void dateDialog(final Button expireDateBtn) {
         final View viewDialog = View.inflate(getActivity(), R.layout.date_piker_dialog, null);
 
         final NumberPicker pickerDay = (NumberPicker) viewDialog.findViewById(R.id.number_picker_day);
@@ -225,9 +229,10 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 
         pickerDay.setDisplayedValues(null);
-        pickerDay.setValue(calendar.get(Calendar.DATE));
+        pickerDay.setValue(calendar.get(Calendar.DATE)+1);
         pickerDay.setMinValue(1);
         pickerDay.setMaxValue(31);
+
 
         pickerMonth.setDisplayedValues(null);
         pickerMonth.setValue(calendar.get(Calendar.MONTH) + 1);
@@ -245,6 +250,11 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
+                        String month = pickerMonth.getValue() < 10? ("0" + pickerMonth.getValue()): pickerMonth.getValue()+"";
+                        date = pickerYear.getValue() +"-"
+                                +month +"-"
+                                +pickerDay.getValue();
+                        expireDateBtn.setText(pickerDay.getValue()+"-"+month+"-"+pickerYear.getValue());
                     }
                 })
                 .setIcon(R.drawable.ic_calendar)

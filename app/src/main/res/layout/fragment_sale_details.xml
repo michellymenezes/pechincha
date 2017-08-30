@@ -447,6 +447,8 @@
                     android:gravity="center"
                     />
                 <TextView
+                    android:id="@+id/quantity"
+
                     android:layout_width="70dp"
                     android:layout_height="15dp"
                     android:textSize="10dp"
