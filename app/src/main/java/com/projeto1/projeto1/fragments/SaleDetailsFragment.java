@@ -109,6 +109,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
 
         ImageView product_image = (ImageView) mview.findViewById(R.id.product_image);
+        TextView tv_category = (TextView) mview.findViewById(R.id.tv_category);
+        ImageButton category_detail = (ImageButton) mview.findViewById(R.id.category_detail);
         mOld_price = (TextView) mview.findViewById(R.id.old_price);
         mName_product = (TextView) mview.findViewById(R.id.name_product);
         mBarcod = (TextView) mview.findViewById(R.id.barcode);
@@ -123,6 +125,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
         product_image.setImageResource(/*getImage(((MainActivity) getActivity()).getCurrentCategory())*/R.drawable.ic_offer);
+        tv_category.setText(((MainActivity) getActivity()).getCurrentCategory());
+        category_detail.setImageResource(getImage(((MainActivity) getActivity()).getCurrentCategory()));
 
         att.setOnClickListener(new View.OnClickListener() {
             @Override
