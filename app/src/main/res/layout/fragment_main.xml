@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/previeww">
-    </LinearLayout>
+        android:background="@drawable/previeww"></LinearLayout>
+
     <LinearLayout
         android:id="@+id/search_bar_container"
         android:orientation="horizontal"
@@ -255,29 +255,7 @@
 
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_marginBottom="-60dp"
-        android:elevation="3dp"
-        android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/scan_fab"
-            android:layout_centerInParent="true"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:elevation="2dp"
-            android:layout_gravity="right|bottom"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/ic_code_scan"
-            android:layout_margin="3dp"
-            android:textSize="12dp"
-            android:background="@drawable/circle_bg_scan_btn"
-            android:textColor="@android:color/transparent"
-            android:textAlignment="center"
-            />
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -290,11 +268,12 @@
 
         <ImageButton
             android:id="@+id/profile_btn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_user"
             android:textSize="12dp"
@@ -303,7 +282,23 @@
             android:textAlignment="center"
             />
 
-            <ImageButton
+        <ImageButton
+            android:id="@+id/scan_fab"
+            android:layout_centerInParent="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_code_scan"
+            android:layout_margin="3dp"
+            android:textSize="12dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
+
+            <!--<ImageButton
                 android:id="@+id/favorites_btn"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -316,24 +311,24 @@
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/transparent"
                 android:textAlignment="center"
-                />
+                />-->
 
         <ImageButton
             android:id="@+id/write_post_btn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="50dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_share_sale"
+            android:src="@drawable/ic_share_sales"
             android:textSize="12dp"
             android:background="@android:color/transparent"
             android:textColor="@android:color/transparent"
             android:textAlignment="center"
             />
 
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/add_supermarket_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -346,7 +341,7 @@
             android:background="@android:color/transparent"
             android:textColor="@android:color/transparent"
             android:textAlignment="center"
-            />
+            />-->
 
 
     </LinearLayout>
