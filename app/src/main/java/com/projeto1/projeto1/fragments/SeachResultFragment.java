@@ -3,6 +3,7 @@ package com.projeto1.projeto1.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -101,6 +104,18 @@ import java.util.List;
             llm2.setOrientation(LinearLayoutManager.VERTICAL);
             productRecycleView.setLayoutManager(llm2);
             productRecycleView.setAdapter(mProductAdapter);
+
+            final TextView no_results = (TextView) mview.findViewById(R.id.no_results);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    if(salesList.size() == 0) no_results.setVisibility(View.VISIBLE);
+                    else no_results.setVisibility(View.GONE);
+                    mview.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                }
+            }, 3000);
+
+
 
             return mview;
         }
