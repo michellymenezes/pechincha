@@ -7,14 +7,17 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
@@ -95,7 +98,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                mArraySugestions = getSalesName();
+                mArraySugestions = getSalesName(searchView.getText().toString());
                 if(searchView.getText().toString().length()>0) {
                     searchBtn.setImageResource(R.drawable.ic_close);
                     searchBtn.setTag(new Boolean(true));
@@ -111,15 +114,28 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                         //this is the way to find selected object/item
                         selectedText[0] = (String) adapterView.getItemAtPosition(pos);
                         ArrayList<Sale> salesSearch = new ArrayList<Sale>();
-                        Log.v("SELECTED " ,selectedText[0]);
+                        String str = selectedText[0].replace(" ", "%20");
+                        Log.v("SELECTED " ,str);
                         salesSearch = getSalesByName(selectedText[0]);
                         hideKeyboard(getActivity());
-                        ((MainActivity) getActivity()).setSalesSearch(salesSearch);
+                        ((MainActivity) getActivity()).setSearchStr(str);
                         ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);
 
 
                     }
                 });
+                searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            hideKeyboard(getActivity());
+                            ((MainActivity) getActivity()).setSearchStr(searchView.getText().toString());
+                            ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);                            return true;
+                        }
+                        return false;
+                    }
+                });
+
 
             }
         });
@@ -241,16 +257,13 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         salesTask.execute();
     }
 
-    private ArrayList<String> getSalesName() {
+    private ArrayList<String> getSalesName(String str) {
         ArrayList<String> array = new ArrayList<>();
 
         for (Product product: productsList
              ) {
-            for (Sale sale: mASales
-                 ) {
-                if(product.getId().equals(sale.getProductId()) && !array.contains(product.getName())) array.add(product.getName());
-            }
-
+            if(product.getName().toLowerCase().contains(str.toLowerCase()))
+                if(!array.contains(product.getName().trim())) array.add(product.getName());
         }
         Log.v("SIZE", String.valueOf(array.size()));
         return array;

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private HerokuGetSalesTask mTask;
     private User user;
     private Sale selectedSale;
+    private String searchStr;
 
     //Menu
     private ActionBarDrawerToggle mToggle;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateSaleFragment = UpdateSaleFragment.getInstance();
         scanContent = "";
         currentCategory = "";
+        searchStr = "";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             initializeFacebookSdk();
@@ -417,5 +419,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public Market getChosenMarket() {
         return chosenMarket;
+    }
+
+    public String getSearchStr() {
+        return searchStr;
+    }
+
+    public void setSearchStr(String searchStr) {
+        this.searchStr = searchStr;
     }
 }

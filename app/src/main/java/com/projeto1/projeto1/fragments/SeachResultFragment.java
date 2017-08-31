@@ -72,7 +72,7 @@ import java.util.List;
                                  Bundle savedInstanceState) {
 
             salesList = new ArrayList<>();
-            salesList = ((MainActivity) getActivity()).getSalesSearch();
+            //salesList = ((MainActivity) getActivity()).getSalesSearch();
             marketsList = new ArrayList<>();
             productsList = new ArrayList<>();
 
@@ -82,9 +82,10 @@ import java.util.List;
 
 
             productRecycleView = (RecyclerView) mview.findViewById(R.id.sale_list_result);
+            Log.d("SEARCH", ((MainActivity) getActivity()).getSearchStr());
 
         /* GET DE PROMOÇÕES */
-            salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+            salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_SEARCH)) + ((MainActivity) getActivity()).getSearchStr(), this);
             salesTask.execute();
 
 
@@ -95,7 +96,7 @@ import java.util.List;
 
             Log.v("Sales size", String.valueOf(salesList.size()));
 
-            mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
+            mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList, getContext());
             LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
             llm2.setOrientation(LinearLayoutManager.VERTICAL);
             productRecycleView.setLayoutManager(llm2);
@@ -128,6 +129,7 @@ import java.util.List;
      public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
          //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
          //     productRecycleView.setAdapter(mProductAdapter);
+         salesList = sales;
          productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
          productTask.execute();
          Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
