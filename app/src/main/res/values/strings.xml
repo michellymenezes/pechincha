@@ -19,7 +19,7 @@
     <string name="not_ready">Desculpe, ainda não está pronto :)</string>
 
 <!-- Profile Fragment-->
-    <string name="created_at">Data de criação do perfil:</string>
+    <string name="created_at">Perfil criado em:</string>
     <string name="gender">Genêro:</string>
     <string name="reputation">Reputação:</string>
     <string name="birthday">Birthday:</string>

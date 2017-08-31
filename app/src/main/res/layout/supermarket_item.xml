@@ -16,14 +16,26 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="15dp"
+            android:id="@+id/icon_im"
+            android:layout_marginTop="5dp"
+            android:scaleType="center"
+            android:layout_height="15dp"
+            android:layout_below="@+id/market_name"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_localization"/>
         <TextView
             android:layout_width="match_parent"
             android:textSize="20dp"
             android:layout_height="25dp"
             android:text="Name"
+            android:textStyle="bold"
             android:id="@+id/market_name"/>
         <TextView
             android:id="@+id/market_address"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/icon_im"
             android:layout_below="@+id/market_name"
             android:text="Endereçø"
             android:layout_width="match_parent"

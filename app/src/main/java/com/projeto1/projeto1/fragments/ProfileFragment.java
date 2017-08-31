@@ -1,5 +1,6 @@
 package com.projeto1.projeto1.fragments;
 
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.projeto1.projeto1.R;
@@ -27,7 +29,7 @@ public class ProfileFragment extends Fragment {
     private ImageView image;
     private TextView createdAt;
     private TextView gender;
-    private TextView reputation;
+    private RatingBar reputation;
     User userToShow;
 
     public ProfileFragment() {
@@ -62,21 +64,21 @@ public class ProfileFragment extends Fragment {
                 myProfileInf.setVisibility(View.VISIBLE);
 
                 if (userToShow.getBirthday()!=null){
-                    TextView bday = (TextView) mview.findViewById(R.id.bday);
-                    bday.setText(userToShow.getBirthday());
+                   // TextView bday = (TextView) mview.findViewById(R.id.bday);
+                   // bday.setText(userToShow.getBirthday());
                 }
 
                 if (userToShow.getEmail()!=null){
-                    TextView email = (TextView) mview.findViewById(R.id.email);
+                   // TextView email = (TextView) mview.findViewById(R.id.email);
                     //TODO não quer aparecer o email mas no Log aparece
-                    email.setText(userToShow.getEmail());
+                   // email.setText(userToShow.getEmail());
                     Log.d(TAG, userToShow.getEmail());
                 }
 
                 if (userToShow.getPreferences()!=null){
-                    TextView preferences = (TextView) mview.findViewById(R.id.email);
+                    //TextView preferences = (TextView) mview.findViewById(R.id.email);
                     //TODO Ajustar visualização de preferências
-                    preferences.setText(userToShow.getPreferences().toString());
+                    //preferences.setText(userToShow.getPreferences().toString());
                 }
 
             } else {
@@ -92,7 +94,9 @@ public class ProfileFragment extends Fragment {
 
             if (userToShow.getCreatedAt()!=null){
                 createdAt = (TextView) mview.findViewById(R.id.created_at);
-                createdAt.setText(userToShow.getCreatedAt());
+                String [] date =  userToShow.getCreatedAt().substring(0,10).split("-");
+                String createdate = date[2] +"-"+ date[1] +"-"+ date[0];
+                createdAt.setText(createdate);
             }
 
             if (userToShow.getGender()!=null){
@@ -101,8 +105,8 @@ public class ProfileFragment extends Fragment {
             }
 
             if (userToShow.getReputation()!=null){
-                reputation = (TextView) mview.findViewById(R.id.reputation);
-                reputation.setText(userToShow.getReputation().toString());
+                reputation = (RatingBar) mview.findViewById(R.id.reputation);
+                reputation.setRating(Float.valueOf(userToShow.getReputation().toString()));
             }
 
         }
