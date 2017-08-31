@@ -151,13 +151,7 @@
                         android:inputType="textCapWords"
                         />
                 </android.support.design.widget.TextInputLayout>
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:elevation="1dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/background_btn"
-                        android:src="@drawable/ic_store"
-                        />
+
                     </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
