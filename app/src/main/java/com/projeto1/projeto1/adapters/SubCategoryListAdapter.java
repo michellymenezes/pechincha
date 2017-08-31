@@ -122,7 +122,7 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
                 break;
             }
             case "Outros": {
-                mArrySucategory = new ArrayList<>();
+                mArrySucategory = new ArrayList<>(Arrays.asList("Outros"));
                 break;
 
             }

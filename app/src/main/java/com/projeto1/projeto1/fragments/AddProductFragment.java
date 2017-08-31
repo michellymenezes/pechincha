@@ -534,7 +534,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
         pickerDay.setMaxValue(31);
 
         pickerMonth.setDisplayedValues(null);
-        pickerMonth.setValue(calendar.get(Calendar.MONTH) + 1);
+        pickerMonth.setValue(calendar.get(Calendar.MONTH) + 2);
         pickerMonth.setMinValue(1);
         pickerMonth.setMaxValue(12);
         pickerMonth.setDisplayedValues( new String[] {"Jan", "Fev", "Mar","Abr","Mai","Jun","Jul", "Ago", "Set","Out","Nov","Dez"} );
