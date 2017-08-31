@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -108,6 +110,16 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);
         productRecycleView.setAdapter(mProductAdapter);
+
+        final TextView no_results = (TextView) mview.findViewById(R.id.no_results);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(salesList.size() == 0) no_results.setVisibility(View.VISIBLE);
+                else no_results.setVisibility(View.GONE);
+                mview.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
+        }, 1500);
 
         return mview;
     }
@@ -225,6 +237,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     public void OnSubcategorySelected(boolean selected, String subcategory) {
         if (selected){
             if (subcategory.toLowerCase().equals("outros")){
+                waiting();
                 mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
                 productRecycleView.setAdapter(mProductAdapter);
                 Log.d(TAG, subcategory
@@ -235,19 +248,19 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
                 ArrayList<Product> l = new ArrayList();
                 for (Product p : productsList) {
                     if (p.getSubcategory().toLowerCase().equals(subcategory.toLowerCase())) {
-                        l.add(p);
+                        if(!l.contains(p)) l.add(p);
                     }
                 }
                 for (Sale s : salesList) {
                     for (Product pp : l) {
                         if (s.getProductId().equals(pp.getId())) {
-                            saleSub.add(s);
+                            if(!saleSub.contains(s))saleSub.add(s);
                         }
 
                     }
                 }
+               waiting();
 
-                Log.d(TAG, String.valueOf(saleSub.size()));
                 mProductAdapter = new ProductListAdapter(getActivity(), saleSub, marketsList, productsList, getContext());
                 productRecycleView.setAdapter(mProductAdapter);
             }
@@ -255,5 +268,20 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
             //HerokuGetSalesTask sub = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_CATEGORY))+subcategory, this);
             //sub.execute();
         }
+    }
+
+    private void waiting() {
+        Log.d(TAG, String.valueOf(saleSub.size()));
+        final TextView no_results = (TextView) mview.findViewById(R.id.no_results);
+        Handler handler = new Handler();
+        no_results.setVisibility(View.GONE);
+        mview.findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(saleSub.size() == 0) no_results.setVisibility(View.VISIBLE);
+                else no_results.setVisibility(View.GONE);
+                mview.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
+        }, 1500);
     }
 }
