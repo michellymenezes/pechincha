@@ -46,6 +46,7 @@ import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by samirsmedeiros on 17/06/17.
@@ -107,6 +108,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
 
+        ImageView product_image = (ImageView) mview.findViewById(R.id.product_image);
         mOld_price = (TextView) mview.findViewById(R.id.old_price);
         mName_product = (TextView) mview.findViewById(R.id.name_product);
         mBarcod = (TextView) mview.findViewById(R.id.barcode);
@@ -120,6 +122,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
+        product_image.setImageResource(/*getImage(((MainActivity) getActivity()).getCurrentCategory())*/R.drawable.ic_offer);
 
         att.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +174,34 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
         return mview;
+    }
+
+    private int getImage(String currentCategory) {
+        switch (currentCategory) {
+            case "Alimento": {
+                return R.drawable.ic_grocery_blue;
+            }
+            case "Cuidados pessoais": {
+                return R.drawable.ic_hygiene_blue;
+            }
+            case "Limpeza": {
+                return R.drawable.ic_wiping;
+            }
+            case "Eletrônico": {
+                return R.drawable.ic_plug;
+
+            }
+            case "Mobília": {
+                return R.drawable.ic_sofa;
+
+            }
+            case "Outros": {
+                return R.drawable.ic_other_gray;
+            }
+            default: return R.drawable.ic_offer;
+
+        }
+
     }
 
     public void updateSale(Sale update) {
