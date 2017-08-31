@@ -308,13 +308,19 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                     e.printStackTrace();
                 }
 
+
                 String newExpDate = date == ""? expirationDate: date + expirationDate.substring(10, expirationDate.length());
 
+                Sale sale;
 
                 //TODO criar objeto e salvar no banco.
+                if(date == null){
+                    sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), new ArrayList<Historic>());
 
-                Sale sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, newExpDate, SharedPreferencesUtils.getUser(getContext()).getId(), new ArrayList<Historic>());
-
+                }
+                else {
+                    sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, newExpDate, SharedPreferencesUtils.getUser(getContext()).getId(), new ArrayList<Historic>());
+                }
                 //Sale sale = new Sale(productId, productMarket, productPrice, 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni");
                 post(sale);
             }
@@ -478,13 +484,20 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                                     brandDialog.getText().toString().equals("") ||
                                     codeDialog.getText().toString().equals("") ||
                                     selectedCategory.equals("")||
-                                    selectedSubCategory.equals("")) && !productExistsFinal){
+                                    (!selectedCategory.equals("Outros") &&
+                                    selectedSubCategory.equals(""))) && !productExistsFinal){
                                 Toast.makeText(getContext(), "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
                                 productNameET.setText("");
                             } else {
                                 if(!productExistsFinal) {
-                                    Product product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory,selectedSubCategory, unity, picker.getDisplayedValues()[picker.getValue()-1]);
-                                    postProduct(product);
+                                    Product product;
+                                    if (selectedCategory.equals("Outros")){
+                                        product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory," ", unity, picker.getDisplayedValues()[picker.getValue()-1]);
+
+                                    }
+                                    else {
+                                        product = new Product(nameDialog.getText().toString(), brandDialog.getText().toString(), " ", " ", codeDialog.getText().toString(), selectedCategory, selectedSubCategory, unity, picker.getDisplayedValues()[picker.getValue() - 1]);
+                                    }postProduct(product);
                                     updateProductList();
                                 }
                             }
