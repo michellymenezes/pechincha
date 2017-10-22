@@ -93,6 +93,25 @@ public class User implements Parcelable{
 
     }
 
+    /*
+    Constructor with favorite
+     */
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                String birthday, String gender, Double reputation, ArrayList<String> preferences, ArrayList<String> favorites
+    ) {
+        this.name = name;
+        this.id = id;
+        this.facebookId = facebookId;
+        this.email = email;
+        this.image = image;
+        this.createdAt = createdAt;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.reputation = reputation;
+        this.preferences = preferences;
+        this.favorites = favorites;
+    }
+
     public String getName() {
         return name;
     }
