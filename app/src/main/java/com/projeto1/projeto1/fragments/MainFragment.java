@@ -154,7 +154,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         final ImageButton barCodeScan = (ImageButton) mview.findViewById(R.id.scan_fab);
         final ImageButton addProduct = (ImageButton) mview.findViewById(R.id.write_post_btn);
         //final ImageButton addSupermarket = (ImageButton) mview.findViewById(R.id.add_supermarket_btn);
-        //final ImageButton favoritesBtn = (ImageButton) mview.findViewById(R.id.favorites_btn);
+        final ImageButton favoritesBtn = (ImageButton) mview.findViewById(R.id.favorites_btn);
         final ImageButton profileBtn = (ImageButton) mview.findViewById(R.id.profile_btn);
         final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
 
@@ -164,13 +164,12 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                 ((MainActivity) getActivity()).callProfileFragment();
             }
         });
-       /* favoritesBtn.setOnClickListener(new View.OnClickListener() {
+        favoritesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
-
+                ((MainActivity) getActivity()).changeFragment(FavoritListFragment.getInstance(),FavoritListFragment.TAG,true);
             }
-        });*/
+        });
        /* addSupermarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

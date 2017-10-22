@@ -261,20 +261,19 @@
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
+        android:weightSum="4"
         android:elevation="2dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:background="@android:color/white"
         android:layout_height="45dp">
 
         <ImageButton
             android:id="@+id/profile_btn"
             android:layout_width="40dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_user"
             android:textSize="12dp"
             android:background="@android:color/transparent"
@@ -284,43 +283,34 @@
 
         <ImageButton
             android:id="@+id/scan_fab"
-            android:layout_centerInParent="true"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
             android:src="@drawable/ic_code_scan"
-            android:layout_margin="3dp"
             android:textSize="12dp"
             android:background="@android:color/transparent"
             android:textColor="@android:color/transparent"
             android:textAlignment="center"
             />
 
-            <!--<ImageButton
+            <ImageButton
                 android:id="@+id/favorites_btn"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
                 android:src="@drawable/ic_favorite_border"
                 android:textSize="12dp"
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/transparent"
                 android:textAlignment="center"
-                />-->
+                />
 
         <ImageButton
             android:id="@+id/write_post_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_share_sales"
             android:textSize="12dp"
             android:background="@android:color/transparent"
