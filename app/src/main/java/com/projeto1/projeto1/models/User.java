@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by michelly on 14/06/17.
@@ -21,6 +20,7 @@ public class User implements Parcelable{
     private String gender;
     private Double reputation;
     private ArrayList<String> preferences;
+    private ArrayList<String> favorites = new ArrayList<>();
 
     public String getFacebookId() {
         return facebookId;
@@ -38,7 +38,8 @@ public class User implements Parcelable{
         this.createdAt = createdAt;
     }
 
-    public User(String name, String id, String facebookId,String email, String image, String createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                String birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -62,6 +63,7 @@ public class User implements Parcelable{
         gender = in.readString();
         reputation = in.readDouble();
         preferences = in.createStringArrayList();
+        favorites = in.createStringArrayList();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -76,7 +78,8 @@ public class User implements Parcelable{
         }
     };
 
-    public User(String name, String id, String facebookId,String email, String image, String createdAt, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -162,6 +165,10 @@ public class User implements Parcelable{
         this.gender = gender;
     }
 
+    public ArrayList<String> getFavorites() { return favorites; }
+
+    public void setFavorites(ArrayList<String> favorites) { this.favorites = favorites; }
+
     @Override
     public String toString() {
         return "User{" +
@@ -175,6 +182,7 @@ public class User implements Parcelable{
                 ", gender='" + gender + '\'' +
                 ", reputation=" + reputation +
                 ", preferences=" + preferences +
+                ", favorites=" + favorites +
                 '}';
     }
 
@@ -195,6 +203,7 @@ public class User implements Parcelable{
         dest.writeString(gender);
         dest.writeDouble(reputation);
         dest.writeStringList(preferences);
+        dest.writeStringList(favorites);
 
     }
 
