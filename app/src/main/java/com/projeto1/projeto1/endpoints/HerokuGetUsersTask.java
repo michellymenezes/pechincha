@@ -3,7 +3,7 @@ package com.projeto1.projeto1.endpoints;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.listeners.GetUserListener;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
@@ -33,16 +33,16 @@ public class HerokuGetUsersTask extends AsyncTask {
 
     private String responseMessage = "";
     private String endpoint;
-    private GetUserListener mListener;
+    private UserListener mListener;
 
 
-    public HerokuGetUsersTask(String url, GetUserListener listener) {
+    public HerokuGetUsersTask(String url, UserListener listener) {
         endpoint = url;
         users = new ArrayList<User>();
         mListener = listener;
     }
 
-    public HerokuGetUsersTask(String url, GetUserListener listener, User user) {
+    public HerokuGetUsersTask(String url, UserListener listener, User user) {
         endpoint = url;
         userToFind = user;
         mListener = listener;
@@ -105,9 +105,16 @@ public class HerokuGetUsersTask extends AsyncTask {
                         //TODO ajustar preferences
                         String preferences = usersJSON.getJSONObject(i).getString("preferences");
 
+                        ArrayList<String> favorites = new ArrayList<String>();
+                        JSONArray favoritesList =  usersJSON.getJSONObject(i).getJSONArray("favorites");
+                        for(int j = 0; j < favoritesList.length(); j++){
+
+                            favorites.add(favoritesList.get(j).toString());
+                        }
+
                         // users.add(new User(name, id,faceoockId, email, image, createdAt, reputation, new ArrayList<String>()));
 
-                        users.add(new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>()));
+                        users.add(new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>(), favorites));
 
                      }
 

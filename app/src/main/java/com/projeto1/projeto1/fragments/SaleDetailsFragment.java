@@ -6,22 +6,15 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,14 +22,11 @@ import android.widget.Toast;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
-import com.projeto1.projeto1.adapters.CategoryAdapter;
-import com.projeto1.projeto1.adapters.SubCategoryListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
-import com.projeto1.projeto1.endpoints.HerokuGetProductByBarcodeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
-import com.projeto1.projeto1.listeners.GetUserListener;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -46,13 +36,12 @@ import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by samirsmedeiros on 17/06/17.
  */
 
-public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener, GetUserListener, SaleListener {
+public class SaleDetailsFragment extends Fragment implements ProductListener, MarketListener, UserListener, SaleListener {
 
 
     public static final String TAG = "SALE_DETAILS_FRAGMENT";
@@ -375,6 +364,21 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnPostUserFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnAddFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnRemoveFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutUserFinished(boolean finished) {
 
     }
 

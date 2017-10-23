@@ -3,7 +3,7 @@ package com.projeto1.projeto1.endpoints;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.projeto1.projeto1.listeners.GetUserListener;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -30,10 +31,10 @@ public class HerokuGetUserTask extends AsyncTask {
 
     private String responseMessage = "";
     private String endpoint;
-    private GetUserListener mListener;
+    private UserListener mListener;
 
 
-    public HerokuGetUserTask(String url, GetUserListener listener, User user) {
+    public HerokuGetUserTask(String url, UserListener listener, User user) {
         endpoint = url;
         userToFind = user;
         mListener = listener;
@@ -82,8 +83,15 @@ public class HerokuGetUserTask extends AsyncTask {
                 //TODO ajustar preferences
                 String preferences = usersJSON.getString("preferences");
 
+                ArrayList<String> favorites = new ArrayList<String>();
+                JSONArray favoritesList =  usersJSON.getJSONArray("favorites");
+                for(int j = 0; j < favoritesList.length(); j++){
 
-                this.user = new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>());
+                    favorites.add(favoritesList.get(j).toString());
+                }
+
+
+                this.user = new User(name, id,facebookId, email, image, createdAt, reputation, new ArrayList<String>(), favorites);
 
 
 

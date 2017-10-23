@@ -2,12 +2,10 @@ package com.projeto1.projeto1.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.SharedElementCallback;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -18,13 +16,13 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
-import com.projeto1.projeto1.listeners.GetUserListener;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
-import com.projeto1.projeto1.listeners.PostUserListener;
 import com.projeto1.projeto1.models.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +35,7 @@ import java.util.Date;
  * Created by rafaelle on 20/06/17.
  */
 
-public class LoginFragment extends Fragment implements GetUserListener {
+public class LoginFragment extends Fragment implements UserListener {
 
     public static final String TAG = "LOGIN_FRAGMENT";
     private View mView;
@@ -112,8 +110,11 @@ public class LoginFragment extends Fragment implements GetUserListener {
                                     String email = object.getString("email");
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
+                                    ArrayList<String> favorites = new ArrayList<String>();
+
+
                                    // String birthday = object.getString("birthday");
-                                    user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(), (double) 1,new ArrayList<String>());
+                                    user = new User(name,id,facebookId,email,"image", new Date(System.currentTimeMillis()).toString(), (double) 1,new ArrayList<String>(), favorites);
                                     logged = true;
                                     onLoginFinished(user);
 
@@ -191,6 +192,21 @@ public class LoginFragment extends Fragment implements GetUserListener {
     @Override
     public void OnPostUserFinished(boolean finished) {
         ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
+    }
+
+    @Override
+    public void OnAddFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnRemoveFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutUserFinished(boolean finished) {
 
     }
 }

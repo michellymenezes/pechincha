@@ -79,7 +79,7 @@ public class User implements Parcelable{
     };
 
     public User(String name, String id, String facebookId,String email, String image, String createdAt,
-                Double reputation, ArrayList<String> preferences) {
+                Double reputation, ArrayList<String> preferences, ArrayList<String> favorites) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -90,6 +90,7 @@ public class User implements Parcelable{
         this.gender = "";
         this.reputation = reputation;
         this.preferences = preferences;
+        this.favorites = favorites;
 
     }
 
@@ -187,6 +188,29 @@ public class User implements Parcelable{
     public ArrayList<String> getFavorites() { return favorites; }
 
     public void setFavorites(ArrayList<String> favorites) { this.favorites = favorites; }
+
+    public boolean addRemoveFav(String saleId){
+        if(favorites.contains(saleId)){
+            favorites.remove(saleId);
+            return false;
+        }
+        else {
+            favorites.add(saleId);
+            return true;
+        }
+    }
+
+    public String favoritesToJson(){
+        String fav = "[";
+        for(int i = 0; i < favorites.size(); i++){
+            fav += "\"" + favorites.get(i) + "\"";
+            if(i < favorites.size()-1){
+                fav += ",";
+            }
+        }
+        fav += "]";
+        return fav;
+    }
 
     @Override
     public String toString() {
