@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by michelly on 14/06/17.
  */
 
-public class User implements Parcelable{
+public class User {
 
     private String name;
     private String id;
@@ -20,7 +20,8 @@ public class User implements Parcelable{
     private String gender;
     private Double reputation;
     private ArrayList<String> preferences;
-    private ArrayList<String> favorites = new ArrayList<>();
+    private ArrayList<Sale> favorites = new ArrayList<Sale>();
+
 
     public String getFacebookId() {
         return facebookId;
@@ -52,34 +53,11 @@ public class User implements Parcelable{
         this.preferences = preferences;
     }
 
-    protected User(Parcel in) {
-        name = in.readString();
-        id = in.readString();
-        facebookId = in.readString();
-        email = in.readString();
-        image = in.readString();
-        createdAt = in.readString();
-        birthday = in.readString();
-        gender = in.readString();
-        reputation = in.readDouble();
-        preferences = in.createStringArrayList();
-        favorites = in.createStringArrayList();
-    }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
 
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public User(String name, String id, String facebookId,String email, String image, String createdAt,
-                Double reputation, ArrayList<String> preferences, ArrayList<String> favorites) {
+                Double reputation, ArrayList<String> preferences, ArrayList<Sale> favorites) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -98,7 +76,7 @@ public class User implements Parcelable{
     Constructor with favorite
      */
     public User(String name, String id, String facebookId,String email, String image, String createdAt,
-                String birthday, String gender, Double reputation, ArrayList<String> preferences, ArrayList<String> favorites
+                String birthday, String gender, Double reputation, ArrayList<String> preferences, ArrayList<Sale> favorites
     ) {
         this.name = name;
         this.id = id;
@@ -185,32 +163,10 @@ public class User implements Parcelable{
         this.gender = gender;
     }
 
-    public ArrayList<String> getFavorites() { return favorites; }
+    public ArrayList<Sale> getFavorites() { return favorites; }
 
-    public void setFavorites(ArrayList<String> favorites) { this.favorites = favorites; }
+    public void setFavorites(ArrayList<Sale> favorites) { this.favorites = favorites; }
 
-    public boolean addRemoveFav(String saleId){
-        if(favorites.contains(saleId)){
-            favorites.remove(saleId);
-            return false;
-        }
-        else {
-            favorites.add(saleId);
-            return true;
-        }
-    }
-
-    public String favoritesToJson(){
-        String fav = "[";
-        for(int i = 0; i < favorites.size(); i++){
-            fav += "\"" + favorites.get(i) + "\"";
-            if(i < favorites.size()-1){
-                fav += ",";
-            }
-        }
-        fav += "]";
-        return fav;
-    }
 
     @Override
     public String toString() {
@@ -229,26 +185,6 @@ public class User implements Parcelable{
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(id);
-        dest.writeString(facebookId);
-        dest.writeString(email);
-        dest.writeString(image);
-        dest.writeString(createdAt);
-        dest.writeString(birthday);
-        dest.writeString(gender);
-        dest.writeDouble(reputation);
-        dest.writeStringList(preferences);
-        dest.writeStringList(favorites);
-
-    }
 
     @Override
     public boolean equals(Object obj) {

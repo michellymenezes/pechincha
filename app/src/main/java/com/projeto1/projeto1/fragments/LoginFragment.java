@@ -20,6 +20,7 @@ import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
@@ -110,7 +111,7 @@ public class LoginFragment extends Fragment implements UserListener {
                                     String email = object.getString("email");
                                     String name = object.getString("name");
                                     String gender = object.getString("gender");
-                                    ArrayList<String> favorites = new ArrayList<String>();
+                                    ArrayList<Sale> favorites = new ArrayList<Sale>();
 
 
                                    // String birthday = object.getString("birthday");

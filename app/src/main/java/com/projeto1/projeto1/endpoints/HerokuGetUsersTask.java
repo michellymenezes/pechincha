@@ -4,10 +4,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.projeto1.projeto1.listeners.UserListener;
+import com.projeto1.projeto1.models.Historic;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +18,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -105,12 +113,50 @@ public class HerokuGetUsersTask extends AsyncTask {
                         //TODO ajustar preferences
                         String preferences = usersJSON.getJSONObject(i).getString("preferences");
 
-                        ArrayList<String> favorites = new ArrayList<String>();
+                        ArrayList<Sale> favorites = new ArrayList<Sale>();
                         JSONArray favoritesList =  usersJSON.getJSONObject(i).getJSONArray("favorites");
                         for(int j = 0; j < favoritesList.length(); j++){
 
-                            favorites.add(favoritesList.get(j).toString());
-                        }
+                            JSONObject salesJSON = (JSONObject) favoritesList.get(j);
+
+                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+                            String idSale = salesJSON.getString("_id");
+                            String productId = salesJSON.getString("product");
+                            String marketId = salesJSON.getString("market");
+                            Double salePrice = salesJSON.getDouble("salePrice");
+                            Double regularPrice = salesJSON.getDouble("regularPrice");
+                            String expirationDate =  salesJSON.getString("expirationDate");
+                            Date publicationDate = df.parse(salesJSON.getString("publicationDate"));
+                            String authorId = salesJSON.getString("author");
+
+                            List<Historic> historic = new ArrayList<Historic>();
+                            JSONArray historicList =  salesJSON.getJSONArray("historic");
+                            for(int k = 0; k < historicList.length(); k++){
+
+                                double value = historicList.getJSONObject(k).getDouble("value");
+                                Date date = df.parse(historicList.getJSONObject(k).getString("saleDate"));
+                                historic.add(new Historic(date, value));
+                            }
+
+                            int likeCount = salesJSON.getInt("likeCount");
+                            int reportCount = salesJSON.getInt("reportCount");
+
+                            ArrayList<String> likeUsers = new ArrayList<String>();
+                            JSONArray likeList =  salesJSON.getJSONArray("likeUsers");
+                            for(int k = 0; k < likeList.length(); k++){
+                                likeUsers.add(likeList.getString(k));
+                            }
+
+                            ArrayList<String> reportUsers = new ArrayList<String>();
+                            JSONArray reportList =  salesJSON.getJSONArray("likeUsers");
+                            for(int k = 0; k < reportList.length(); k++){
+                                reportUsers.add(reportList.getString(k));
+                            }
+                            // Sale
+                            Sale sale = new Sale(idSale, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, reportCount, likeUsers, reportUsers);
+
+                            favorites.add(sale);                        }
 
                         // users.add(new User(name, id,faceoockId, email, image, createdAt, reputation, new ArrayList<String>()));
 
@@ -139,6 +185,9 @@ public class HerokuGetUsersTask extends AsyncTask {
             e.printStackTrace();
             return false;
         } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ParseException e) {
             e.printStackTrace();
             return false;
         }
