@@ -21,6 +21,7 @@ import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.FavoriteListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -32,7 +33,7 @@ import com.projeto1.projeto1.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoritListFragment extends Fragment implements MarketListener, ProductListener, SaleListener {
+public class FavoritListFragment extends Fragment implements MarketListener, ProductListener, SaleListener, FavoriteListener {
 
     public static final String TAG = "FAVORITLIST_FRAGMENT";
     private View mView;
@@ -72,15 +73,18 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mView = inflater.inflate(R.layout.fragment_favorit_list, container, false);
+
         marketsList = new ArrayList<>();
         productsList = new ArrayList<>();
 
+        updateView();
+        return mView;
+    }
+
+    private void updateView(){
         updateProductList();
         updateMarkettList();
-
-
-
-        mView = inflater.inflate(R.layout.fragment_favorit_list, container, false);
 
         final User user = SharedPreferencesUtils.getUser(getContext());
         salesList = user.getFavorites();
@@ -98,17 +102,13 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
             }
         }, 1500);
 
-
         productRecycleView = (RecyclerView) mView.findViewById(R.id.product_list);
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext(), this);
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         productRecycleView.setLayoutManager(llm2);
         productRecycleView.setAdapter(mProductAdapter);
 
-
-
-        return mView;
     }
 
     private void updateMarkettList() {
@@ -138,7 +138,7 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
         marketsList = markets;
-        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext(), this);
         productRecycleView.setAdapter(mProductAdapter);
 
     }
@@ -198,5 +198,10 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     @Override
     public void OnPutSaleFinished(boolean finished) {
 
+    }
+
+    @Override
+    public void OnFavoriteIsClicked(boolean clicked) {
+        updateView();
     }
 }

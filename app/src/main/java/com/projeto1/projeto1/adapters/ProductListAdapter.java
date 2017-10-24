@@ -26,6 +26,7 @@ import com.projeto1.projeto1.fragments.GroceryProductsFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
+import com.projeto1.projeto1.listeners.FavoriteListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
@@ -57,7 +58,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private List<String> likedProducts;
     private boolean onBind = false;
 
-
+    FavoriteListener favoriteListener;
 
     public ProductListAdapter(Activity activity, List<Sale> salesList, List<Market> markets, List<Product> products, Context context) {
         this.salesList = salesList;
@@ -66,7 +67,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         this.products = products;
         this.context = context;
         likedProducts = new ArrayList<>();
+    }
 
+    public ProductListAdapter(Activity activity, List<Sale> salesList, List<Market> markets, List<Product> products, Context context, FavoriteListener favoriteListener) {
+        this.salesList = salesList;
+        this.activity = activity;
+        this.markets = markets;
+        this.products = products;
+        this.context = context;
+        likedProducts = new ArrayList<>();
+        this.favoriteListener = favoriteListener;
     }
     @Override
     public ProductItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -114,6 +124,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     saleItem.addRemoveLike(user.getId());
                     updateSale(saleItem, user, likeCB);
                     notifyDataSetChanged();
+                    if (favoriteListener!= null){
+                        favoriteListener.OnFavoriteIsClicked(true);
+                    }
+
                 }
 
 
@@ -236,6 +250,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     }
 
+
+
     public static class ProductItemHolder extends RecyclerView.ViewHolder {
 
         public CheckBox cb;
@@ -257,8 +273,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
 
         HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
-        salePutTask.execute();    }
+        salePutTask.execute();
 
+    }
 
 }
 
