@@ -27,8 +27,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPutUserTask;
+import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
@@ -102,13 +103,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user = SharedPreferencesUtils.getUser(getBaseContext());
             Log.d(TAG, user.toString());
 
-           // user.addRemoveFav("59ed48bd7608ee000466d2da");
+            //HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask(user, "59ed48bd7608ee000466d2da", getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
 
-         //   HerokuPutUserTask mTask = new HerokuPutUserTask(user, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
-
-            //HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask("59ed48bd7608ee000466d2da", user.getId(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
-
-         //   mTask.execute();
+            //mTask.execute();
 
             //Mudando nome do usuário no menu
             //TODO dando erro

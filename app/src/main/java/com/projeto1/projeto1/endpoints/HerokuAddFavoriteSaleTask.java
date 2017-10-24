@@ -6,9 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
-import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
@@ -27,25 +25,27 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class HerokuPutUserTask extends AsyncTask<Void, Void, Boolean> {
-    private static final String TAG = "HEROKU_PUT_USER_TASK";
+public class HerokuAddFavoriteSaleTask extends AsyncTask<Void, Void, Boolean> {
+    private static final String TAG = "HEROKU_ADD_FAVORITE_SALE_TASK";
 
     private final String ENDPOINT_ADDRESS;
     private final Context context;
 
     private String responseMessage = "";
     private User user;
+    private String saleId;
 
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
     private  UserListener mListener;
 
-    public HerokuPutUserTask(User user, Context context, String endpoint, UserListener mListener) {
+    public HerokuAddFavoriteSaleTask(User user, String saleId, Context context, String endpoint, UserListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.user = user;
         this.mListener = mListener;
+        this.saleId = saleId;
     }
 
     @SuppressLint("LongLogTag")
@@ -55,16 +55,8 @@ public class HerokuPutUserTask extends AsyncTask<Void, Void, Boolean> {
         URL url;
         try {
 
-            //historic: [ [Date, double] ]
-            String favorites = user.getFavorites().toString();
-            favorites.replace("{","").replace("}","").replaceAll("\\s","").trim();
-            Log.d(TAG, favorites);
-
-            //values[]=stringarrayitem1&values[]=stringarrayitem2&values[]=stringarrayitem3
-            String parameters = "fullName=" + user.getName()+ "&username="+ user.getName() +
-                    "&email=" + user.getEmail() + "&avatar=" + user.getImage() +"&created_at=" + user.getCreatedAt() +
-                    "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences() + "&favorites" + user.favoritesToJson();
-            url = new URL(ENDPOINT_ADDRESS + user.getId() + "/");
+            String parameters = "saleId=" + saleId;
+            url = new URL(ENDPOINT_ADDRESS + user.getId() + "/favorite");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("PUT");
@@ -129,11 +121,11 @@ public class HerokuPutUserTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean success) {
         if (isSuccessfulRegister) {
-            Toast.makeText(context, "Usuário Alterado com sucesso", Toast.LENGTH_LONG).show();
-            mListener.OnPutUserFinished(true);
+            Toast.makeText(context, "Oferta Adicionada com sucesso", Toast.LENGTH_LONG).show();
+            mListener.OnAddFavoriteSaleFinished(true);
         }
         else {
-            mListener.OnPutUserFinished(false);
+            mListener.OnAddFavoriteSaleFinished(false);
         }
         Log.d(TAG, responseMessage);
 
