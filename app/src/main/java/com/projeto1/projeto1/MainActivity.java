@@ -93,8 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchStr = "";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
+            Log.d(TAG, "not logged yet");
             initializeFacebookSdk();
-            changeFragment(loginFragment, LoginFragment.TAG, true);
+            changeFragment(loginFragment, LoginFragment.TAG, false);
 
         } else {
             Log.d(TAG, "Already logged");
