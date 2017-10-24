@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by michelly on 14/06/17.
@@ -21,6 +20,7 @@ public class User implements Parcelable{
     private String gender;
     private Double reputation;
     private ArrayList<String> preferences;
+    private ArrayList<String> favorites = new ArrayList<>();
 
     public String getFacebookId() {
         return facebookId;
@@ -38,7 +38,8 @@ public class User implements Parcelable{
         this.createdAt = createdAt;
     }
 
-    public User(String name, String id, String facebookId,String email, String image, String createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                String birthday, String gender, Double reputation, ArrayList<String> preferences) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -62,6 +63,7 @@ public class User implements Parcelable{
         gender = in.readString();
         reputation = in.readDouble();
         preferences = in.createStringArrayList();
+        favorites = in.createStringArrayList();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -76,7 +78,8 @@ public class User implements Parcelable{
         }
     };
 
-    public User(String name, String id, String facebookId,String email, String image, String createdAt, Double reputation, ArrayList<String> preferences) {
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                Double reputation, ArrayList<String> preferences, ArrayList<String> favorites) {
         this.name = name;
         this.id = id;
         this.facebookId = facebookId;
@@ -87,7 +90,27 @@ public class User implements Parcelable{
         this.gender = "";
         this.reputation = reputation;
         this.preferences = preferences;
+        this.favorites = favorites;
 
+    }
+
+    /*
+    Constructor with favorite
+     */
+    public User(String name, String id, String facebookId,String email, String image, String createdAt,
+                String birthday, String gender, Double reputation, ArrayList<String> preferences, ArrayList<String> favorites
+    ) {
+        this.name = name;
+        this.id = id;
+        this.facebookId = facebookId;
+        this.email = email;
+        this.image = image;
+        this.createdAt = createdAt;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.reputation = reputation;
+        this.preferences = preferences;
+        this.favorites = favorites;
     }
 
     public String getName() {
@@ -162,6 +185,33 @@ public class User implements Parcelable{
         this.gender = gender;
     }
 
+    public ArrayList<String> getFavorites() { return favorites; }
+
+    public void setFavorites(ArrayList<String> favorites) { this.favorites = favorites; }
+
+    public boolean addRemoveFav(String saleId){
+        if(favorites.contains(saleId)){
+            favorites.remove(saleId);
+            return false;
+        }
+        else {
+            favorites.add(saleId);
+            return true;
+        }
+    }
+
+    public String favoritesToJson(){
+        String fav = "[";
+        for(int i = 0; i < favorites.size(); i++){
+            fav += "\"" + favorites.get(i) + "\"";
+            if(i < favorites.size()-1){
+                fav += ",";
+            }
+        }
+        fav += "]";
+        return fav;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -175,6 +225,7 @@ public class User implements Parcelable{
                 ", gender='" + gender + '\'' +
                 ", reputation=" + reputation +
                 ", preferences=" + preferences +
+                ", favorites=" + favorites +
                 '}';
     }
 
@@ -195,6 +246,7 @@ public class User implements Parcelable{
         dest.writeString(gender);
         dest.writeDouble(reputation);
         dest.writeStringList(preferences);
+        dest.writeStringList(favorites);
 
     }
 

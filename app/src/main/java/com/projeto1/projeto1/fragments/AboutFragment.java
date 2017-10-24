@@ -2,32 +2,11 @@ package com.projeto1.projeto1.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.SharedPreferencesUtils;
-import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
-import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
-import com.projeto1.projeto1.listeners.GetUserListener;
-import com.projeto1.projeto1.models.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 
 /**

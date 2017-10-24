@@ -1,12 +1,14 @@
 package com.projeto1.projeto1.endpoints;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
+import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
@@ -21,16 +23,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by rafaelle on 06/07/17.
- */
 
-public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
-    private static final String TAG = "HEROKU_POST_USER_TASK";
+public class HerokuPutUserTask extends AsyncTask<Void, Void, Boolean> {
+    private static final String TAG = "HEROKU_PUT_USER_TASK";
 
     private final String ENDPOINT_ADDRESS;
     private final Context context;
@@ -41,44 +39,35 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
-    private UserListener mListener;
+    private  UserListener mListener;
 
-    public HerokuPostUserTask(User user, Context context, String endpoint, UserListener mListener) {
+    public HerokuPutUserTask(User user, Context context, String endpoint, UserListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
-        this.mListener = mListener;
         this.user = user;
-
+        this.mListener = mListener;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     protected Boolean doInBackground(Void... params) {
-        URL url;
 
+        URL url;
         try {
 
-            //Models
-            //String name, String id, String email, String image, Long createdAt, String birthday, String gender, Double reputation, ArrayList<String> preferences
+            //historic: [ [Date, double] ]
+            String favorites = user.getFavorites().toString();
+            favorites.replace("{","").replace("}","").replaceAll("\\s","").trim();
+            Log.d(TAG, favorites);
 
-            /* BD
-            user {
-                userID: String,
-                fullname: String,
-                email: String,
-                created_at: String,
-                image: String,
-                reputation: Double,
-                preferences: [String],
-            }*/
-
-            String parameters = "facebookId=" + user.getFacebookId() + "&fullName=" + user.getName()+ "&username="+ user.getName() +
+            //values[]=stringarrayitem1&values[]=stringarrayitem2&values[]=stringarrayitem3
+            String parameters = "fullName=" + user.getName()+ "&username="+ user.getName() +
                     "&email=" + user.getEmail() + "&avatar=" + user.getImage() +"&created_at=" + user.getCreatedAt() +
-                    "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences();
-
-            url = new URL(ENDPOINT_ADDRESS);
+                    "&reputation=" + user.getReputation() + "&preferences=" + user.getPreferences() + "&favorites" + user.favoritesToJson();
+            url = new URL(ENDPOINT_ADDRESS + user.getId() + "/");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("PUT");
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
@@ -89,6 +78,8 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
 
             conn.connect();
             int responseCode = conn.getResponseCode();
+
+            Log.v(TAG, conn.getResponseMessage() + responseCode);
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line = "";
@@ -101,16 +92,17 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
 
                 isSuccessfulRegister = (jsonObject.length() > 2);
 
+                /*
+                 isSuccessfulRegister = false;
                 Iterator<String> keys = jsonObject.keys();
 
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    if (key.equals("_id")) {
-                        user.setId(jsonObject.getString("_id"));
-                        SharedPreferencesUtils.setUser(context, user);
-                        break;
+
+                while( keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    if (key.equals("success")){
+                        isSuccessfulRegister = jsonObject.getString("success").contains("success") ;
                     }
-                }
+                }*/
 
                 conn.disconnect();
             } else {
@@ -119,7 +111,7 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
                 while ((line = br1.readLine()) != null) {
                     error += line;
                 }
-                Log.d(TAG, error);
+                Log.wtf(TAG, error);
                 return false;
             }
 
@@ -133,15 +125,26 @@ public class HerokuPostUserTask extends AsyncTask<Void, Void, Boolean> {
         return true;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
-    protected void onPostExecute(Boolean aBoolean) {
+    protected void onPostExecute(Boolean success) {
         if (isSuccessfulRegister) {
-            Toast.makeText(context, "User cadastrado com sucesso", Toast.LENGTH_LONG).show();
-            mListener.OnPostUserFinished(true);
+            Toast.makeText(context, "Usuário Alterado com sucesso", Toast.LENGTH_LONG).show();
+            mListener.OnPutUserFinished(true);
         }
         else {
-            mListener.OnPostUserFinished(false);
-
+            mListener.OnPutUserFinished(false);
         }
+        Log.d(TAG, responseMessage);
+
     }
+
+    @Override
+    protected void onCancelled() {
+        mAuthTask = null;
+    }
+
 }
+
+
+

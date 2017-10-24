@@ -28,15 +28,15 @@ import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
+import com.projeto1.projeto1.endpoints.HerokuPutUserTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
-import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.models.Market;
@@ -46,7 +46,7 @@ import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductListener, MarketListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductListener, MarketListener, UserListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private UpdateSaleFragment updateSaleFragment;
@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user = SharedPreferencesUtils.getUser(getBaseContext());
             Log.d(TAG, user.toString());
 
+           // user.addRemoveFav("59ed48bd7608ee000466d2da");
+
+         //   HerokuPutUserTask mTask = new HerokuPutUserTask(user, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+
+            //HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask("59ed48bd7608ee000466d2da", user.getId(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+
+         //   mTask.execute();
+
             //Mudando nome do usuário no menu
             //TODO dando erro
             /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -131,11 +139,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuthTask.execute();
         */
 
-        //Address address = new Address("Vila Nova da Rainha","461", "ponto de cem reis", "Campina Grande", "PB", "Brasil", " ");
-        //Localization localization = new Localization(-7.2134805,-35.885104);
-        //Market market = new Market(null,"Supermercados Ideal",address," ", "08.957.326/0001-13",localization);
+        //Address address = new Address("Av. Pref. Severino Bezerra Cabral","1339", "Mirante", "Campina Grande", "PB", "Brasil", " ");
+        //Localization localization = new Localization(0,0);
+        //Market market = new Market(null,"Extra",address," ", "1234567890",localization);
         //HerokuPostMarketsTask marketsTask = new HerokuPostMarketsTask(market, getBaseContext(), String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)), this);
         //marketsTask.execute();
+
 
         modifyActioonBar();
 
@@ -427,5 +436,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setSearchStr(String searchStr) {
         this.searchStr = searchStr;
+    }
+
+    @Override
+    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
+
+    }
+
+    @Override
+    public void OnGetUserFinished(boolean find, User user) {
+
+    }
+
+    @Override
+    public void OnPostUserFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnAddFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnRemoveFavoriteSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutUserFinished(boolean finished) {
+
     }
 }
