@@ -22,10 +22,14 @@ import android.widget.Toast;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
+import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -144,7 +148,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                         sale.addRemoveLike(currentUser.getId());
                         Log.d("USER", currentUser.getName());
                         like_quanity.setText(sale.getLikeCount() + "");
-                        updateSale(sale);
+                        updateSale(sale, currentUser, cb_like);
                     }
                 });
             }
@@ -197,10 +201,18 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     }
 
-    public void updateSale(Sale update) {
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
-        salePutTask.execute();
-    }
+    private void updateSale(Sale sale, User user, CheckBox likeCB) {
+        if(likeCB.isChecked()){
+            HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask(user, sale.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            mTask.execute();
+        } else {
+            HerokuRemoveFavoriteSaleTask mTask = new HerokuRemoveFavoriteSaleTask(user, sale.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            mTask.execute();
+        }
+
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
+        salePutTask.execute();    }
+
 
     private void updateSale(final LayoutInflater inflater, final ViewGroup container) {
         if (att != null) {
@@ -356,11 +368,19 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnGetUserFinished(boolean find, User user) {
+        if (!find){
+            HerokuPostUserTask userTask = new HerokuPostUserTask(user,
+                    getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            userTask.execute();
+        } else {
+            SharedPreferencesUtils.setUser(getContext(),user);
+        }
         this.user = user;
         marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
         marketTask.execute();
 
     }
+
 
     @Override
     public void OnPostUserFinished(boolean finished) {
@@ -369,11 +389,19 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnAddFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(getContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
 
     }
 
     @Override
     public void OnRemoveFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(getContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
 
     }
 

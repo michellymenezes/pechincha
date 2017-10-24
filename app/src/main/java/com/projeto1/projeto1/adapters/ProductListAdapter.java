@@ -17,9 +17,13 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.GroceryProductsFragment;
+import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -194,7 +198,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void OnGetUserFinished(boolean find, User user) {
-
+        if (!find){
+            HerokuPostUserTask userTask = new HerokuPostUserTask(user,
+                    activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            userTask.execute();
+        } else {
+            SharedPreferencesUtils.setUser(activity.getBaseContext(),user);
+        }
     }
 
     @Override
@@ -204,11 +214,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void OnAddFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
+
 
     }
 
     @Override
     public void OnRemoveFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
 
     }
 
@@ -237,8 +256,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             mTask.execute();
         }
 
-       /* HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
-        salePutTask.execute();*/    }
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
+        salePutTask.execute();    }
 
 
 }
