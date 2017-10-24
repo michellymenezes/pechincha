@@ -14,14 +14,21 @@ import android.widget.RelativeLayout;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
+import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
+import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
+import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.GroceryProductsFragment;
+import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -36,7 +43,7 @@ import java.util.List;
  * Created by samirsmedeiros on 18/06/17.
  */
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder> implements ProductListener, SaleListener {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder> implements ProductListener, SaleListener, UserListener {
 
     private static final String TAG = "profile_list_adapter ";
     private final List<Sale> salesList;
@@ -105,7 +112,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 if(!onBind) {
                     Log.d("USER", user.getName());
                     saleItem.addRemoveLike(user.getId());
-                    updateSale(saleItem);
+                    updateSale(saleItem, user, likeCB);
                     notifyDataSetChanged();
                 }
 
@@ -184,6 +191,51 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     }
 
+    @Override
+    public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
+
+    }
+
+    @Override
+    public void OnGetUserFinished(boolean find, User user) {
+        if (!find){
+            HerokuPostUserTask userTask = new HerokuPostUserTask(user,
+                    activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            userTask.execute();
+        } else {
+            SharedPreferencesUtils.setUser(activity.getBaseContext(),user);
+        }
+    }
+
+    @Override
+    public void OnPostUserFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnAddFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
+
+
+    }
+
+    @Override
+    public void OnRemoveFavoriteSaleFinished(boolean finished) {
+        User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
+        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+                this, user);
+        getUserTask.execute();
+
+    }
+
+    @Override
+    public void OnPutUserFinished(boolean finished) {
+
+    }
+
     public static class ProductItemHolder extends RecyclerView.ViewHolder {
 
         public CheckBox cb;
@@ -195,8 +247,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
-    private void updateSale(Sale update) {
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
+    private void updateSale(Sale sale, User user, CheckBox likeCB) {
+        if(likeCB.isChecked()){
+            HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask(user, sale.getId(), activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            mTask.execute();
+        } else {
+            HerokuRemoveFavoriteSaleTask mTask = new HerokuRemoveFavoriteSaleTask(user, sale.getId(), activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+            mTask.execute();
+        }
+
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
         salePutTask.execute();    }
 
 
