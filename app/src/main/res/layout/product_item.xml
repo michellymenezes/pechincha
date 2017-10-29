@@ -41,8 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:textStyle="bold"
-            android:padding="5dp"
          />
 
 
@@ -51,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:padding="5dp"
             android:layout_toRightOf="@+id/product_img_container"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/product_name"
@@ -76,8 +76,8 @@
             android:layout_margin="5dp"
             android:text="3,99"
             android:textColor="@color/colorPrimary"
-
-            android:padding="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             />
 
         <CheckBox
@@ -96,7 +96,7 @@
             />
 
         <TextView
-            android:id="@+id/like_quantity"
+            android:id="@+id/fav_quantity"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
@@ -104,6 +104,61 @@
             android:text=""
             android:gravity="right|center"
             android:layout_toLeftOf="@+id/like_btn"/>
+
+        <ImageButton
+            android:layout_width="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/product_img_container"
+            android:layout_height="15dp"
+            android:id="@+id/like_icon"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_like"
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:textColor="@android:color/transparent"
+            android:button="@null"
+            />
+
+        <TextView
+            android:id="@+id/like_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/like_icon"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:text="0"
+            android:gravity="left"
+            />
+
+        <ImageButton
+            android:layout_width="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/like_quantity"
+            android:layout_alignParentBottom="true"
+            android:layout_height="15dp"
+            android:id="@+id/dislike_icon"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_dislike"
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:textColor="@android:color/transparent"
+            android:button="@null"
+            />
+
+        <TextView
+            android:id="@+id/dislike_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/dislike_icon"
+            android:layout_marginBottom="10dp"
+            android:text="0"
+            android:gravity="left"
+            />
 
     </RelativeLayout>
 
