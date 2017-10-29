@@ -105,7 +105,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         View view = ((ProductViewItem) holder.itemView);
         ((ProductViewItem) holder.itemView).displayName(product);
         ((ProductViewItem) holder.itemView).displayPrice(salesList.get(position).getSalePrice());
-        ((ProductViewItem) holder.itemView).displayLikeQuantity(salesList.get(position).getLikeCount());
+        //((ProductViewItem) holder.itemView).displayLikeQuantity(salesList.get(position).getLikeCount());
         ((ProductViewItem) holder.itemView).d(market);
         ((ProductViewItem) holder.itemView).setCBText(saleItem.getId());
 
