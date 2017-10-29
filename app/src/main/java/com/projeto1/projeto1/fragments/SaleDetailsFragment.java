@@ -2,6 +2,7 @@ package com.projeto1.projeto1.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
@@ -72,6 +81,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private ImageView userImage;
     private HerokuPutSaleTask salePutTask;
     private ImageButton att;
+    private LineChart chart;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -97,9 +107,15 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
+
+
+        chart = (LineChart) mview.findViewById(R.id.chart);
+
+        setData();
+        Legend l = chart.getLegend();
+        l.setForm(Legend.LegendForm.LINE);
+
 
         ImageView product_image = (ImageView) mview.findViewById(R.id.product_image);
         TextView tv_category = (TextView) mview.findViewById(R.id.tv_category);
@@ -131,6 +147,40 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         if (sale != null) {
 
+            final CheckBox cb_fav = (CheckBox) mview.findViewById(R.id.fav_btn);
+            //final TextView fav_quanity = (TextView) mview.findViewById(R.id.fav_quantity);
+
+            boolean firstTime = true;
+            if (firstTime) {
+                cb_fav.setChecked(currentUser.getFavorites().contains(sale));
+                firstTime = false;
+            }
+           // fav_quanity.setText(currentUser.getFavorites().size()+"");
+
+            if(!firstTime) {
+                cb_fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Log.d("USER", currentUser.getName());
+                      //  fav_quanity.setText(currentUser.getFavorites().size()+ "");
+                        updateSale(sale, currentUser, cb_fav);
+                    }
+                });
+            }
+
+            //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
+
+            /*Sale newSale = sale;
+            newSale.setSalePrice(1.0);
+
+            salePutTask = new HerokuPutSaleTask(newSale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
+            salePutTask.execute();*/
+
+        }
+
+
+        if (sale != null) {
+
             final CheckBox cb_like = (CheckBox) mview.findViewById(R.id.like_btn);
             final TextView like_quanity = (TextView) mview.findViewById(R.id.like_quantity);
 
@@ -146,9 +196,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         sale.addRemoveLike(currentUser.getId());
+                        updateSaleLike(sale);
                         Log.d("USER", currentUser.getName());
                         like_quanity.setText(sale.getLikeCount() + "");
-                        updateSale(sale, currentUser, cb_like);
                     }
                 });
             }
@@ -173,27 +223,83 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         return mview;
     }
 
+    private ArrayList setYAxisValues(){
+        ArrayList yVals = new ArrayList<>();
+        yVals.add(new Entry(60, 0));
+        yVals.add(new Entry(48, 1));
+        yVals.add(new Entry(70.5f, 2));
+        yVals.add(new Entry(100, 3));
+        yVals.add(new Entry(180.9f, 4));
+
+        return yVals;
+    }
+    private ArrayList setXAxisValues(){
+        ArrayList xVals = new ArrayList<>();
+        xVals.add("10");
+        xVals.add("20");
+        xVals.add("30");
+        xVals.add("30.5");
+        xVals.add("40");
+
+        return xVals;
+    }
+    private void setData() {
+        ArrayList xVals = setXAxisValues();
+
+        ArrayList<Entry> yVals = setYAxisValues();
+
+        LineDataSet set1;
+
+// create a dataset and give it a type
+        set1 = new LineDataSet(yVals, "DataSet 1");
+        set1.setFillAlpha(110);
+
+        set1.setColor(Color.BLUE);
+        set1.setCircleColor(Color.BLUE);
+        set1.setLineWidth(1f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(true);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(false);
+        set1.setDrawHorizontalHighlightIndicator(false);
+        set1.setFillAlpha(255);
+        set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+
+//LineData data = new LineData(xVals, dataSets);
+
+        LineData data = new LineData();
+        data.addDataSet(set1);
+
+
+        chart.setData(data);
+    }
+
+
     private int getImage(String currentCategory) {
         switch (currentCategory) {
             case "Alimento": {
-                return R.drawable.ic_grocery_blue;
+                return R.drawable.ic_grocery;
             }
             case "Cuidados pessoais": {
-                return R.drawable.ic_hygiene_blue;
+                return R.drawable.ic_hygiene;
             }
             case "Limpeza": {
-                return R.drawable.ic_wiping;
+                return R.drawable.ic_wiping_white;
             }
             case "Eletrônico": {
-                return R.drawable.ic_plug;
+                return R.drawable.ic_plug_white;
 
             }
             case "Mobília": {
-                return R.drawable.ic_sofa;
+                return R.drawable.ic_sofa_white;
 
             }
             case "Outros": {
-                return R.drawable.ic_other_gray;
+                return R.drawable.ic_other;
             }
             default: return R.drawable.ic_offer;
 
@@ -210,20 +316,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             mTask.execute();
         }
 
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
-        salePutTask.execute();    }
-
-
-    private void updateSale(final LayoutInflater inflater, final ViewGroup container) {
-        if (att != null) {
-            att.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateDialog(inflater, container);
-
-                }
-            });
         }
+
+
+    private void updateSaleLike(Sale sale) {
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
+        salePutTask.execute();
     }
 
     private void marketDetail() {
@@ -393,6 +491,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
+        currentUser = SharedPreferencesUtils.getUser(getContext());
 
     }
 
@@ -402,6 +501,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
+        currentUser = SharedPreferencesUtils.getUser(getContext());
+
 
     }
 

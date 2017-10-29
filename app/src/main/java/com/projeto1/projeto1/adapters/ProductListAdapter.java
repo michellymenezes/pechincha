@@ -17,15 +17,11 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
-import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
-import com.projeto1.projeto1.fragments.GroceryProductsFragment;
-import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
-import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.FavoriteListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -34,7 +30,6 @@ import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
-import com.projeto1.projeto1.view_itens.ChecboxCategoryViewItem;
 import com.projeto1.projeto1.view_itens.ProductViewItem;
 
 import java.util.ArrayList;
@@ -121,8 +116,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!onBind) {
                     Log.d("USER", user.getName());
-                    saleItem.addRemoveLike(user.getId());
-                    updateSale(saleItem, user, likeCB);
+                    updateSaleFav(saleItem, user, likeCB);
                     notifyDataSetChanged();
                     if (favoriteListener!= null){
                         favoriteListener.OnFavoriteIsClicked(true);
@@ -133,6 +127,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
             }
         });
+
 
         final RelativeLayout saleCard = (RelativeLayout) ((ProductViewItem) holder.itemView).getRelativerLayout();
 
@@ -151,8 +146,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
         onBind = true;
-        holder.cb.setChecked(saleItem.getLikeUsers().contains(user.getId()));
+        holder.cb.setChecked(user.getFavorites().contains(saleItem));
         onBind = false;
+
+
     }
 
 
@@ -219,6 +216,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         } else {
             SharedPreferencesUtils.setUser(activity.getBaseContext(),user);
         }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -232,6 +230,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
+        notifyDataSetChanged();
 
 
     }
@@ -263,7 +262,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
-    private void updateSale(Sale sale, User user, CheckBox likeCB) {
+    private void updateSaleFav(Sale sale, User user, CheckBox likeCB) {
         if(likeCB.isChecked()){
             HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask(user, sale.getId(), activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
             mTask.execute();
@@ -272,10 +271,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             mTask.execute();
         }
 
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, activity.getBaseContext(), String.format(activity.getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
-        salePutTask.execute();
-
     }
+
 
 }
 
