@@ -2,9 +2,7 @@ package com.projeto1.projeto1.models;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by michelly on 14/06/17.
@@ -24,9 +22,11 @@ public class Sale {
     private String quantUni;
     private List<Historic> historic;
     private int likeCount;
+    private int dislikeCount;
     private int reportCount;
     private List<String> likeUsers;
     private List<String> reportUsers;
+    private List<String> dislikeUsers;
 
     public Sale(String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, String authorId, List<Historic> historic) {
         this.productId = productId;
@@ -38,8 +38,10 @@ public class Sale {
         this.historic = historic;
         this.likeCount = 0;
         this.reportCount = 0;
+        this.dislikeCount = 0;
         this.likeUsers = new ArrayList<>();
         this.reportUsers = new ArrayList<>();
+        this.dislikeUsers = new ArrayList<>();
 
         this.id = " ";
     }
@@ -53,9 +55,11 @@ public class Sale {
         this.authorId = authorId;
         this.historic = new ArrayList<Historic>();
         this.likeCount = 0;
+        this.dislikeCount = 0;
         this.reportCount = 0;
         this.likeUsers = new ArrayList<>();
         this.reportUsers = new ArrayList<>();
+        this.dislikeUsers = new ArrayList<>();
 
         this.id = " ";
     }
@@ -69,14 +73,16 @@ public class Sale {
         this.quantity = quantity;
         this.quantUni = quantUni;
         this.likeCount = 0;
+        this.dislikeCount = 0;
         this.reportCount = 0;
         this.likeUsers = new ArrayList<>();
         this.reportUsers = new ArrayList<>();
+        this.dislikeUsers = new ArrayList<>();
 
         this.id = " ";
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, int likeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, int likeCount, int dislikeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers, ArrayList<String> dislikeUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -88,12 +94,14 @@ public class Sale {
         this.quantity = quantity;
         this.historic = new ArrayList<Historic>();
         this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
         this.reportCount = reportCount;
         this.likeUsers = likeUsers;
         this.reportUsers = reportUsers;
+        this.dislikeUsers = dislikeUsers;
     }
 
-    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic, int likeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers) {
+    public Sale(String id, String productId, String marketId, Double salePrice, Double regularPrice, String expirationDate, Date publicationDate, String authorId, int quantity, List<Historic> historic, int likeCount, int dislikeCount, int reportCount, ArrayList<String> likeUsers, ArrayList<String> reportUsers, ArrayList<String> dislikeUsers) {
         this.id = id;
         this.productId = productId;
         this.marketId = marketId;
@@ -105,9 +113,11 @@ public class Sale {
         this.quantity = quantity;
         this.historic = historic;
         this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
         this.reportCount = reportCount;
         this.likeUsers = likeUsers;
         this.reportUsers = reportUsers;
+        this.dislikeUsers = dislikeUsers;
     }
 
     public String getId() {
@@ -237,6 +247,22 @@ public class Sale {
         this.reportUsers = reportUsers;
     }
 
+    public int getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(int dislikeCount) {
+        this.dislikeCount = dislikeCount;
+    }
+
+    public List<String> getDislikeUsers() {
+        return dislikeUsers;
+    }
+
+    public void setDislikeUsers(List<String> dislikeUsers) {
+        this.dislikeUsers = dislikeUsers;
+    }
+
     public boolean addRemoveLike(String userId){
         if(likeUsers.contains(userId)){
             likeUsers.remove(userId);
@@ -311,8 +337,10 @@ public class Sale {
                 ", quantUni='" + quantUni + '\'' +
                 ", historic=" + historic +
                 ", likeCount=" + likeCount +
+                ", dislikeCount=" + dislikeCount +
                 ", reportCount=" + reportCount +
                 ", likeUsers=" + likeUsers +
+                ", dislikeUsers=" + dislikeUsers +
                 ", reportUsers=" + reportUsers +
                 '}';
     }

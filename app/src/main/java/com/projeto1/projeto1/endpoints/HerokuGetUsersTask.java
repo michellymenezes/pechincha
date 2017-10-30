@@ -140,6 +140,7 @@ public class HerokuGetUsersTask extends AsyncTask {
                             }
 
                             int likeCount = salesJSON.getInt("likeCount");
+                            int dislikeCount = salesJSON.getInt( "dislikeCount");
                             int reportCount = salesJSON.getInt("reportCount");
 
                             ArrayList<String> likeUsers = new ArrayList<String>();
@@ -153,8 +154,15 @@ public class HerokuGetUsersTask extends AsyncTask {
                             for(int k = 0; k < reportList.length(); k++){
                                 reportUsers.add(reportList.getString(k));
                             }
+
+                            ArrayList<String> dislikeUsers = new ArrayList<String>();
+                            JSONArray dislikeList =  salesJSON.getJSONArray("dislikeUsers");
+                            for(int k = 0; k < dislikeList.length(); k++){
+                                dislikeUsers.add(dislikeList.getString(k));
+                            }
+
                             // Sale
-                            Sale sale = new Sale(idSale, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, reportCount, likeUsers, reportUsers);
+                            Sale sale = new Sale(idSale, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, dislikeCount, reportCount, likeUsers, reportUsers, dislikeUsers);
 
                             favorites.add(sale);                        }
 

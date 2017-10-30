@@ -22,10 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -96,6 +93,7 @@ public class HerokuGetSalesTask extends AsyncTask {
                             }
 
                             int likeCount = salesJSON.getJSONObject(i).getInt("likeCount");
+                            int dislikeCount = salesJSON.getJSONObject(i).getInt( "dislikeCount");
                             int reportCount = salesJSON.getJSONObject(i).getInt("reportCount");
 
                             ArrayList<String> likeUsers = new ArrayList<String>();
@@ -110,12 +108,18 @@ public class HerokuGetSalesTask extends AsyncTask {
                                 reportUsers.add(reportList.getString(j));
                             }
 
+                            ArrayList<String> dislikeUsers = new ArrayList<String>();
+                            JSONArray dislikeList =  salesJSON.getJSONObject(i).getJSONArray("dislikeUsers");
+                            for(int j = 0; j < dislikeList.length(); j++){
+                                dislikeUsers.add(dislikeList.getString(j));
+                            }
+
 
                             // int quantity = salesJSON.getJSONObject(i).getInt("quantity");
                             // int unit = salesJSON.getJSONObject(i).getInt("unit");
 
 
-                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, reportCount, likeUsers, reportUsers);
+                            Sale sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, dislikeCount, reportCount, likeUsers, reportUsers, dislikeUsers);
 
                             sales.add(sale);
                         }
