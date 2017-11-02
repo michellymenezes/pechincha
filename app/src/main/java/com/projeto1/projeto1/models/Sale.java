@@ -305,6 +305,18 @@ public class Sale {
         return likes;
     }
 
+    public String dislikeToJson(){
+        String dislikes = "[";
+        for(int i = 0; i < dislikeUsers.size(); i++){
+            dislikes += "\"" + dislikeUsers.get(i) + "\"";
+            if(i < dislikeUsers.size()-1){
+                dislikes += ",";
+            }
+        }
+        dislikes += "]";
+        return dislikes;
+    }
+
     public String reportToJson(){
 
 
@@ -317,6 +329,21 @@ public class Sale {
         }
         reports += "]";
         return reports;
+    }
+
+    public String historicToJson(){
+        String historicString = "[";
+
+        for(int i = 0; i < historic.size(); i++){
+            historicString += historic.get(i).historicToJson();
+            if(i < historic.size()-1){
+                historicString += ",";
+            }
+        }
+
+        historicString += "]";
+
+        return historicString;
     }
     public boolean hasReported(String userId){
         return reportUsers.contains(userId);

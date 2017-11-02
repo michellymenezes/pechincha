@@ -90,6 +90,31 @@ public class Historic {
         this.value = value;
     }
 
+    public String historicToJson(){
+        String historic = "{saleDate=" + saleDate + "&value=" + value + "&likeCount=" + likeCount +
+                "&dislikeCount=" + dislikeCount + "&reportCount=" + reportCount + "&likeUsers=[";
+
+        for(int i = 0; i < likeUsers.size(); i++){
+            historic += "\"" + likeUsers.get(i) + "\"";
+            if(i < likeUsers.size()-1){
+                historic += ",";
+            }
+        }
+
+        historic += "]&dislikeUsers=[";
+
+        for(int i = 0; i < dislikeUsers.size(); i++){
+            historic += "\"" + dislikeUsers.get(i) + "\"";
+            if(i < dislikeUsers.size()-1){
+                historic += ",";
+            }
+        }
+
+        historic += "]}";
+
+        return historic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
