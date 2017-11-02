@@ -530,6 +530,26 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         }
     }
 
+    @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
     private void updateDialog(LayoutInflater inflater, ViewGroup container) {
         final View viewDialog = View.inflate(getActivity(), R.layout.update_sale_dialog, null);
 

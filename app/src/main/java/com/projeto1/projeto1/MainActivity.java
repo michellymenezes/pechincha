@@ -28,7 +28,11 @@ import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
+import com.projeto1.projeto1.endpoints.HerokuDeleteDislikeTask;
+import com.projeto1.projeto1.endpoints.HerokuDeleteLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.endpoints.HerokuPostDislikeTask;
+import com.projeto1.projeto1.endpoints.HerokuPostLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
@@ -37,6 +41,7 @@ import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
 import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
+import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -47,7 +52,7 @@ import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductListener, MarketListener, UserListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductListener, MarketListener, UserListener, SaleListener {
 
     private static final String TAG = "MAIN_ACTIVITY";
     private UpdateSaleFragment updateSaleFragment;
@@ -104,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user = SharedPreferencesUtils.getUser(getBaseContext());
             Log.d(TAG, user.toString());
 
-            //HerokuAddFavoriteSaleTask mTask = new HerokuAddFavoriteSaleTask(user, "59ed48bd7608ee000466d2da", getBaseContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
+//            HerokuDeleteLikeTask mTask = new HerokuDeleteLikeTask("59ef75ac5f9b760004390237", user.getId(), getBaseContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
 
-            //mTask.execute();
+//            mTask.execute();
 
             //Mudando nome do usuário no menu
             //TODO dando erro
@@ -463,6 +468,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void OnPutUserFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
+    public void OnPostSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPutSaleFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
 
     }
 }

@@ -309,6 +309,26 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList = products;
         Log.v(TAG, "Quantidade de produtos: " + String.valueOf(productsList.size()));

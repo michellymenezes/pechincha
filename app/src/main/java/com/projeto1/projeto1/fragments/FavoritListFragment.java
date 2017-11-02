@@ -201,6 +201,26 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnFavoriteIsClicked(boolean clicked) {
         updateView();
     }

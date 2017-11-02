@@ -203,6 +203,26 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnGetAllUsersFinished(boolean ready, ArrayList<User> users) {
 
     }

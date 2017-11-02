@@ -99,6 +99,26 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     }
 
+    @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
 
         public CheckBox cb;

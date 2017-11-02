@@ -164,6 +164,26 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
+    public void OnPostLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteLikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnPostDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnDeleteDislikeFinished(boolean finished) {
+
+    }
+
+    @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
         marketsList = markets;
         mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext());
