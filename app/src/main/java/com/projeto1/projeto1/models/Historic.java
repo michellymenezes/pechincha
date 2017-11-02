@@ -2,6 +2,7 @@ package com.projeto1.projeto1.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by michelly on 14/08/17.
@@ -11,12 +12,18 @@ public class Historic {
 
     private Date saleDate;
     private double value;
-    private int likeCount, dislikeCount, repostCount;
-    private ArrayList<String> likeUsers, dislikeUsers;
+    private int likeCount, dislikeCount, reportCount;
+    private List<String> likeUsers, dislikeUsers;
 
-    public Historic(Date date, double value) {
+    public Historic(Date date, double value, int likeCount, int dislikeCount, int reportCount, List<String> likeUsers, List<String> dislikeUsers) {
         this.saleDate = date;
         this.value = value;
+        this.likeCount = likeCount;
+        this.likeUsers = likeUsers;
+        this.dislikeCount = dislikeCount;
+        this.reportCount = reportCount;
+        this.dislikeUsers = dislikeUsers;
+        this.dislikeUsers = dislikeUsers;
     }
 
     public Date getSaleDate() {
@@ -44,14 +51,14 @@ public class Historic {
     }
 
     public int getRepostCount() {
-        return repostCount;
+        return reportCount;
     }
 
     public void setRepostCount(int repostCount) {
-        this.repostCount = repostCount;
+        this.reportCount = repostCount;
     }
 
-    public ArrayList<String> getLikeUsers() {
+    public List<String> getLikeUsers() {
         return likeUsers;
     }
 
@@ -59,7 +66,7 @@ public class Historic {
         this.likeUsers = likeUsers;
     }
 
-    public ArrayList<String> getDislikeUsers() {
+    public List<String> getDislikeUsers() {
         return dislikeUsers;
     }
 
@@ -93,7 +100,7 @@ public class Historic {
         if (Double.compare(historic.value, value) != 0) return false;
         if (likeCount != historic.likeCount) return false;
         if (dislikeCount != historic.dislikeCount) return false;
-        if (repostCount != historic.repostCount) return false;
+        if (reportCount != historic.reportCount) return false;
         if (!saleDate.equals(historic.saleDate)) return false;
         if (likeUsers != null ? !likeUsers.equals(historic.likeUsers) : historic.likeUsers != null)
             return false;
@@ -110,7 +117,7 @@ public class Historic {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + likeCount;
         result = 31 * result + dislikeCount;
-        result = 31 * result + repostCount;
+        result = 31 * result + reportCount;
         result = 31 * result + (likeUsers != null ? likeUsers.hashCode() : 0);
         result = 31 * result + (dislikeUsers != null ? dislikeUsers.hashCode() : 0);
         return result;
@@ -123,7 +130,7 @@ public class Historic {
                 ", value=" + value +
                 ", likeCount=" + likeCount +
                 ", dislikeCount=" + dislikeCount +
-                ", repostCount=" + repostCount +
+                ", repostCount=" + reportCount +
                 ", likeUsers=" + likeUsers +
                 ", dislikeUsers=" + dislikeUsers +
                 '}';

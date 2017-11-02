@@ -136,7 +136,23 @@ public class HerokuGetUsersTask extends AsyncTask {
 
                                 double value = historicList.getJSONObject(k).getDouble("value");
                                 Date date = df.parse(historicList.getJSONObject(k).getString("saleDate"));
-                                historic.add(new Historic(date, value));
+                                int likeCount = historicList.getJSONObject(k).getInt("likeCount");
+                                int dislikeCount = historicList.getJSONObject(k).getInt("dislikeCount");
+                                int reportCount = historicList.getJSONObject(k).getInt("reportCount");
+
+                                List<String> likeUsers = new ArrayList<String>();
+                                JSONArray likeList =  historicList.getJSONObject(k).getJSONArray("likeUsers");
+                                for(int l = 0; k < likeList.length(); l++){
+                                    likeUsers.add(likeList.getString(l));
+                                }
+
+                                List<String> dislikeUsers = new ArrayList<String>();
+                                JSONArray dislikeList =  historicList.getJSONObject(k).getJSONArray("dislikeUsers");
+                                for(int l = 0; l < dislikeList.length(); l++){
+                                    dislikeUsers.add(dislikeList.getString(l));
+                                }
+
+                                historic.add(new Historic(date, value, likeCount, dislikeCount, reportCount, likeUsers, dislikeUsers));
                             }
 
                             int likeCount = salesJSON.getInt("likeCount");

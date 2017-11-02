@@ -292,8 +292,8 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
             Tem que fazer um get pra pegar esses ids, da mesma maneira que foi feito em Product.
 */
                 TimeZone tz = TimeZone.getTimeZone("UTC");
-                SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+                SimpleDateFormat f = new SimpleDateFormat("DD-MMM-yyyy");
+                DateFormat df = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
                 String expirationDate = null;
                 String marketId = ((MainActivity) getActivity()).getChosenMarket().getId();
@@ -311,6 +311,9 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
 
                 String newExpDate = date == ""? expirationDate: date + expirationDate.substring(10, expirationDate.length());
 
+                if(date.length() == 9){
+                    newExpDate = date.substring(0, 8) + "0" + date.substring(8) + expirationDate.substring(10, expirationDate.length());
+                }
                 Sale sale;
 
                 //TODO criar objeto e salvar no banco.
