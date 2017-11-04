@@ -20,10 +20,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -32,10 +30,14 @@ import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
+import com.projeto1.projeto1.endpoints.HerokuDeleteDislikeTask;
+import com.projeto1.projeto1.endpoints.HerokuDeleteLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
+import com.projeto1.projeto1.endpoints.HerokuPostDislikeTask;
+import com.projeto1.projeto1.endpoints.HerokuPostLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
@@ -80,7 +82,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private TextView username;
     private ImageView userImage;
     private HerokuPutSaleTask salePutTask;
-    private ImageButton att;
+    private Button updateSaleBtn;
     private LineChart chart;
 
     /**
@@ -129,7 +131,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         validity = (TextView) mview.findViewById(R.id.validity);
         quantity = (TextView) mview.findViewById(R.id.quantity);
         username = (TextView) mview.findViewById(R.id.user_name);
-        att = (ImageButton) mview.findViewById(R.id.att);
+        updateSaleBtn = (Button) mview.findViewById(R.id.att);
         currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
@@ -137,7 +139,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         tv_category.setText(((MainActivity) getActivity()).getCurrentCategory());
         category_detail.setImageResource(getImage(((MainActivity) getActivity()).getCurrentCategory()));
 
-        att.setOnClickListener(new View.OnClickListener() {
+        updateSaleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).changeFragment(UpdateSaleFragment.getInstance(),TAG,true);
@@ -182,26 +184,45 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         if (sale != null) {
 
             final CheckBox cb_like = (CheckBox) mview.findViewById(R.id.like_btn);
+            final CheckBox cb_dislike = (CheckBox) mview.findViewById(R.id.dislike_btn);
+
             final TextView like_quanity = (TextView) mview.findViewById(R.id.like_quantity);
+            final TextView dislike_quanity = (TextView) mview.findViewById(R.id.dislike_quantity);
 
             boolean firstTime = true;
             if (firstTime) {
                 cb_like.setChecked(sale.getLikeUsers().contains(currentUser.getId()));
+                cb_dislike.setChecked(sale.getDislikeUsers().contains(currentUser.getId()));
                 firstTime = false;
             }
             like_quanity.setText(sale.getLikeCount()+"");
+            dislike_quanity.setText(sale.getDislikeCount()+"");
 
             if(!firstTime) {
                 cb_like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        sale.addRemoveLike(currentUser.getId());
-                        updateSaleLike(sale);
+                        Log.v("IDDDDDDDD",sale.getId());
+                        if(cb_like.isChecked()) cb_dislike.setChecked(false);
+                        updateSaleLike(sale, cb_like,currentUser);
                         Log.d("USER", currentUser.getName());
                         like_quanity.setText(sale.getLikeCount() + "");
                     }
                 });
+
+                cb_dislike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Log.v("IDDDDDDDD",sale.getId());
+                        if(cb_dislike.isChecked()) cb_like.setChecked(false);
+                        updateSaleDislike(sale, cb_dislike, currentUser);
+                        Log.d("USER", currentUser.getName());
+                        dislike_quanity.setText(sale.getDislikeCount() + "");
+                    }
+                });
             }
+
+
 
             //EXEMPLO DE EDIÇÃO DE PROMOÇÃO - PUT
 
@@ -221,6 +242,18 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
 
         return mview;
+    }
+
+    private void updateSaleDislike(Sale sale, CheckBox cb_dislike, User currentUser) {
+        if(cb_dislike.isChecked()) {
+            sale.addDislike(currentUser.getId());
+            HerokuPostDislikeTask mTask = new HerokuPostDislikeTask(sale.getId(), currentUser.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+            mTask.execute();
+        } else {
+            sale.removeDislike(currentUser.getId());
+            HerokuDeleteDislikeTask mTask = new HerokuDeleteDislikeTask(sale.getId(), currentUser.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+            mTask.execute();
+        }
     }
 
     private ArrayList setYAxisValues(){
@@ -319,9 +352,16 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         }
 
 
-    private void updateSaleLike(Sale sale) {
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(sale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
-        salePutTask.execute();
+    private void updateSaleLike(Sale sale, CheckBox cb_like, User currentUser) {
+        if(cb_like.isChecked()) {
+            sale.addLike(currentUser.getId());
+            HerokuPostLikeTask mTask = new HerokuPostLikeTask(sale.getId(), currentUser.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+            mTask.execute();
+        } else {
+            sale.removeLike(currentUser.getId());
+            HerokuDeleteLikeTask mTask = new HerokuDeleteLikeTask(sale.getId(), currentUser.getId(), getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+            mTask.execute();
+        }
     }
 
     private void marketDetail() {

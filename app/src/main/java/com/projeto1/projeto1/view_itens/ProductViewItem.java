@@ -47,6 +47,10 @@ public class ProductViewItem extends FrameLayout {
         ((TextView)findViewById(R.id.like_quantity)).setText(quantity+"");
     }
 
+    public void displayDislikeQuantity(int quantity) {
+        ((TextView)findViewById(R.id.dislike_quantity)).setText(quantity+"");
+    }
+
     public void displayBrandtImg(int img) {
         ((ImageView)findViewById(R.id.banner_img)).setImageResource(img);
     }

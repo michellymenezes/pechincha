@@ -1,5 +1,7 @@
 package com.projeto1.projeto1.models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -263,18 +265,42 @@ public class Sale {
         this.dislikeUsers = dislikeUsers;
     }
 
-    public boolean addRemoveLike(String userId){
-        if(likeUsers.contains(userId)){
-            likeUsers.remove(userId);
-            likeCount--;
-            return false;
-        }
-        else {
+    public boolean addLike(String userId){
+        if(!likeUsers.contains(userId)){
             likeUsers.add(userId);
             likeCount++;
             return true;
         }
+       return false;
     }
+
+    public boolean removeLike(String userId){
+        if(likeUsers.contains(userId)){
+            likeUsers.remove(userId);
+            likeCount--;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addDislike(String userId){
+        if(!dislikeUsers.contains(userId)){
+            dislikeUsers.add(userId);
+            dislikeCount++;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeDislike(String userId){
+        if(dislikeUsers.contains(userId)){
+            dislikeUsers.remove(userId);
+            dislikeCount--;
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean hasLiked(String userId){
         return likeUsers.contains(userId);
