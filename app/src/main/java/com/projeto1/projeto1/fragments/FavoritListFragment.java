@@ -77,21 +77,11 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
 
         marketsList = new ArrayList<>();
         productsList = new ArrayList<>();
-
-        updateView();
-        return mView;
-    }
-
-    private void updateView(){
         updateProductList();
         updateMarkettList();
 
         final User user = SharedPreferencesUtils.getUser(getContext());
         salesList = user.getFavorites();
-        Log.v("SIZEEEEEE>>>>>>>>>>>>>>>>", String.valueOf(user.getFavorites().size()));
-
-
-
         final TextView no_results = (TextView) mView.findViewById(R.id.no_results);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -101,6 +91,12 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
                 mView.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
         }, 1500);
+
+        updateView();
+        return mView;
+    }
+
+    private void updateView(){
 
         productRecycleView = (RecyclerView) mView.findViewById(R.id.product_list);
         mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext(), this);
@@ -159,8 +155,8 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
         productsList= products;
         marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
         marketTask.execute();
-        //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
-        //     productRecycleView.setAdapter(mProductAdapter);
+        mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext(), this);
+        productRecycleView.setAdapter(mProductAdapter);
 
     }
 
@@ -221,7 +217,8 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
-    public void OnFavoriteIsClicked(boolean clicked) {
+    public void OnFavoriteIsClicked(boolean clicked, Sale sale) {
+        salesList.remove(sale);
         updateView();
     }
 }

@@ -120,7 +120,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     updateSaleFav(saleItem, user, likeCB);
                     notifyDataSetChanged();
                     if (favoriteListener!= null){
-                        favoriteListener.OnFavoriteIsClicked(true);
+                        favoriteListener.OnFavoriteIsClicked(true, saleItem);
                     }
 
                 }
