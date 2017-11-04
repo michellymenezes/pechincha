@@ -84,6 +84,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private HerokuPutSaleTask salePutTask;
     private Button updateSaleBtn;
     private LineChart chart;
+    private Boolean favoriteAction;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -133,6 +134,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         username = (TextView) mview.findViewById(R.id.user_name);
         updateSaleBtn = (Button) mview.findViewById(R.id.att);
         currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
+        favoriteAction = false;
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
         product_image.setImageResource(/*getImage(((MainActivity) getActivity()).getCurrentCategory())*/R.drawable.ic_offer);
@@ -512,8 +514,10 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             userTask.execute();
         } else if(find && currentUser.getId().equals(user.getId())){
             SharedPreferencesUtils.setUser(getContext(),user);
-        } else {
+        }
+        if(!favoriteAction) {
             this.user = user;
+            favoriteAction = false;
         }
         marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
         marketTask.execute();
@@ -528,6 +532,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnAddFavoriteSaleFinished(boolean finished) {
+        favoriteAction = finished;
         User user = SharedPreferencesUtils.getUser(getContext());
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
@@ -538,6 +543,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnRemoveFavoriteSaleFinished(boolean finished) {
+        favoriteAction = finished;
         User user = SharedPreferencesUtils.getUser(getContext());
         HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
