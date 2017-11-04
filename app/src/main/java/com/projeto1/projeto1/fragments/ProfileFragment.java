@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment {
 
             if (userToShow.getCreatedAt()!=null){
                 createdAt = (TextView) mview.findViewById(R.id.created_at);
-                String [] date =  userToShow.getCreatedAt().substring(0,10).split("-");
+                String [] date =  userToShow.getCreatedAt().substring(0,10).split(" ");
                 String createdate = date[2] +"-"+ date[1] +"-"+ date[0];
                 createdAt.setText(createdate);
             }
