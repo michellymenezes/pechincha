@@ -510,10 +510,11 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             HerokuPostUserTask userTask = new HerokuPostUserTask(user,
                     getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
             userTask.execute();
-        } else {
+        } else if(find && currentUser.getId().equals(user.getId())){
             SharedPreferencesUtils.setUser(getContext(),user);
+        } else {
+            this.user = user;
         }
-        this.user = user;
         marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
         marketTask.execute();
 
