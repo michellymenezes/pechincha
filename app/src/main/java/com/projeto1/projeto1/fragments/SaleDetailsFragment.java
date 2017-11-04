@@ -51,6 +51,7 @@ import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by samirsmedeiros on 17/06/17.
@@ -85,6 +86,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private Button updateSaleBtn;
     private LineChart chart;
     private Boolean favoriteAction;
+    private TextView updateDate;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -134,6 +136,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         username = (TextView) mview.findViewById(R.id.user_name);
         updateSaleBtn = (Button) mview.findViewById(R.id.att);
         currentUser = SharedPreferencesUtils.getUser(getActivity().getBaseContext());
+        updateDate = (TextView) mview.findViewById(R.id.sale_update_date);
         favoriteAction = false;
 
         sale = SharedPreferencesUtils.getSelectedSale(getContext());
@@ -460,7 +463,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         mOld_price.setText("R$" + sale.getRegularPrice().toString());
         currentPrice.setText("R$" + sale.getSalePrice().toString());
         if (product != null) {
-            mName_product.setText(product.getName());
+            mName_product.setText(product.getName() + " " + product.getBrand()  +" " +Integer.valueOf((int) product.getSize())+product.getSizeUnity());
             mBarcod.setText(product.getBarcode());
         }
         marketName.setText(market.getName());
@@ -470,7 +473,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         username.setText(user.getName());
         quantity.setText(((int)product.getSize()) +product.getSizeUnity()+"");
 
+        String datePub = getFomatedDate(sale.getPublicationDate());
 
+        updateDate.setText(datePub);
         mOld_price.setPaintFlags(mOld_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         userImage = (ImageView) mview.findViewById(R.id.user_img);
@@ -495,6 +500,60 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                         .show();
             }
         });
+    }
+
+    private String getFomatedDate(Date publicationDate) {
+
+        String splitDate [] = publicationDate.toString().split(" ");
+        String day = splitDate[2];
+        String month = getMonth(splitDate[1]);
+        String year = splitDate[5];
+        return day+"/"+month+"/"+year;
+
+    }
+
+    private String getMonth(String s) {
+        switch (s) {
+            case "Jan": {
+                return "01";
+            }
+            case "Feb": {
+                return "02";
+            }
+            case "Mar": {
+                return "03";
+            }
+            case "Apr": {
+                return "04";
+            }
+            case "May": {
+                return "05";
+            }
+            case "Jun": {
+                return "06";
+            }
+            case "Jul": {
+                return "07";
+            }
+            case "Aug": {
+                return "08";
+            }
+            case "Sep": {
+                return "09";
+            }
+            case "Oct": {
+                return "10";
+            }
+            case "Nov": {
+                return "11";
+            }
+            case "Dec": {
+                return "12";
+            }
+
+            default: return "01";
+
+        }
     }
 
     public void setSale(Sale sale) {

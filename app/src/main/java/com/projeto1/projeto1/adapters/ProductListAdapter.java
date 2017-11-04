@@ -97,7 +97,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             String p1 = p.getId();
             String p2 = salesList.get(position).getProductId();
             if(p1.equals(p2)){
-                product = p.getName();
+                product = p.getName() + " " + p.getBrand()  +" " +Integer.valueOf((int) p.getSize())+p.getSizeUnity();
                 break;
             }
         }
