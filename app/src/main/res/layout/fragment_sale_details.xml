@@ -15,49 +15,50 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white">
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
 
-                <LinearLayout
-                    android:id="@+id/img_content"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/bg_select_category"
-                        android:gravity="center">
+                        android:id="@+id/img_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/image_container"
+                        android:gravity="left"
+                        android:orientation="vertical">
 
-                        <ImageButton
-                            android:id="@+id/product_image"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_offer" />
+                        <TextView
+                            android:id="@+id/name_product"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="left"
+                            android:text="Nome produto"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/name_product"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Nome produto"
-                        android:textColor="@android:color/tertiary_text_dark"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:id="@+id/name_supermarket_container"
+                        android:layout_below="@+id/img_content"
+                        android:layout_toRightOf="@+id/image_container"
+                        android:gravity="left"
                         android:orientation="horizontal">
 
                         <Button
@@ -68,78 +69,40 @@
                             android:layout_marginLeft="5dp"
                             android:background="@android:color/transparent"
                             android:drawableLeft="@drawable/ic_store"
+                            android:gravity="left|center"
                             android:text="Supermercado"
                             android:textAllCaps="false"
                             android:textColor="@android:color/darker_gray"
-                            android:textSize="13dp" />
+                            android:textSize="12dp" />
                     </LinearLayout>
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/image_container"
+                        android:layout_width="110dp"
+                        android:layout_height="130dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/rounded_bg"
+                        android:gravity="center">
 
-            </RelativeLayout>
+                        <ImageButton
+                            android:id="@+id/product_image"
+                            android:layout_width="100dp"
+                            android:layout_height="130dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_offer" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-65dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="-20dp"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/user_img"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/circle_bg_image"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_user" />
-
-
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="100dp"
-                        android:layout_height="20dp"
-                        android:gravity="top|center"
-                        android:text="Usuario"
-                        android:textColor="@android:color/darker_gray"
-                        android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/sale_update_date"
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
-                    android:gravity="top|center"
-                    android:text="12/06/2017"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/rounded_bg"
-                android:elevation="3dp"
-                android:orientation="vertical"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/price_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:layout_below="@+id/img_content"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -171,7 +134,7 @@
                             <Button
                                 android:id="@+id/att"
                                 android:layout_width="match_parent"
-                                android:layout_height="20dp"
+                                android:layout_height="25dp"
                                 android:layout_gravity="bottom"
                                 android:layout_marginTop="3dp"
                                 android:background="@drawable/bg_update_btn"
@@ -182,8 +145,59 @@
                                 android:textAlignment="center"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
-                                android:textSize="10dp" />
+                                android:textSize="11dp" />
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/user_container"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/image_container"
+                        android:layout_alignParentBottom="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="-20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/user_img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circle_bg_image"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_user" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/user_name"
+                                android:layout_width="80dp"
+                                android:layout_height="15dp"
+                                android:gravity="bottom"
+                                android:text="Usuario"
+                                android:textSize="12dp"
+                                android:textColor="@android:color/darker_gray"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:id="@+id/sale_update_date"
+                                android:layout_width="80dp"
+                                android:layout_height="15dp"
+                                android:gravity="top"
+                                android:text="12/06/2017"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="8dp" />
+
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -226,6 +240,7 @@
 
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

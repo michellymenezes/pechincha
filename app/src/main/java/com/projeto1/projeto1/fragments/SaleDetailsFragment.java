@@ -339,7 +339,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             case "Outros": {
                 return R.drawable.ic_other;
             }
-            default: return R.drawable.ic_offer;
+            default: return R.drawable.ic_other;
 
         }
 
