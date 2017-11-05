@@ -143,7 +143,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((Boolean)searchBtn.getTag())==true){
+                if((searchBtn.getTag())!=null && ((Boolean)searchBtn.getTag())==true){
                     searchView.setText("");
                 }
 
