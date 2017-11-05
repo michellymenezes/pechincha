@@ -153,6 +153,9 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsList= products;
+        if(!isAdded()) {
+            return;
+        }
         marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
         marketTask.execute();
         mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList, getContext(), this);
