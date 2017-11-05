@@ -456,6 +456,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnGetMarketReady(boolean b, Market market) {
+        if(!isAdded()) {
+            return;
+        }
         this.market = market;
         SharedPreferencesUtils.setMarketFromSale(getContext(), market);
 
@@ -567,6 +570,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     @Override
     public void OnGetUserFinished(boolean find, User user) {
+        if(!isAdded()) {
+            return;
+        }
         if (!find){
             HerokuPostUserTask userTask = new HerokuPostUserTask(user,
                     getContext(), String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)), this);
@@ -577,6 +583,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         if(!favoriteAction) {
             this.user = user;
             favoriteAction = false;
+        }
+        if(!isAdded()) {
+            return;
         }
         marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
         marketTask.execute();

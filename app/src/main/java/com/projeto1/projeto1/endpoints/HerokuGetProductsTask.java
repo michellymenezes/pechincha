@@ -117,6 +117,7 @@ public class HerokuGetProductsTask extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
+
         if (products != null) {
             mListener.OnGetProductsReady(true, this.products);
         } else {

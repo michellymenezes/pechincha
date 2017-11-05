@@ -145,6 +145,9 @@ import java.util.List;
          //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
          //     productRecycleView.setAdapter(mProductAdapter);
          salesList = sales;
+         if(!isAdded()) {
+             return;
+         }
          productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
          productTask.execute();
          Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
@@ -203,6 +206,9 @@ import java.util.List;
      @Override
      public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
          productsList = products;
+         if(!isAdded()) {
+             return;
+         }
          marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
          marketTask.execute();
          //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);

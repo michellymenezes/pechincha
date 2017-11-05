@@ -144,6 +144,9 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     @SuppressLint("LongLogTag")
     @Override
     public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+        if(!isAdded()) {
+            return;
+        }
         salesList =  getProductsSaleByCategory(sales);
    //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
    //     productRecycleView.setAdapter(mProductAdapter);
@@ -205,6 +208,9 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
         productsListAux = products;
+        if(!isAdded()) {
+            return;
+        }
         marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
         marketTask.execute();
    //     mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList,productsList);
