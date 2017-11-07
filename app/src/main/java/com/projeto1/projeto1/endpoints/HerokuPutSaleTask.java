@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Sale;
+import com.projeto1.projeto1.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,16 +39,18 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
 
     private String responseMessage = "";
     private Sale sale;
+    private User user;
 
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
 
     private  SaleListener mListener;
 
-    public HerokuPutSaleTask(Sale sale, Context context, String endpoint, SaleListener mListener) {
+    public HerokuPutSaleTask(Sale sale, User user, Context context, String endpoint, SaleListener mListener) {
         ENDPOINT_ADDRESS = endpoint;
         this.context = context;
         this.sale = sale;
+        this.user = user;
         this.mListener = mListener;
     }
 
@@ -58,20 +61,13 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
         URL url;
         try {
 
-            //historic: [ [Date, double] ]
-            String historic = sale.getHistoric().toString();
-            historic.replace("{","").replace("}","").replaceAll("\\s","").trim();
-            Log.d(TAG, historic);
-
-            //values[]=stringarrayitem1&values[]=stringarrayitem2&values[]=stringarrayitem3
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
-                    "&salePrice=" + sale.getSalePrice() + "&regularPrice=" + sale.getRegularPrice() +
-                    "&expirationDate=" +sale.getExpirationDate() +
-                    "&author=" + sale.getAuthorId()  + "&likeCount=0" +
+                    "&salePrice=" + sale.getSalePrice() + "&regularPrice=1" +
+                    "&expirationDate=" + sale.getExpirationDate() + "&publicationDate=" +sale.getExpirationDate() +
+                    "&author=" + user.getId()  + "&likeCount=0" +
                     "&dislikeCount=0"+ "&reportCount=0" +
-                    "&likeUsers=[]" + "&dislikeUsers=[]"
-                    + "&historic="+ sale.historicToJson();
-            url = new URL(ENDPOINT_ADDRESS);
+                    "&likeUsers=[]" + "&dislikeUsers=[]" + "&reportUsers=[]" + "&historic=[]";
+            url = new URL(ENDPOINT_ADDRESS + "/" + sale.getId());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("PUT");

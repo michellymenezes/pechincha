@@ -117,7 +117,7 @@ public class HerokuGetUserTask extends AsyncTask {
 
                         List<String> likeUsers = new ArrayList<String>();
                         JSONArray likeList =  historicList.getJSONObject(k).getJSONArray("likeUsers");
-                        for(int l = 0; k < likeList.length(); l++){
+                        for(int l = 0; l < likeList.length(); l++){
                             likeUsers.add(likeList.getString(l));
                         }
 
@@ -140,7 +140,7 @@ public class HerokuGetUserTask extends AsyncTask {
                     }
 
                     ArrayList<String> reportUsers = new ArrayList<String>();
-                    JSONArray reportList =  salesJSON.getJSONArray("likeUsers");
+                    JSONArray reportList =  salesJSON.getJSONArray("reportUsers");
                     for(int k = 0; k < reportList.length(); k++){
                         reportUsers.add(reportList.getString(k));
                     }

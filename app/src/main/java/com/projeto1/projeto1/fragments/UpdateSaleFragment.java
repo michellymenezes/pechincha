@@ -185,7 +185,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
                 Date expirationDate = null;
                 Date date = null;
 
-                try {
+/*                try {
                     //expirationDate=newExpDate;
                     expirationDate = (new Date(f.parse(sale.getExpirationDate()).getTime()));
                     Log.d(TAG, String.valueOf(expirationDate));
@@ -193,7 +193,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
+                }*/
 
 
                 //Dando erro de formatação em price - valor adaptado
@@ -201,7 +201,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
               //  price_adaptado = price_adaptado.replaceAll(",", ".");
 
                 //Sale update = new Sale(product.getId(), market.getId(), Double.parseDouble(price_adaptado), sale.getSalePrice(), expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), 1, "Uni", new ArrayList<Historic>());
-                sale.addHistoric(new Historic(expirationDate,sale.getSalePrice(), sale.getLikeCount(), sale.getDislikeCount(), sale.getReportCount(), sale.getLikeUsers(), sale.getDislikeUsers()));
+                //sale.addHistoric(new Historic(expirationDate,sale.getSalePrice(), sale.getLikeCount(), sale.getDislikeCount(), sale.getReportCount(), sale.getLikeUsers(), sale.getDislikeUsers()));
                 sale.setExpirationDate(newExpDate);
                 //sale.setQuantUni();
 
@@ -297,7 +297,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     }
 
     public void updateSale(Sale update) {
-        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + update.getId(), this);
+        HerokuPutSaleTask salePutTask = new HerokuPutSaleTask(update, SharedPreferencesUtils.getUser(getContext()), getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
         salePutTask.execute();
     }
 
