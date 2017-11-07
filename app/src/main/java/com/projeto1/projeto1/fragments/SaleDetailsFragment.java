@@ -21,7 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -45,6 +48,7 @@ import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -52,6 +56,7 @@ import com.projeto1.projeto1.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by samirsmedeiros on 17/06/17.
@@ -114,14 +119,6 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                              Bundle savedInstanceState) {
         mview = inflater.inflate(R.layout.fragment_sale_details, container, false);
 
-
-        chart = (LineChart) mview.findViewById(R.id.chart);
-
-        setData();
-        Legend l = chart.getLegend();
-        l.setForm(Legend.LegendForm.LINE);
-
-
         ImageView product_image = (ImageView) mview.findViewById(R.id.product_image);
         TextView tv_category = (TextView) mview.findViewById(R.id.tv_category);
         ImageButton category_detail = (ImageButton) mview.findViewById(R.id.category_detail);
@@ -150,6 +147,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
                 ((MainActivity)getActivity()).changeFragment(UpdateSaleFragment.getInstance(),TAG,true);
             }
         });
+
+
 
 
         if (sale != null) {
@@ -237,6 +236,32 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             salePutTask = new HerokuPutSaleTask(newSale, getContext(), String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)) + "/" + sale.getId(), this);
             salePutTask.execute();*/
 
+            chart = (LineChart) mview.findViewById(R.id.chart);
+
+            setData();
+            Legend l = chart.getLegend();
+            l.setForm(Legend.LegendForm.LINE);
+
+            // style chart
+            chart.setDrawGridBackground(false);
+            chart.setDrawBorders(false);
+            //chart.setDescription(new Description("djshf"));
+
+            chart.setAutoScaleMinMaxEnabled(true);
+
+            // remove axis
+            YAxis leftAxis = chart.getAxisLeft();
+            leftAxis.setEnabled(false);
+            YAxis rightAxis = chart.getAxisRight();
+            rightAxis.setEnabled(false);
+
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setEnabled(false);
+
+            // hide legend
+            Legend legend = chart.getLegend();
+            legend.setEnabled(false);
+
             productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId(), this);
             productTask.execute();
         }
@@ -263,11 +288,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
     private ArrayList setYAxisValues(){
         ArrayList yVals = new ArrayList<>();
-        yVals.add(new Entry(60, 0));
-        yVals.add(new Entry(48, 1));
-        yVals.add(new Entry(70.5f, 2));
-        yVals.add(new Entry(100, 3));
-        yVals.add(new Entry(180.9f, 4));
+        List<Historic> prices = sale.getHistoric();
+        for (int i = 0; i < prices.size(); i++) {
+            yVals.add(new Entry(i+1, (float) prices.get(i).getValue()));
+        }
+
+        yVals.add(new Entry(prices.size()+1, Float.parseFloat(sale.getSalePrice()+"")));
 
         return yVals;
     }

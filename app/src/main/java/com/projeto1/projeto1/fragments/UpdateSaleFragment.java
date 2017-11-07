@@ -22,6 +22,7 @@ import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -322,6 +323,16 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
     @Override
     public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+        if(!isAdded()) {
+            return;
+        }
+        for (Sale sale:sales) {
+            if(this.sale.getId().equals(sale.getId())) this.sale = sale;
+
+        }
+        SharedPreferencesUtils.setSelectedSale(getContext(),sale);
+        ((MainActivity)getActivity()).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
+
 
     }
 
@@ -331,8 +342,8 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
     @Override
     public void OnPutSaleFinished(boolean finished) {
-        SharedPreferencesUtils.setSelectedSale(getContext(),sale);
-        ((MainActivity)getActivity()).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
+        HerokuGetSalesTask salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+        salesTask.execute();
 
     }
 
