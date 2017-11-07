@@ -245,7 +245,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             // style chart
             chart.setDrawGridBackground(false);
             chart.setDrawBorders(false);
-            //chart.setDescription(new Description("djshf"));
+            chart.getDescription().setText("Historico de preços");
 
             chart.setAutoScaleMinMaxEnabled(true);
 
