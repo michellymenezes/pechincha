@@ -71,7 +71,7 @@ public class SupermarketFragment extends Fragment implements MarketListener {
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 categoryRecycleView.setLayoutManager(llm);
-                Log.d("SIZE>>>>>>>>>>>>>>>>>>>>>", mMarketSugestions.size()+"");
+                Log.d("SIZE>>>>>>>>", mMarketSugestions.size()+"");
                 final SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions);
                 categoryRecycleView.setAdapter(marketAdapter);
             }
@@ -100,6 +100,11 @@ public class SupermarketFragment extends Fragment implements MarketListener {
     }
     @Override
     public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
 
     }
 
