@@ -35,6 +35,7 @@ import com.projeto1.projeto1.endpoints.HerokuPostDislikeTask;
 import com.projeto1.projeto1.endpoints.HerokuPostLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
+import com.projeto1.projeto1.fragments.AddMarketFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
@@ -205,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 mAppBarLayout.setVisibility(View.VISIBLE);
             }
+
+
             transaction.commit();
             // custom effect if fragment is already instanciated
 
@@ -220,7 +223,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             return;
         }
-        super.onBackPressed();
+        if (getSupportFragmentManager().findFragmentByTag(UpdateSaleFragment.TAG) != null) {
+            // I'm viewing Fragment C
+            getSupportFragmentManager().popBackStack(UpdateSaleFragment.TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
+        else super.onBackPressed();
     }
 
     @Override
