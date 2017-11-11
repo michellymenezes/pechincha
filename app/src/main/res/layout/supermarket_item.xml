@@ -16,8 +16,21 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/icon_market"
+            android:gravity="center"
+            android:layout_height="60dp">
+            <ImageButton
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:background="@drawable/rounded_icon_bg"
+                android:src="@drawable/ic_market_local" />
+        </LinearLayout>
+
         <ImageButton
             android:layout_width="15dp"
+            android:layout_toRightOf="@+id/icon_market"
             android:id="@+id/icon_im"
             android:layout_marginTop="5dp"
             android:scaleType="center"
@@ -29,6 +42,8 @@
             android:layout_width="match_parent"
             android:textSize="20dp"
             android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/icon_market"
             android:text="Name"
             android:textStyle="bold"
             android:id="@+id/market_name"/>
