@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,27 +12,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.adapters.CategoryAdapter;
 import com.projeto1.projeto1.adapters.SuperMarketAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.models.Market;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SupermarketFragment extends Fragment implements MarketListener {
 
-    public static final String TAG = "SUPERMARKET_FRAGMENT";
-    private List<Market> mMarketSugestions;
+public class AddMarketFragment extends Fragment implements MarketListener {
+
+    public static final String TAG = "ADD_SUPERMARKET_FRAGMENT";
     private View mView;
 
 
-    public SupermarketFragment() {
+    public AddMarketFragment() {
         // Required empty public constructor
     }
 
@@ -43,8 +38,8 @@ public class SupermarketFragment extends Fragment implements MarketListener {
      * @return A new instance of fragment FeedFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SupermarketFragment getInstance() {
-        SupermarketFragment fragment = new SupermarketFragment();
+    public static AddMarketFragment getInstance() {
+        AddMarketFragment fragment = new AddMarketFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -58,32 +53,9 @@ public class SupermarketFragment extends Fragment implements MarketListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mMarketSugestions = new ArrayList<>();
-        updateMarketList();
 
-        mView = inflater.inflate(R.layout.fragment_supermarket, container, false);
-        FloatingActionButton fab_add_market = (FloatingActionButton) mView.findViewById(R.id.fab_add_market);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                final RecyclerView categoryRecycleView = (RecyclerView) mView.findViewById(R.id.supermarket_list_result);
-                LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-                llm.setOrientation(LinearLayoutManager.VERTICAL);
-                categoryRecycleView.setLayoutManager(llm);
-                Log.d("SIZE>>>>>>>>>>>>>>>>>>>>>", mMarketSugestions.size()+"");
-                final SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions);
-                categoryRecycleView.setAdapter(marketAdapter);
-            }
-        }, 500);
-
-        fab_add_market.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).changeFragment(AddMarketFragment.getInstance(), AddMarketFragment.TAG, true);
-
-            }
-        });
+        mView = inflater.inflate(R.layout.fragment_add_market, container, false);
 
 
         return mView;
@@ -92,9 +64,7 @@ public class SupermarketFragment extends Fragment implements MarketListener {
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
 
-        for (Market name : markets) {
-            mMarketSugestions.add(name);
-        }
+
 
 
     }
