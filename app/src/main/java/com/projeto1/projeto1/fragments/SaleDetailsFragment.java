@@ -481,6 +481,11 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
+    public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
+
+    }
+
+    @Override
     public void OnGetMarketReady(boolean b, Market market) {
         if(!isAdded()) {
             return;
@@ -613,7 +618,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         if(!isAdded()) {
             return;
         }
-        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + "/" + sale.getMarketId(), this);
+        marketTask = new HerokuGetMarketTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) + sale.getMarketId(), this);
         marketTask.execute();
 
     }
