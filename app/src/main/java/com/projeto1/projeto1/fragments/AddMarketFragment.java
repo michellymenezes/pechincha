@@ -74,6 +74,11 @@ public class AddMarketFragment extends Fragment implements MarketListener {
     }
 
     @Override
+    public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
+
+    }
+
+    @Override
     public void OnGetMarketReady(boolean b, Market market) {
 
     }
