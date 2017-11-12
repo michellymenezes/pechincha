@@ -63,7 +63,7 @@ public class HerokuGetMarketsBySearchTask extends AsyncTask {
                 parametros += "&address.state=" + estado;
             }
 
-            url = new URL(endpoint + parametros);
+            url = new URL((endpoint + parametros).replaceAll(" ", "%20"));
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
