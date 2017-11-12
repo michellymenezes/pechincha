@@ -274,10 +274,10 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         Log.d("CIDADE", city);
         Log.d("ESTADO", state);
 
-        name = name.equals("")? null: name;
-        neighb = neighb.equals("")? null: neighb;
-        city = city.equals("")? null: city;
-        state = state.equals("")? null: state;
+        name = name.equals("")? null: name.trim();
+        neighb = neighb.equals("")? null: neighb.trim();
+        city = city.equals("")? null: city.trim();
+        state = state.equals("")? null: state.trim();
 
 
         HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(name, neighb,city, state, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
