@@ -269,10 +269,16 @@ public class SupermarketFragment extends Fragment implements MarketListener {
     }
 
     private void updateList(String name, String neighb, String city, String state) {
+        Log.d("MARKET", name);
+        Log.d("Bairro", neighb);
+        Log.d("CIDADE", city);
+        Log.d("ESTADO", state);
+
         name = name.equals("")? null: name;
         neighb = neighb.equals("")? null: neighb;
         city = city.equals("")? null: city;
         state = state.equals("")? null: state;
+
 
         HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(name, neighb,city, state, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
         mtask.execute();
@@ -330,6 +336,8 @@ public class SupermarketFragment extends Fragment implements MarketListener {
 
     @Override
     public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
+        mMarketSugestions.clear();
+        mMarketSugestions = markets;
         for (Market name : markets) {
             if(!mMarketSugestions.contains(name))mMarketSugestions.add(name);
         }
