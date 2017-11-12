@@ -233,8 +233,8 @@ public class AddMarketFragment extends Fragment implements MarketListener {
                             "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    final Address address = new Address(street[0], number[0], neighborhood[0], city[0], state[0], country, complement);
-                    Market market = new Market(marketName[0], address, "image", "07.170.938/0001-07", local);
+                    final Address address = new Address(street[0].trim(), number[0].trim(), neighborhood[0].trim(), city[0].trim(), state[0].trim(), country.trim(), complement.trim());
+                    Market market = new Market(marketName[0].trim(), address, "image", "07.170.938/0001-07", local);
                     sendMarket(market);
 
                 }
