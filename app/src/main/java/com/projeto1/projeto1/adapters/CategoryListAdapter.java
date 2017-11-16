@@ -90,6 +90,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     @Override
+    public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
     public void OnPostSaleFinished(boolean finished) {
 
     }

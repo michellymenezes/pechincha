@@ -645,6 +645,11 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     @Override
+    public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
     public void OnPostSaleFinished(boolean finished) {
         ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
     }
