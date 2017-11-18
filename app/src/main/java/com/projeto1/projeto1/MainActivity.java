@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String scanContent;
     private String currentCategory;
     private Market chosenMarket;
+    private String idMarketSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         scanContent = "";
         currentCategory = "";
         searchStr = "";
+        idMarketSearch = "";
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             Log.d(TAG, "not logged yet");
@@ -518,5 +520,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void OnDeleteDislikeFinished(boolean finished) {
 
+    }
+
+    public void setIdMarketSearch(String idMarketSearch) {
+        this.idMarketSearch = idMarketSearch;
+    }
+
+    public String getIdMarketSearch() {
+        return idMarketSearch;
     }
 }

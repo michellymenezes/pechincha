@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,17 +24,26 @@ import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.CategoryCardAdapter;
+import com.projeto1.projeto1.adapters.CategoryListAdapter;
+import com.projeto1.projeto1.adapters.MarketCardAdapter;
+import com.projeto1.projeto1.endpoints.HerokuGetMarketsBySearchTask;
+import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
+import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
-public class MainFragment extends Fragment implements SaleListener,ProductListener {
+public class MainFragment extends Fragment implements SaleListener,ProductListener, MarketListener{
 
 
     public static final String TAG = "MAIN_FRAGMENT";
@@ -44,6 +55,10 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     private HerokuGetProductsTask produtcsTask;
     private HerokuGetSalesTask salesTask;
     private SeachResultFragment mSearResultFragment;
+    private RecyclerView categoryRecycleView;
+    private CategoryCardAdapter mAdapter;
+    private List<Market> mMarkets;
+    private MarketCardAdapter mAdapterMarket;
 
 
     /**
@@ -76,6 +91,10 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         mASales = new ArrayList<>();
         mArraySugestions = new ArrayList<>();
         mSearResultFragment = SeachResultFragment.getInstance();
+        mMarkets = new ArrayList<>();
+        updateMarketList("Campina Grande");
+
+
 
         final String[] selectedText = {""};
 
@@ -156,7 +175,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         //final ImageButton addSupermarket = (ImageButton) mview.findViewById(R.id.add_supermarket_btn);
         final ImageButton favoritesBtn = (ImageButton) mview.findViewById(R.id.favorites_btn);
         final ImageButton profileBtn = (ImageButton) mview.findViewById(R.id.profile_btn);
-        final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
+        //final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,14 +202,14 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             }
         });
 
-        grocery_btn.setOnClickListener(new View.OnClickListener() {
+       /* grocery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setCurrentCategory("Alimento");
                 ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
-
+*/
 
         barCodeScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +219,18 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             }
         });
 
-        ImageButton hygiene_btn = (ImageButton) mview.findViewById(R.id.hygiene_btn);
+        mAdapter = new CategoryCardAdapter(getActivity(), Arrays.asList("Alimento", "Cuidados pessoais", "Limpeza", "Eletrônico", "Mobília", "Outros"));
+
+        categoryRecycleView = (RecyclerView) mview.findViewById(R.id.categories);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryRecycleView.setLayoutManager(llm);
+        categoryRecycleView.setAdapter(mAdapter);
+
+
+
+
+        /*ImageButton hygiene_btn = (ImageButton) mview.findViewById(R.id.hygiene_btn);
         hygiene_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,7 +273,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                 ((MainActivity) getActivity()).setCurrentCategory("Outros");
                 ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
-        });
+        });*/
 
 
         return mview;
@@ -381,4 +411,37 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
 
+
+    @Override
+    public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
+
+    }
+
+    @Override
+    public void OnPostMarketsFinished(boolean finished) {
+
+    }
+
+    @Override
+    public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
+        mMarkets = markets;
+        mAdapterMarket = new MarketCardAdapter(getActivity(), mMarkets);
+        RecyclerView marketRecycleView = (RecyclerView) mview.findViewById(R.id.markets);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        marketRecycleView.setLayoutManager(llm);
+        marketRecycleView.setAdapter(mAdapterMarket);
+
+    }
+
+    @Override
+    public void OnGetMarketReady(boolean b, Market market) {
+
+    }
+
+    private void updateMarketList(String city){
+        HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(null, null,city, null, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
+        mtask.execute();
+
+    }
 }

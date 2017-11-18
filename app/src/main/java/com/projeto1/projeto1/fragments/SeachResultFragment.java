@@ -87,6 +87,9 @@ import java.util.List;
             productRecycleView = (RecyclerView) mview.findViewById(R.id.sale_list_result);
             Log.d("SEARCH", ((MainActivity) getActivity()).getSearchStr());
 
+            if (!((MainActivity) getActivity()).getIdMarketSearch().equals("")){
+            }
+
         /* GET DE PROMOÇÕES */
             salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_SEARCH)) + ((MainActivity) getActivity()).getSearchStr(), this);
             salesTask.execute();
