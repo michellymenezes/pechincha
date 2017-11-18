@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryCardAdapter;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.MarketCardAdapter;
@@ -101,6 +102,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         final AutoCompleteTextView searchView = (AutoCompleteTextView) mview.findViewById(R.id.search_bar);
 
         final ImageButton searchBtn = (ImageButton) mview.findViewById(R.id.search_btn);
+
+        searchView.setHint("O que você busca, " + SharedPreferencesUtils.getUser(getContext()).getName().split(" ")[0] + "?");
 
 
         searchView.addTextChangedListener(new TextWatcher() {

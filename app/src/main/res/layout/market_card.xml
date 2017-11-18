@@ -6,40 +6,43 @@
     <LinearLayout
         android:id="@+id/ll_item"
         android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:background="@drawable/rounded_bg_text_input"
         android:clickable="true"
-        android:layout_margin="3dp"
-        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:gravity="center"
         android:minWidth="80dp"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <ImageButton
-            android:layout_height="40dp"
             android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:clickable="false"
             android:background="@drawable/rounded_icon_bg"
             android:src="@drawable/ic_market_local" />
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/name_market"
-            android:gravity="top|center"
-            android:textSize="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="top|center"
             android:text="Nome"
             android:textColor="@android:color/tertiary_text_dark"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/adress"
-            android:gravity="top|center"
             android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="top|center"
             android:text="Bairro"
             android:textColor="@android:color/tertiary_text_dark"
-            android:layout_height="wrap_content"
-            />
+            android:textSize="12dp" />
     </LinearLayout>
 
 </LinearLayout>

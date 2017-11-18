@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.fragments.GroceryProductsFragment;
+import com.projeto1.projeto1.fragments.SeachResultFragment;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.view_itens.CardCategory;
 import com.projeto1.projeto1.view_itens.CardMarket;
@@ -49,7 +50,8 @@ public class MarketCardAdapter extends RecyclerView.Adapter<com.projeto1.projeto
         ll_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((MainActivity) activity).setIdMarketSearch(items.get(position).getId());
+                ((MainActivity) activity).changeFragment(SeachResultFragment.getInstance(), SeachResultFragment.TAG,true);
             }
         });
 

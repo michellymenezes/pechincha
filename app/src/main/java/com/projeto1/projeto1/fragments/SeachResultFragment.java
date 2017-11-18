@@ -19,6 +19,7 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetSalesByMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
@@ -82,17 +83,27 @@ import java.util.List;
 
             mview = inflater.inflate(R.layout.fragment_seach_result, container, false);
 
+            productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
+            productTask.execute();
+
 
 
             productRecycleView = (RecyclerView) mview.findViewById(R.id.sale_list_result);
             Log.d("SEARCH", ((MainActivity) getActivity()).getSearchStr());
 
             if (!((MainActivity) getActivity()).getIdMarketSearch().equals("")){
-            }
+                Log.v("MARKETID", ((MainActivity) getActivity()).getIdMarketSearch());
+                HerokuGetSalesByMarketTask mtask = new HerokuGetSalesByMarketTask(((MainActivity) getActivity()).getIdMarketSearch(),
+                        String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT)), this);
+                mtask.execute();
 
-        /* GET DE PROMOÇÕES */
-            salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_SEARCH)) + ((MainActivity) getActivity()).getSearchStr(), this);
-            salesTask.execute();
+                ((MainActivity) getActivity()).setIdMarketSearch("");
+
+            } else {
+                /* GET DE PROMOÇÕES */
+                salesTask = new HerokuGetSalesTask(String.format(getResources().getString(R.string.HEROKU_SALE_ENDPOINT_BY_SEARCH)) + ((MainActivity) getActivity()).getSearchStr(), this);
+                salesTask.execute();
+            }
 
 
 
@@ -101,12 +112,6 @@ import java.util.List;
             //salesList = new ArrayList<>(Arrays.asList(new Sale("0000", "Feijao",null, 3.99, null, null,0,0,null,null,0,0, "comida")));
 
             Log.v("Sales size", String.valueOf(salesList.size()));
-
-            mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList, getContext());
-            LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
-            llm2.setOrientation(LinearLayoutManager.VERTICAL);
-            productRecycleView.setLayoutManager(llm2);
-            productRecycleView.setAdapter(mProductAdapter);
 
             final TextView no_results = (TextView) mview.findViewById(R.id.no_results);
             Handler handler = new Handler();
@@ -151,14 +156,28 @@ import java.util.List;
          if(!isAdded()) {
              return;
          }
-         productTask = new HerokuGetProductsTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) , this);
-         productTask.execute();
          Log.d(TAG, "Quantidade de sales no fragment " + String.valueOf(salesList.size()));
+
+         mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList, getContext());
+         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
+         llm2.setOrientation(LinearLayoutManager.VERTICAL);
+         productRecycleView.setLayoutManager(llm2);
+         productRecycleView.setAdapter(mProductAdapter);
 
      }
 
      @Override
      public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+         salesList = sales;
+         if(!isAdded()) {
+             return;
+         }
+
+         mProductAdapter = new ProductListAdapter(getActivity(), salesList, marketsList, productsList, getContext());
+         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
+         llm2.setOrientation(LinearLayoutManager.VERTICAL);
+         productRecycleView.setLayoutManager(llm2);
+         productRecycleView.setAdapter(mProductAdapter);
 
      }
 
