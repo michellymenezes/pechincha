@@ -329,6 +329,11 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     @Override
+    public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
     public void OnPostSaleFinished(boolean finished) {
 
     }

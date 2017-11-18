@@ -195,6 +195,11 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
+    public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
     public void OnPostSaleFinished(boolean finished) {
 
     }

@@ -157,6 +157,11 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
+    public void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales) {
+
+    }
+
+    @Override
     public void OnPostSaleFinished(boolean finished) {
 
     }
