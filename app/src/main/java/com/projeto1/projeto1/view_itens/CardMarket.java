@@ -37,6 +37,20 @@ public class CardMarket extends FrameLayout {
 
     }
 
+    public void setNameInvisible() {
+        ((TextView)findViewById(R.id.name_market)).setTextSize(0);
+    }
+
+
+    public void displayIcon(int icon) {
+        ((ImageButton)findViewById(R.id.market_btn)).setImageResource(icon);
+
+    }
+
+    public ImageButton getBtn() {
+        return ((ImageButton)findViewById(R.id.market_btn));
+    }
+
 
     public LinearLayout getLL(){
         return  ((LinearLayout)findViewById(R.id.ll_item));

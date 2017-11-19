@@ -46,6 +46,7 @@ import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.listeners.ProductListener;
+import com.projeto1.projeto1.models.Address;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private User user;
     private Sale selectedSale;
     private String searchStr;
+    private boolean isAddNewSale;
 
     //Menu
     private ActionBarDrawerToggle mToggle;
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String currentCategory;
     private Market chosenMarket;
     private String idMarketSearch;
+    private Address currentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         currentCategory = "";
         searchStr = "";
         idMarketSearch = "";
+        currentAddress = new Address("-","-","-","Campina Grande", "PB","Brasil", "-");
+        isAddNewSale = true;
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             Log.d(TAG, "not logged yet");
@@ -225,9 +230,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             return;
         }
-        if (getSupportFragmentManager().findFragmentByTag(UpdateSaleFragment.TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(SupermarketFragment.TAG) != null) {
             // I'm viewing Fragment C
-            getSupportFragmentManager().popBackStack(UpdateSaleFragment.TAG,
+            getSupportFragmentManager().popBackStack(SupermarketFragment.TAG,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
@@ -390,6 +395,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public Address getCurrentAddress() {
+        return currentAddress;
+    }
+
     public ArrayList<Sale> getSales() {
         return sales;
     }
@@ -534,4 +543,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String getIdMarketSearch() {
         return idMarketSearch;
     }
+
+    public boolean getIsAddNewSale() {
+        return isAddNewSale;
+    }
+
+    public void setIsAddNewSale(boolean bool) {
+        this.isAddNewSale = bool;
+    }
+
 }

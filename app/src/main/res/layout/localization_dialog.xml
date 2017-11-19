@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="Onde você está?"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_bg_text_input"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants"
+        android:elevation="2dp"
+        android:imeOptions="flagNoExtractUi"
+        android:gravity="bottom"
+        android:visibility="visible">
+
+        <AutoCompleteTextView
+            android:id="@+id/ac_location"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:completionThreshold="1"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="false"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center"
+            android:hint="Cidade"
+            android:imeOptions="actionSearch"
+            android:inputType="textCapWords"
+            android:textColor="@android:color/tertiary_text_dark"
+            android:textSize="18dp"
+            />
+        <ImageButton
+            android:layout_width="30dp"
+            android:id="@+id/clear_btn_location"
+            android:layout_height="40dp"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/ic_write"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+
+</LinearLayout>

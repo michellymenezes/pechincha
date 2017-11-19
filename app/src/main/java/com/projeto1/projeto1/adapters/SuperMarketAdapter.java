@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.fragments.AddProductFragment;
+import com.projeto1.projeto1.fragments.SeachResultFragment;
 import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.view_itens.ChecboxCategoryViewItem;
@@ -32,11 +33,13 @@ public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.
 
     private List<Market> items;
     private Activity activity;
+    private boolean isAddNewSale;
 
 
-    public SuperMarketAdapter(Activity activity, List<Market> items) {
+    public SuperMarketAdapter(Activity activity, List<Market> items, boolean isAddNewSale) {
         this.items = items;
         this.activity = activity;
+        this.isAddNewSale = isAddNewSale;
     }
 
     @Override
@@ -56,8 +59,15 @@ public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) activity).setChosenMarket(items.get(position));
-                ((MainActivity) activity).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+                if(isAddNewSale){
+                    ((MainActivity) activity).setChosenMarket(items.get(position));
+                    ((MainActivity) activity).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
+
+                } else {
+                    ((MainActivity) activity).setIdMarketSearch(items.get(position).getId());
+                    ((MainActivity) activity).changeFragment(SeachResultFragment.getInstance(),SeachResultFragment.TAG,true);
+                    ((MainActivity) activity).setIsAddNewSale(true);
+                }
 
             }
         });

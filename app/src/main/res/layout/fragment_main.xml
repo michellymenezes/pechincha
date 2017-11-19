@@ -91,9 +91,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="5dp"
                 />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -112,6 +110,7 @@
                 android:weightSum="1"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_localization"
                     android:layout_width="0dp"
                     android:layout_weight="0.9"
                     android:layout_margin="2dp"
@@ -121,12 +120,12 @@
                     android:text="Mercados em Campina Grande"/>
                 <Button
                     android:layout_width="0dp"
+                    android:id="@+id/change_location_btn"
                     android:layout_weight="0.1"
                     android:layout_margin="2dp"
                     android:layout_height="20dp"
                     android:background="@android:color/transparent"
                     android:textSize="9dp"
-                    android:textAllCaps="false"
                     android:text="Mudar"
                     android:textColor="@color/colorPrimary"
                     />
@@ -135,24 +134,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="140dp"
                 android:layout_height="wrap_content">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:background="@android:color/darker_gray"/>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_height="30dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="12dp"
-                    android:textAllCaps="false"
-                    android:drawableLeft="@drawable/ic_search"
-                    android:text="  Buscar supermercado"
-                    android:textColor="@android:color/tertiary_text_dark"
-                    />
             </LinearLayout>
 
 
@@ -160,20 +144,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_marginTop="-155dp"
                 android:gravity="center"
                 android:elevation="2dp"
                 android:layout_height="wrap_content">
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/markets"
+                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="130dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:paddingRight="5dp"/>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

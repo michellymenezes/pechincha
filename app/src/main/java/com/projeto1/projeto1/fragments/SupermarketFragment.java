@@ -1,9 +1,7 @@
 package com.projeto1.projeto1.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,18 +22,14 @@ import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.adapters.CategoryAdapter;
 import com.projeto1.projeto1.adapters.SuperMarketAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsBySearchTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.listeners.MarketListener;
 import com.projeto1.projeto1.models.Market;
-import com.projeto1.projeto1.models.Sale;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SupermarketFragment extends Fragment implements MarketListener {
 
@@ -295,7 +287,8 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecycleView.setLayoutManager(llm);
         Log.d("SIZE>>>>>>>>", mMarketSugestions.size()+"");
-        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions);
+        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions,
+                ((MainActivity) getActivity()).getIsAddNewSale());
         categoryRecycleView.setAdapter(marketAdapter);
 
 
@@ -345,7 +338,10 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecycleView.setLayoutManager(llm);
         Log.d("SIZE>>>>>>>>", mMarketSugestions.size()+"");
-        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions);
+        if(!isAdded()) {
+            return;
+        }
+        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions, ((MainActivity) getActivity()).getIsAddNewSale());
         categoryRecycleView.setAdapter(marketAdapter);
 
     }

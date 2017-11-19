@@ -2,8 +2,11 @@ package com.projeto1.projeto1.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -18,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +64,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     private CategoryCardAdapter mAdapter;
     private List<Market> mMarkets;
     private MarketCardAdapter mAdapterMarket;
+    private TextView localization_tv;
 
 
     /**
@@ -87,16 +92,24 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         updateSaleList();
         mview = inflater.inflate(R.layout.fragment_main, container, false);
 
+        localization_tv = (TextView) mview.findViewById(R.id.tv_localization);
 
+        localization_tv.setText("Mercados em " + ((MainActivity) getActivity()).getCurrentAddress().getCity());
         productsList = new ArrayList<>();
         mASales = new ArrayList<>();
         mArraySugestions = new ArrayList<>();
         mSearResultFragment = SeachResultFragment.getInstance();
         mMarkets = new ArrayList<>();
-        updateMarketList("Campina Grande");
+        updateMarketList(((MainActivity) getActivity()).getCurrentAddress().getCity());
 
+        Button change_location = (Button) mview.findViewById(R.id.change_location_btn);
 
-
+        change_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLocation();
+            }
+        });
         final String[] selectedText = {""};
 
         final AutoCompleteTextView searchView = (AutoCompleteTextView) mview.findViewById(R.id.search_bar);
@@ -301,7 +314,68 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         return array;
     }
 
-    private void startAdapter() {
+    private void changeLocation() {
+        View viewDialog = View.inflate(getActivity(), R.layout.localization_dialog, null);
+        final AutoCompleteTextView ac_location = (AutoCompleteTextView) viewDialog.findViewById(R.id.ac_location);
+        final ImageButton clear_btn_location = (ImageButton) viewDialog.findViewById(R.id.clear_btn_location);
+
+        ac_location.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+                if(ac_location.getText().toString().length()>0) {
+                    clear_btn_location.setImageResource(R.drawable.ic_close);
+                    clear_btn_location.setTag(new Boolean(true));
+                }else{
+                    clear_btn_location.setImageResource(R.drawable.ic_write);
+                    clear_btn_location.setTag(new Boolean(false));
+                }
+            }
+        });
+
+        clear_btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((clear_btn_location.getTag())!=null && ((Boolean)clear_btn_location.getTag())==true){
+                    ac_location.setText("");
+                }
+
+            }
+        });
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Mudar Localização")
+                .setView(viewDialog)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!ac_location.getText().toString().equals("")){
+                            ((MainActivity) getActivity()).getCurrentAddress().setCity(ac_location.getText().toString());
+                            localization_tv.setText("Mercados em " +((MainActivity) getActivity()).getCurrentAddress().getCity());
+                            updateMarketList(((MainActivity) getActivity()).getCurrentAddress().getCity());
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(R.drawable.ic_map_pin_marked)
+                .show();
 
     }
 
@@ -448,7 +522,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     private void updateMarketList(String city){
-        HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(null, null,city, null, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
+        city = city.replace("ã", "a").replace("ç","c").replace("õ","o").toLowerCase();
+        HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(null, null,city.trim(), null, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
         mtask.execute();
 
     }

@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/ll_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_margin="3dp"
         android:background="@drawable/rounded_bg_product_item"
         android:clickable="true"
@@ -17,8 +17,9 @@
         android:padding="10dp">
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/market_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:clickable="false"
             android:background="@drawable/rounded_icon_bg"
             android:src="@drawable/ic_market_local" />
