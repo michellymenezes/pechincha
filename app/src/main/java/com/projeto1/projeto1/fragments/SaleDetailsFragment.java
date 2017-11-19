@@ -245,13 +245,15 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             // style chart
             chart.setDrawGridBackground(false);
             chart.setDrawBorders(false);
-            chart.getDescription().setText("Historico de preços");
+            chart.getDescription().setText("");
 
             chart.setAutoScaleMinMaxEnabled(true);
+            chart.animateX(1500);
+            chart.animateY(500);
 
             // remove axis
             YAxis leftAxis = chart.getAxisLeft();
-            leftAxis.setEnabled(false);
+            leftAxis.setEnabled(true);
             YAxis rightAxis = chart.getAxisRight();
             rightAxis.setEnabled(false);
 
@@ -327,7 +329,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         set1.setDrawFilled(false);
         set1.setDrawHorizontalHighlightIndicator(false);
         set1.setFillAlpha(255);
-        set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set1.setMode(LineDataSet.Mode.LINEAR);
+
 
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();

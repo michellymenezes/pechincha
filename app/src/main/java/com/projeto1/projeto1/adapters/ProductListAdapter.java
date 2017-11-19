@@ -258,8 +258,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 this, user);
         getUserTask.execute();
         notifyDataSetChanged();
-
-
     }
 
     @Override
