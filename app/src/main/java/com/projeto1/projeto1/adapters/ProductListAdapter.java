@@ -17,6 +17,7 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
+import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
@@ -253,7 +254,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void OnAddFavoriteSaleFinished(boolean finished) {
         User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
-        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+        HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
         notifyDataSetChanged();
@@ -264,7 +265,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void OnRemoveFavoriteSaleFinished(boolean finished) {
         User user = SharedPreferencesUtils.getUser(activity.getBaseContext());
-        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+        HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(activity.getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
 

@@ -185,7 +185,6 @@ public class User {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object obj) {
         return ((User)obj).getId().equals(this.id);

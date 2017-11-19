@@ -633,7 +633,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     public void OnAddFavoriteSaleFinished(boolean finished) {
         favoriteAction = finished;
         User user = SharedPreferencesUtils.getUser(getContext());
-        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+        HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
         currentUser = SharedPreferencesUtils.getUser(getContext());
@@ -644,7 +644,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     public void OnRemoveFavoriteSaleFinished(boolean finished) {
         favoriteAction = finished;
         User user = SharedPreferencesUtils.getUser(getContext());
-        HerokuGetUsersTask getUserTask = new HerokuGetUsersTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
+        HerokuGetUserTask getUserTask = new HerokuGetUserTask(String.format(getResources().getString(R.string.HEROKU_USER_ENDPOINT)),
                 this, user);
         getUserTask.execute();
         currentUser = SharedPreferencesUtils.getUser(getContext());
