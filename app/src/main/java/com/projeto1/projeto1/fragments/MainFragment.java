@@ -32,6 +32,7 @@ import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryCardAdapter;
 import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.MarketCardAdapter;
+import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsBySearchTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
@@ -65,6 +66,10 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     private List<Market> mMarkets;
     private MarketCardAdapter mAdapterMarket;
     private TextView localization_tv;
+    private ProductListAdapter mProductAdapter;
+    private RecyclerView productRecycleView;
+    private List<Market> marketsList;
+    private HerokuGetMarketsTask marketTask;
 
 
     /**
@@ -100,6 +105,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         mArraySugestions = new ArrayList<>();
         mSearResultFragment = SeachResultFragment.getInstance();
         mMarkets = new ArrayList<>();
+        marketsList = new ArrayList<>();
+
         updateMarketList(((MainActivity) getActivity()).getCurrentAddress().getCity());
 
         Button change_location = (Button) mview.findViewById(R.id.change_location_btn);
@@ -242,6 +249,15 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         llm.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecycleView.setLayoutManager(llm);
         categoryRecycleView.setAdapter(mAdapter);
+
+
+
+
+
+        //salesList = new ArrayList<>();
+
+
+
 
 
 
@@ -400,9 +416,12 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
     @Override
     public void OnGetSalesReady(boolean ready, ArrayList<Sale> sales) {
+        if(!isAdded()) return;
         mASales = sales;
         Log.v(TAG, "Quantidade de sales: " + String.valueOf(mASales.size()));
+
         mArraySugestions = new ArrayList<>();
+
     }
 
     @Override
@@ -442,6 +461,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
     @Override
     public void OnGetProductsReady(boolean ready, ArrayList<Product> products) {
+        if(!isAdded()) return;
         productsList = products;
         Log.v(TAG, "Quantidade de produtos: " + String.valueOf(productsList.size()));
     }
@@ -496,7 +516,19 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
     @Override
     public void OnGetMarketsReady(boolean ready, ArrayList<Market> markets) {
+        if(!isAdded()) return;
+        marketsList = markets;
+        productRecycleView = (RecyclerView) mview.findViewById(R.id.recent_sales);
 
+        List<Sale> arraySale = (mASales.size() > 10)?  mASales.subList(0,10): mASales;
+
+
+
+        mProductAdapter = new ProductListAdapter(getActivity(), arraySale, marketsList,productsList, getContext());
+        LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
+        llm2.setOrientation(LinearLayoutManager.VERTICAL);
+        productRecycleView.setLayoutManager(llm2);
+        productRecycleView.setAdapter(mProductAdapter);
     }
 
     @Override
@@ -506,6 +538,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
     @Override
     public void OnGetMarketsBySearchReady(boolean ready, ArrayList<Market> markets) {
+        if(!isAdded()) return;
         mMarkets = markets;
         mAdapterMarket = new MarketCardAdapter(getActivity(), mMarkets);
         RecyclerView marketRecycleView = (RecyclerView) mview.findViewById(R.id.markets);
@@ -522,6 +555,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     private void updateMarketList(String city){
+        marketTask = new HerokuGetMarketsTask(String.format(getResources().getString(R.string.HEROKU_MARKET_ENDPOINT)) , this);
+        marketTask.execute();
         city = city.replace("ã", "a").replace("ç","c").replace("õ","o").toLowerCase();
         HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(null, null,city.trim(), null, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
         mtask.execute();

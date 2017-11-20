@@ -1,174 +1,230 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.projeto1.projeto1.fragments.MainFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@drawable/previeww"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/search_bar_container"
-        android:orientation="horizontal"
-        android:layout_marginTop="-25dp"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_bg_product_item"
-        android:focusableInTouchMode="true"
-        android:descendantFocusability="beforeDescendants"
-        android:elevation="2dp"
-        android:imeOptions="flagNoExtractUi"
-        android:gravity="bottom"
-        android:visibility="visible">
-
-        <AutoCompleteTextView
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="false"
-            android:backgroundTint="@android:color/transparent"
-            android:completionThreshold="1"
-            android:gravity="center"
-            android:hint="O quê você procura?"
-            android:imeOptions="actionSearch"
-            android:inputType="textCapWords"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textColor="@android:color/tertiary_text_dark"
-            android:textSize="18dp" />
-
-        <ImageButton
-            android:layout_width="30dp"
-            android:id="@+id/search_btn"
-            android:layout_toRightOf="@+id/search_bar"
-            android:layout_height="50dp"
-            android:layout_marginLeft="-40dp"
-            android:src="@drawable/ic_search"
-            android:background="@android:color/transparent"/>
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="3dp"
-        android:layout_weight="2"
-        android:layout_height="0dp">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/rounded_bg_product_item"
-            android:layout_marginLeft="10dp"
-            android:elevation="2dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_margin="2dp"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="Categorias"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/categories"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="5dp"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:elevation="2dp"
-            android:background="@drawable/rounded_bg_product_item"
-            android:gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="3dp"
-                android:weightSum="1"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_localization"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.9"
-                    android:layout_margin="2dp"
-                    android:layout_height="20dp"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:text="Mercados em Campina Grande"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:id="@+id/change_location_btn"
-                    android:layout_weight="0.1"
-                    android:layout_margin="2dp"
-                    android:layout_height="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="9dp"
-                    android:text="Mudar"
-                    android:textColor="@color/colorPrimary"
-                    />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/bg_card_blue"
+                android:elevation="2dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/previeww">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/search_bar_container"
+                    android:background="@drawable/rounded_bg_text_input"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="-25dp"
+                    android:layout_height="50dp"
+                    android:elevation="3dp"
+                    android:focusableInTouchMode="true"
+                    android:descendantFocusability="beforeDescendants"
+                    android:imeOptions="flagNoExtractUi"
+                    android:gravity="bottom"
+                    android:visibility="visible">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/search_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="false"
+                        android:backgroundTint="@android:color/transparent"
+                        android:completionThreshold="1"
+                        android:gravity="center"
+                        android:hint="O quê você procura?"
+                        android:imeOptions="actionSearch"
+                        android:textStyle="bold"
+                        android:inputType="textCapWords"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textSize="15dp" />
+
+                    <ImageButton
+                        android:layout_width="30dp"
+                        android:id="@+id/search_btn"
+                        android:layout_toRightOf="@+id/search_bar"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="-30dp"
+                        android:src="@drawable/ic_search"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/darker_gray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    android:elevation="2dp"
+                    android:layout_marginTop="-10dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                    <!-- <TextView
+                         android:layout_width="match_parent"
+                         android:layout_margin="2dp"
+                         android:layout_height="wrap_content"
+                         android:textSize="15dp"
+                         android:textStyle="bold"
+                         android:text="Categorias"/>-->
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/categories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:elevation="2dp"
+                    android:background="@drawable/rounded_bg_product_item"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_margin="3dp"
+                        android:weightSum="1"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_localization"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_margin="2dp"
+                            android:layout_height="20dp"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:text="Mercados em Campina Grande"/>
+                        <Button
+                            android:layout_width="0dp"
+                            android:id="@+id/change_location_btn"
+                            android:layout_weight="0.1"
+                            android:layout_margin="2dp"
+                            android:layout_height="20dp"
+                            android:background="@android:color/transparent"
+                            android:textSize="9dp"
+                            android:text="Mudar"
+                            android:textColor="@color/colorPrimary"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="120dp"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-135dp"
+                    android:gravity="center"
+                    android:elevation="3dp"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/markets"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:paddingRight="5dp"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="140dp"
-                android:layout_height="wrap_content">
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="-155dp"
                 android:gravity="center"
-                android:elevation="2dp"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_height="20dp"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:text="Promoções recente"/>
+
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/markets"
+                    android:id="@+id/recent_sales"
                     android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:paddingRight="5dp"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
+
+
         </LinearLayout>
+
+
     </ScrollView>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:weightSum="4"
         android:elevation="5dp"
         android:gravity="center"
         android:layout_gravity="center"
+        android:id="@+id/menu_bar"
         android:background="@android:color/white"
         android:layout_height="45dp">
 
@@ -198,17 +254,17 @@
             android:textAlignment="center"
             />
 
-            <ImageButton
-                android:id="@+id/favorites_btn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_favorite_border"
-                android:textSize="12dp"
-                android:background="@android:color/transparent"
-                android:textColor="@android:color/transparent"
-                android:textAlignment="center"
-                />
+        <ImageButton
+            android:id="@+id/favorites_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_favorite_border"
+            android:textSize="12dp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/transparent"
+            android:textAlignment="center"
+            />
 
         <ImageButton
             android:id="@+id/write_post_btn"
@@ -242,4 +298,4 @@
 
 
 
-</LinearLayout>
+</RelativeLayout>

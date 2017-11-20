@@ -5,20 +5,20 @@
 
     <LinearLayout
         android:id="@+id/ll_item"
-        android:layout_width="75dp"
+        android:layout_width="57dp"
         android:orientation="vertical"
         android:clickable="true"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:gravity="center">
         <ImageButton
             android:id="@+id/category_btn"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_gravity="center"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_grocery"
             android:textSize="12dp"
             android:clickable="false"
-            android:background="@drawable/bg_category_circle_yellow"
+            android:background="@drawable/bg_category_white"
             android:textColor="@android:color/transparent"
             android:textAlignment="center"
             />

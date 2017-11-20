@@ -309,7 +309,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 }
 
 
-                String newExpDate = date == ""? expirationDate: date + expirationDate.substring(10, expirationDate.length());
+                String newExpDate = date.equals("")? expirationDate: date + expirationDate.substring(10, expirationDate.length());
 
                 if(date.length() == 9){
                     newExpDate = date.substring(0, 8) + "0" + date.substring(8) + expirationDate.substring(10, expirationDate.length());
