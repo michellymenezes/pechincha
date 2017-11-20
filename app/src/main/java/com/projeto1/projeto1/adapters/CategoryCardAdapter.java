@@ -44,15 +44,15 @@ public class CategoryCardAdapter extends RecyclerView.Adapter<com.projeto1.proje
         public void onBindViewHolder(com.projeto1.projeto1.adapters.CategoryCardAdapter.ChipViewHolder holder, final int position) {
             View mView =  ((CardCategory)holder.itemView);
 
-            icons = new int[]{R.drawable.ic_grocery_blue, R.drawable.ic_hygiene_blue, R.drawable.ic_wiping,
-                    R.drawable.ic_plug, R.drawable.ic_sofa, R.drawable.ic_other_gray};
+            icons = new int[]{R.drawable.ic_grocery, R.drawable.ic_hygiene, R.drawable.ic_wiping_white,
+                    R.drawable.ic_plug_white, R.drawable.ic_sofa_white, R.drawable.ic_other};
             ((CardCategory)holder.itemView).displayName(items.get(position));
 
-           // bgs = new int[]{R.drawable.bg_category_circle_yellow, R.drawable.bg_category_circle_blue, R.drawable.bg_category_circle_red,
-            //        R.drawable.bg_category_circle_green, R.drawable.bg_category_circle_orange, R.drawable.bg_category_circle_ligth};
+            bgs = new int[]{R.drawable.bg_category_circle_yellow, R.drawable.bg_category_circle_blue, R.drawable.bg_category_circle_red,
+                    R.drawable.bg_category_circle_green, R.drawable.bg_category_circle_orange, R.drawable.bg_category_circle_ligth};
 
-            //Drawable dw = activity.getResources().getDrawable(bgs[position]);
-            //((CardCategory)holder.itemView).setBG(dw);
+            Drawable dw = activity.getResources().getDrawable(bgs[position]);
+            ((CardCategory)holder.itemView).setBG(dw);
 
             ((CardCategory)holder.itemView).displayName(items.get(position));
 
