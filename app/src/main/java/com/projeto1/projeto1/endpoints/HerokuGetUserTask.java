@@ -96,6 +96,7 @@ public class HerokuGetUserTask extends AsyncTask {
 
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
+
                     String idSale = salesJSON.getString("_id");
                     String productId = salesJSON.getString("product");
                     String marketId = salesJSON.getString("market");

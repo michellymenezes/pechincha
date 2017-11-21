@@ -24,6 +24,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -60,10 +65,15 @@ public class HerokuPutSaleTask extends AsyncTask<Void, Void, Boolean> {
 
         URL url;
         try {
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+            Date date = new Date(System.currentTimeMillis());
+            date.setHours(date.getHours()+1);
+            String stringDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(date);
+
 
             String parameters = "product=" + sale.getProductId() + "&market=" + sale.getMarketId() +
                     "&salePrice=" + sale.getSalePrice() + "&regularPrice=1" +
-                    "&expirationDate=" + sale.getExpirationDate() + "&publicationDate=" +sale.getExpirationDate() +
+                    "&expirationDate=" + sale.getExpirationDate() + "&publicationDate=" + stringDate +
                     "&author=" + user.getId()  + "&likeCount=0" +
                     "&dislikeCount=0"+ "&reportCount=0" +
                     "&likeUsers=[]" + "&dislikeUsers=[]" + "&reportUsers=[]" + "&historic=[]";
