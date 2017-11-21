@@ -142,7 +142,7 @@ public class HerokuGetUsersTask extends AsyncTask {
 
                                 List<String> likeUsers = new ArrayList<String>();
                                 JSONArray likeList =  historicList.getJSONObject(k).getJSONArray("likeUsers");
-                                for(int l = 0; k < likeList.length(); l++){
+                                for(int l = 0; l < likeList.length(); l++){
                                     likeUsers.add(likeList.getString(l));
                                 }
 

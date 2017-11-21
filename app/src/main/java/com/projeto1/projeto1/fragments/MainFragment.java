@@ -123,7 +123,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
 
         final ImageButton searchBtn = (ImageButton) mview.findViewById(R.id.search_btn);
 
-        searchView.setHint("O que você busca, " + SharedPreferencesUtils.getUser(getContext()).getName().split(" ")[0] + "?");
+   //     searchView.setHint("O que você busca, " + SharedPreferencesUtils.getUser(getContext()).getName().split(" ")[0] + "?");
+        searchView.setHint("O que você busca?");
 
 
         searchView.addTextChangedListener(new TextWatcher() {
