@@ -92,6 +92,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     private LineChart chart;
     private Boolean favoriteAction;
     private TextView updateDate;
+    private TextView lastPrice;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -127,6 +128,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         mBarcod = (TextView) mview.findViewById(R.id.barcode);
         mValidity = (TextView) mview.findViewById(R.id.validity);
         currentPrice = (TextView) mview.findViewById(R.id.current_price);
+        lastPrice = (TextView) mview.findViewById(R.id.old_price);
         marketName = (Button) mview.findViewById(R.id.name_supermarket);
         validity = (TextView) mview.findViewById(R.id.validity);
         quantity = (TextView) mview.findViewById(R.id.quantity);
@@ -499,6 +501,8 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
 
         mOld_price.setText("R$" + sale.getRegularPrice().toString());
         currentPrice.setText("R$" + sale.getSalePrice().toString());
+        if (sale.getHistoric().size()>0)lastPrice.setText("R$" + sale.getHistoric().get(sale.getHistoric().size()-1).getValue());
+        else lastPrice.setText("");
         if (product != null) {
             mName_product.setText(product.getName() + " " + product.getBrand()  +" " +Integer.valueOf((int) product.getSize())+product.getSizeUnity());
             mBarcod.setText(product.getBarcode());
