@@ -126,7 +126,6 @@ public class LoginFragment extends Fragment implements UserListener {
 
                                 //Intent intent = new Intent(getContext(), LoginFragment.class);
                                 //intent.putExtra("USER", user);
-                                ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
 
                             }
                         }
@@ -188,6 +187,9 @@ public class LoginFragment extends Fragment implements UserListener {
         } else {
             SharedPreferencesUtils.setUser(getContext(),user);
         }
+
+        ((MainActivity) getActivity()).changeFragment(MainFragment.getInstance(), MainFragment.TAG, true);
+
     }
 
     @Override
