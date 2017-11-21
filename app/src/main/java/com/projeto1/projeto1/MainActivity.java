@@ -37,6 +37,7 @@ import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddMarketFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
+import com.projeto1.projeto1.fragments.ChooseMarketFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
@@ -251,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
-                        changeFragment(SupermarketFragment.getInstance(), SupermarketFragment.TAG, true);
+                        changeFragment(ChooseMarketFragment.getInstance(), ChooseMarketFragment.TAG, true);
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 "Produto lido!", Toast.LENGTH_SHORT);
                         toast.show();

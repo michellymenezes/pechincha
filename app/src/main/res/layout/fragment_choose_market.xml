@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    tools:context="com.projeto1.projeto1.fragments.SupermarketFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:elevation="3dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"
+                android:text="Antes de cadastrar, escolha a loja onde você está!"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_bg_text_input"
+                    android:focusableInTouchMode="true"
+                    android:descendantFocusability="beforeDescendants"
+                    android:elevation="2dp"
+                    android:imeOptions="flagNoExtractUi"
+                    android:gravity="bottom"
+                    android:visibility="visible">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/ac_supermarket"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="5dp"
+                        android:completionThreshold="1"
+                        android:paddingRight="5dp"
+                        android:layout_alignParentLeft="false"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="Buscar lojas"
+                        android:imeOptions="actionSearch"
+                        android:inputType="textCapWords"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:textSize="18dp"
+                        />
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:id="@+id/clear_btn_market"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="-30dp"
+                        android:src="@drawable/ic_search"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="Lojas em Campina Grande"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/supermarket_list_result"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/fab_add_market"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_store_white" />
+
+</RelativeLayout>

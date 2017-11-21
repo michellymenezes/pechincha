@@ -172,7 +172,8 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             hideKeyboard(getActivity());
                             ((MainActivity) getActivity()).setSearchStr(searchView.getText().toString());
-                            ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);                            return true;
+                            ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);
+                            return true;
                         }
                         return false;
                     }
@@ -221,7 +222,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).changeFragment(SupermarketFragment.getInstance(),SupermarketFragment.TAG,true);
+                ((MainActivity) getActivity()).changeFragment(ChooseMarketFragment.getInstance(),ChooseMarketFragment.TAG,true);
             }
         });
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
+import com.projeto1.projeto1.adapters.MarketSearchAdapter;
 import com.projeto1.projeto1.adapters.SuperMarketAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsBySearchTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
@@ -266,10 +267,10 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         Log.d("CIDADE", city);
         Log.d("ESTADO", state);
 
-        name = name.equals("")? null: name.trim().replace("çã", "ca");
-        neighb = neighb.equals("")? null: neighb.trim().replace("çã", "ca");
-        city = city.equals("")? null: city.trim().replace("çã", "ca");
-        state = state.equals("")? null: state.trim().replace("çã", "ca");
+        name = name.equals("")? null: name.trim().replace("çã", "ca").replace("ã","a").replace("õ","o");
+        neighb = neighb.equals("")? null: neighb.trim().replace("çã", "ca").replace("ã","a").replace("õ","o");
+        city = city.equals("")? null: city.trim().replace("çã", "ca").replace("ã","a").replace("õ","o");
+        state = state.equals("")? null: state.trim().replace("çã", "ca").replace("ã","a").replace("õ","o");
 
         HerokuGetMarketsBySearchTask mtask = new HerokuGetMarketsBySearchTask(name, neighb,city, state, String.format(getResources().getString(R.string.HEROKU_MARKET_BY_SEARCH_ENDPOINT)), this);
         mtask.execute();
@@ -287,8 +288,7 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecycleView.setLayoutManager(llm);
         Log.d("SIZE>>>>>>>>", mMarketSugestions.size()+"");
-        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions,
-                ((MainActivity) getActivity()).getIsAddNewSale());
+        MarketSearchAdapter marketAdapter = new MarketSearchAdapter(getActivity(), mMarketSugestions);
         categoryRecycleView.setAdapter(marketAdapter);
 
 
@@ -341,7 +341,7 @@ public class SupermarketFragment extends Fragment implements MarketListener {
         if(!isAdded()) {
             return;
         }
-        SuperMarketAdapter marketAdapter = new SuperMarketAdapter(getActivity(), mMarketSugestions, ((MainActivity) getActivity()).getIsAddNewSale());
+        MarketSearchAdapter marketAdapter = new MarketSearchAdapter(getActivity(), mMarketSugestions);
         categoryRecycleView.setAdapter(marketAdapter);
 
     }

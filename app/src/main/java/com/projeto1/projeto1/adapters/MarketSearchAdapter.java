@@ -29,13 +29,13 @@ import java.util.Map;
  * Created by samirsmedeiros on 29/08/17.
  */
 
-public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.ChipViewHolder> {
+public class MarketSearchAdapter extends RecyclerView.Adapter<MarketSearchAdapter.ChipViewHolder> {
 
     private List<Market> items;
     private Activity activity;
 
 
-    public SuperMarketAdapter(Activity activity, List<Market> items) {
+    public MarketSearchAdapter(Activity activity, List<Market> items) {
         this.items = items;
         this.activity = activity;
     }
@@ -58,9 +58,8 @@ public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.
             @Override
             public void onClick(View v) {
 
-                    ((MainActivity) activity).setChosenMarket(items.get(position));
-                    ((MainActivity) activity).changeFragment(AddProductFragment.getInstance(),AddProductFragment.TAG,true);
-
+                    ((MainActivity) activity).setIdMarketSearch(items.get(position).getId());
+                    ((MainActivity) activity).changeFragment(SeachResultFragment.getInstance(),SeachResultFragment.TAG,true);
 
 
             }
