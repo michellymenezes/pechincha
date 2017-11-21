@@ -56,7 +56,7 @@ public class HerokuGetUserTask extends AsyncTask {
         URL url;
         try {
 
-            url = new URL(endpoint + '/' + userToFind.getId());
+            url = new URL(endpoint  + userToFind.getId());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
