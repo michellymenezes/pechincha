@@ -42,12 +42,12 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/search_bar_container"
-                    android:background="@drawable/rounded_bg_text_input"
+                    android:background="@drawable/bg_searchbar"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_marginTop="-25dp"
                     android:layout_height="50dp"
-                    android:elevation="3dp"
+                    android:elevation="2dp"
                     android:focusableInTouchMode="true"
                     android:descendantFocusability="beforeDescendants"
                     android:imeOptions="flagNoExtractUi"
