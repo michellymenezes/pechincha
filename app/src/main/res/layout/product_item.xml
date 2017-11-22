@@ -22,7 +22,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="3dp"
-            android:background="@drawable/bg_select_category">
+            android:background="@drawable/rounded_bg">
 
             <ImageButton
                 android:id="@+id/product_img"
@@ -60,8 +60,8 @@
                 android:layout_height="wrap_content">
                 <CheckBox
                     android:id="@+id/like_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_checbox_favorite"
                     android:button="@null"
@@ -119,42 +119,55 @@
             android:gravity="right|center"
             android:text="" />
 
-        <ImageButton
-            android:id="@+id/like_icon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/product_img_container"
-            android:background="@drawable/ic_like"
-            android:button="@null"
-            android:text=""
-            android:textColor="@android:color/transparent" />
-
-        <TextView
-            android:id="@+id/like_quantity"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/dislike_container"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/like_icon"
-            android:gravity="left"
-            android:text="0" />
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/like_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bg_category_circle_blue"
+                android:src="@drawable/ic_liked_white"
+                android:scaleType="centerInside"
+                android:button="@null"
+                android:text=""
+                android:textColor="@android:color/transparent" />
+            <TextView
+                android:id="@+id/like_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/like_icon"
+                android:gravity="top"
+                android:textSize="10dp"
+                android:text="0" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/dislike_container"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/product_img_container"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/dislike_icon"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/like_quantity"
-            android:background="@drawable/ic_dislike"
+            android:background="@drawable/bg_category_circle_red"
+            android:src="@drawable/ic_disliked_white"
             android:button="@null"
             android:text=""
             android:textColor="@android:color/transparent" />
@@ -164,11 +177,12 @@
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/dislike_icon"
-            android:gravity="left"
+            android:gravity="top"
+            android:textSize="10dp"
             android:text="0" />
+        </LinearLayout>
 
     </RelativeLayout>
 
