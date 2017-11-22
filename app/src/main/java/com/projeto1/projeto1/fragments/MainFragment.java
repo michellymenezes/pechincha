@@ -122,6 +122,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         final AutoCompleteTextView searchView = (AutoCompleteTextView) mview.findViewById(R.id.search_bar);
 
         final ImageButton searchBtn = (ImageButton) mview.findViewById(R.id.search_btn);
+        final ImageButton search = (ImageButton) mview.findViewById(R.id.search);
 
    //     searchView.setHint("O que você busca, " + SharedPreferencesUtils.getUser(getContext()).getName().split(" ")[0] + "?");
         searchView.setHint("O que você busca?");
@@ -146,7 +147,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                     searchBtn.setImageResource(R.drawable.ic_close);
                     searchBtn.setTag(new Boolean(true));
                 }else{
-                    searchBtn.setImageResource(R.drawable.ic_search);
+                    searchBtn.setImageResource(R.drawable.ic_write);
                     searchBtn.setTag(new Boolean(false));
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.row_layout, mArraySugestions);
@@ -190,6 +191,19 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                 if((searchBtn.getTag())!=null && ((Boolean)searchBtn.getTag())==true){
                     searchView.setText("");
                 }
+
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!searchView.getText().toString().equals("")){
+                    hideKeyboard(getActivity());
+                    ((MainActivity) getActivity()).setSearchStr(searchView.getText().toString());
+                    ((MainActivity) getActivity()).changeFragment(mSearResultFragment,SeachResultFragment.TAG,true);
+                }else hideKeyboard(getActivity());
+
 
             }
         });

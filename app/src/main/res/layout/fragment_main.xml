@@ -35,7 +35,7 @@
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="130dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/previeww">
                 </LinearLayout>
@@ -44,9 +44,9 @@
                     android:background="@drawable/bg_searchbar"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="-25dp"
-                    android:layout_height="50dp"
-                    android:elevation="2dp"
+                    android:layout_marginTop="-20dp"
+                    android:layout_height="40dp"
+                    android:elevation="1dp"
                     android:focusableInTouchMode="true"
                     android:descendantFocusability="beforeDescendants"
                     android:imeOptions="flagNoExtractUi"
@@ -56,7 +56,7 @@
                     <AutoCompleteTextView
                         android:id="@+id/search_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentLeft="false"
                         android:backgroundTint="@android:color/transparent"
                         android:completionThreshold="1"
@@ -72,10 +72,16 @@
                         android:layout_width="30dp"
                         android:id="@+id/search_btn"
                         android:layout_toRightOf="@+id/search_bar"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="-30dp"
-                        android:src="@drawable/ic_search"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="-70dp"
                         android:background="@android:color/transparent"/>
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:id="@+id/search"
+                        android:layout_toRightOf="@+id/search_bar"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_search_white"
+                        android:background="@drawable/bg_search_btn"/>
                 </LinearLayout>
 
 
