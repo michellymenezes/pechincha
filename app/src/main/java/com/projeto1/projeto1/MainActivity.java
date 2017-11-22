@@ -43,6 +43,7 @@ import com.projeto1.projeto1.fragments.FavoritListFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
+import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -283,9 +284,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             return;
         }
-        if (getSupportFragmentManager().findFragmentByTag(UpdateSaleFragment.TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(SaleDetailsFragment.TAG) != null) {
             // I'm viewing Fragment C
-            getSupportFragmentManager().popBackStack(UpdateSaleFragment.TAG,
+            getSupportFragmentManager().popBackStack(SaleDetailsFragment.TAG,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         else super.onBackPressed();

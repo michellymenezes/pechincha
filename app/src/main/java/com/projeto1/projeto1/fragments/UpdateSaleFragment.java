@@ -331,6 +331,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
         }
         SharedPreferencesUtils.setSelectedSale(getContext(),sale);
+        Log.d("LIKE SIZE", String.valueOf(sale.getLikeCount()));
 
         ((MainActivity)getActivity()).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
 
