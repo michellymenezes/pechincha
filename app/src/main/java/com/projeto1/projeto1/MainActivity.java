@@ -3,6 +3,7 @@ package com.projeto1.projeto1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -38,6 +39,7 @@ import com.projeto1.projeto1.fragments.AboutFragment;
 import com.projeto1.projeto1.fragments.AddMarketFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.ChooseMarketFragment;
+import com.projeto1.projeto1.fragments.FavoritListFragment;
 import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
@@ -52,6 +54,9 @@ import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
 import com.projeto1.projeto1.models.User;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -69,11 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppBarLayout mAppBarLayout;
     private ArrayList<Sale> sales;
     private ArrayList<Sale> salesSearch;
-    private HerokuGetSalesTask mTask;
     private User user;
-    private Sale selectedSale;
     private String searchStr;
-    private boolean isAddNewSale;
 
     //Menu
     private ActionBarDrawerToggle mToggle;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Market chosenMarket;
     private String idMarketSearch;
     private Address currentAddress;
+    private BottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +108,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchStr = "";
         idMarketSearch = "";
         currentAddress = new Address("-","-","-","Campina Grande", "PB","Brasil", "-");
-        isAddNewSale = true;
+
+
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_home) {
+                    changeFragment(MainFragment.getInstance(),MainFragment.TAG,true);
+                }
+                if (tabId == R.id.tab_user) {
+                    callProfileFragment();
+                }
+                if (tabId == R.id.tab_code_scan) {
+                    startScanCode();
+                }
+                if (tabId == R.id.tab_favorite) {
+                    changeFragment(FavoritListFragment.getInstance(),FavoritListFragment.TAG,true);
+                }
+
+                if (tabId == R.id.tab_share_sales) {
+                    changeFragment(ChooseMarketFragment.getInstance(),ChooseMarketFragment.TAG,true);
+                }
+            }
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_home) {
+                    changeFragment(MainFragment.getInstance(),MainFragment.TAG,true);
+                }
+                if (tabId == R.id.tab_user) {
+                    callProfileFragment();
+                }
+                if (tabId == R.id.tab_code_scan) {
+                    startScanCode();
+                }
+                if (tabId == R.id.tab_favorite) {
+                    changeFragment(FavoritListFragment.getInstance(),FavoritListFragment.TAG,true);
+                }
+
+                if (tabId == R.id.tab_share_sales) {
+                    changeFragment(ChooseMarketFragment.getInstance(),ChooseMarketFragment.TAG,true);
+                }
+            }
+        });
 
         if (SharedPreferencesUtils.getUser(getBaseContext()) == null) {
             Log.d(TAG, "not logged yet");
@@ -206,13 +254,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (saveInBackstack) {
                 Log.d(TAG, "Change Fragment: addToBackTack " + tag);
                 transaction.addToBackStack(tag);
+                transaction.commit();
             } else {
                 Log.d(TAG, "Change Fragment: NO addToBackTack");
             }
+
             if (tag.equals(LoginFragment.TAG)) {
                 mAppBarLayout.setVisibility(View.GONE);
+                bottomBar.setVisibility(View.GONE);
             } else {
                 mAppBarLayout.setVisibility(View.VISIBLE);
+                bottomBar.setVisibility(View.VISIBLE);
             }
 
 
@@ -231,12 +283,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             return;
         }
-        if (getSupportFragmentManager().findFragmentByTag(SupermarketFragment.TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(UpdateSaleFragment.TAG) != null) {
             // I'm viewing Fragment C
-            getSupportFragmentManager().popBackStack(SupermarketFragment.TAG,
+            getSupportFragmentManager().popBackStack(UpdateSaleFragment.TAG,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-
         else super.onBackPressed();
     }
 
@@ -545,12 +596,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return idMarketSearch;
     }
 
-    public boolean getIsAddNewSale() {
-        return isAddNewSale;
+    public BottomBar getBottomBar() {
+        return bottomBar;
     }
-
-    public void setIsAddNewSale(boolean bool) {
-        this.isAddNewSale = bool;
-    }
-
 }

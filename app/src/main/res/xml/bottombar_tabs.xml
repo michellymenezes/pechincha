@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tabs>
+        <tab
+            id="@+id/tab_home"
+            icon="@drawable/ic_home_"
+            title="Home"
+            badgeHidesWhenActive="true"/>
+        <tab
+            id="@+id/tab_user"
+            icon="@drawable/ic_user"
+            title="Perfil"
+            badgeHidesWhenActive="true"/>
+        <tab
+            id="@+id/tab_code_scan"
+            icon="@drawable/ic_code_scan"
+            title="Escanear"
+            badgeHidesWhenActive="true"/>
+        <tab
+            id="@+id/tab_favorite"
+            icon="@drawable/ic_favorite_border"
+            title="Favoritos"
+            badgeHidesWhenActive="true"/>
+        <tab
+            id="@+id/tab_share_sales"
+            icon="@drawable/ic_share_sales"
+            title="Cadastrar"
+            badgeHidesWhenActive="true"/>
+    </tabs>
+</PreferenceScreen>

@@ -79,6 +79,8 @@ dependencies {
 }
 dependencies {
     compile 'com.android.support:support-v4:25.+'
+    compile 'com.roughike:bottom-bar:2.3.1'
+
 }
 
 allprojects {
@@ -93,3 +95,5 @@ dependencies {
 dependencies {
     compile 'com.android.support:support-v4:25.+'
 }
+
+

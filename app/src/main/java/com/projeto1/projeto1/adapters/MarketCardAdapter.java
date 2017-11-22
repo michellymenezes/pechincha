@@ -73,7 +73,6 @@ public class MarketCardAdapter extends RecyclerView.Adapter<com.projeto1.projeto
             ll_card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainActivity) activity).setIsAddNewSale(false);
                     ((MainActivity) activity).changeFragment(SupermarketFragment.getInstance(), SupermarketFragment.TAG,true);
                 }
             });

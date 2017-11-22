@@ -143,12 +143,9 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         tv_category.setText(((MainActivity) getActivity()).getCurrentCategory());
         category_detail.setImageResource(getImage(((MainActivity) getActivity()).getCurrentCategory()));
 
-        updateSaleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).changeFragment(UpdateSaleFragment.getInstance(),TAG,true);
-            }
-        });
+
+
+
 
 
 
@@ -269,6 +266,14 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
             productTask = new HerokuGetProductTask(String.format(getResources().getString(R.string.HEROKU_PRODUCT_ENDPOINT)) + "/" + sale.getProductId(), this);
             productTask.execute();
         }
+
+        updateSaleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ((MainActivity)getActivity()).changeFragment(UpdateSaleFragment.getInstance(),UpdateSaleFragment.TAG,true);
+            }
+        });
 
         marketDetail();
         //updateSale(inflater, container);

@@ -13,22 +13,32 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="1"
     android:orientation="vertical">
-
     <include
         layout="@layout/navigation_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </include>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/content_layout"
+        android:layout_weight="0.9"
+        android:layout_above="@+id/bottomBar"
         android:orientation="vertical">
     </LinearLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:layout_weight="0.1"
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        app:bb_activeTabColor="@android:color/tertiary_text_dark"
+        android:gravity="center"
+        android:layout_height="60dp"
+        app:bb_tabXmlResource="@xml/bottombar_tabs" />
+
+
 
 </LinearLayout>
 
@@ -40,6 +50,7 @@
         app:headerLayout="@layout/navigation_header"
         android:id="@+id/nav_view" >
     </android.support.design.widget.NavigationView>
+
 
     <!--<include layout="@layout/content_main" />-->
 

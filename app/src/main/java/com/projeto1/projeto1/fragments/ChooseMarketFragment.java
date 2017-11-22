@@ -38,7 +38,7 @@ import java.util.List;
 
     public class ChooseMarketFragment extends Fragment implements MarketListener {
 
-        public static final String TAG = "SUPERMARKET_FRAGMENT";
+        public static final String TAG = "CHOOSE_SUPERMARKET_FRAGMENT";
         private List<Market> mMarketSugestions;
         private View mView;
 

@@ -331,6 +331,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
 
         }
         SharedPreferencesUtils.setSelectedSale(getContext(),sale);
+
         ((MainActivity)getActivity()).changeFragment(SaleDetailsFragment.getInstance(), SaleDetailsFragment.TAG,true);
 
 

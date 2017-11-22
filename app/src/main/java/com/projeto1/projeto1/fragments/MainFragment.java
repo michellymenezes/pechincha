@@ -208,6 +208,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             }
         });
 
+/*
 
         final ImageButton barCodeScan = (ImageButton) mview.findViewById(R.id.scan_fab);
         final ImageButton addProduct = (ImageButton) mview.findViewById(R.id.write_post_btn);
@@ -215,8 +216,9 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
         final ImageButton favoritesBtn = (ImageButton) mview.findViewById(R.id.favorites_btn);
         final ImageButton profileBtn = (ImageButton) mview.findViewById(R.id.profile_btn);
         //final ImageButton grocery_btn = (ImageButton) mview.findViewById(R.id.grocery_btn);
+*/
 
-        profileBtn.setOnClickListener(new View.OnClickListener() {
+       /* profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).callProfileFragment();
@@ -228,12 +230,12 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                 ((MainActivity) getActivity()).changeFragment(FavoritListFragment.getInstance(),FavoritListFragment.TAG,true);
             }
         });
-       /* addSupermarket.setOnClickListener(new View.OnClickListener() {
+       *//* addSupermarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), R.string.not_ready, Toast.LENGTH_LONG).show();
             }
-        });*/
+        });*//*
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,14 +243,14 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
             }
         });
 
-       /* grocery_btn.setOnClickListener(new View.OnClickListener() {
+       *//* grocery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setCurrentCategory("Alimento");
                 ((MainActivity) getActivity()).changeFragment(GroceryProductsFragment.getInstance(),GroceryProductsFragment.TAG,true);
             }
         });
-*/
+*//*
 
         barCodeScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,7 +258,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
                 ((MainActivity) getActivity()).startScanCode();
 
             }
-        });
+        });*/
 
         mAdapter = new CategoryCardAdapter(getActivity(), Arrays.asList("Alimento", "Cuidados pessoais", "Limpeza", "Eletrônico", "Mobília", "Outros"));
 
