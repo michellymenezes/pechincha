@@ -115,7 +115,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 

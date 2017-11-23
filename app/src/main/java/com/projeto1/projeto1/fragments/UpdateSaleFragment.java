@@ -365,7 +365,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 

@@ -182,7 +182,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 

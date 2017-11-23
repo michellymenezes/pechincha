@@ -12,7 +12,7 @@ public interface SaleListener {
     void OnPutSaleFinished(boolean finished);
     void OnPostLikeFinished(boolean finished);
     void OnDeleteLikeFinished(boolean finished);
-    void OnPostDislikeFinished(boolean finished);
+    void OnPostDislikeFinished(boolean finished, Sale sale);
     void OnDeleteDislikeFinished(boolean finished);
 
 }

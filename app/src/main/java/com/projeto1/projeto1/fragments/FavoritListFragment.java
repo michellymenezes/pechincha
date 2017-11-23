@@ -220,7 +220,7 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 

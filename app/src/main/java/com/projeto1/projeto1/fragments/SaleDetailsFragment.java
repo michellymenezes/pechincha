@@ -705,7 +705,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 

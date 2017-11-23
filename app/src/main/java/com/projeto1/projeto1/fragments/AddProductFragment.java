@@ -670,7 +670,7 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
     }
 
     @Override
-    public void OnPostDislikeFinished(boolean finished) {
+    public void OnPostDislikeFinished(boolean finished, Sale sale) {
 
     }
 
