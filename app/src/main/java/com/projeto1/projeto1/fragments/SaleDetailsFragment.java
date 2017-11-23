@@ -623,6 +623,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
         } else if(find && currentUser.getId().equals(user.getId())){
             SharedPreferencesUtils.setUser(getContext(),user);
         }
+
         if(!favoriteAction) {
             this.user = user;
             favoriteAction = false;
