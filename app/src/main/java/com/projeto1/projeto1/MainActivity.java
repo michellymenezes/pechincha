@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String idMarketSearch;
     private Address currentAddress;
     private BottomBar bottomBar;
+    private String marketUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         currentCategory = "";
         searchStr = "";
         idMarketSearch = "";
+        marketUpdate = "";
         currentAddress = new Address("-","-","-","Campina Grande", "PB","Brasil", "-");
 
 
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     callProfileFragment();
                 }
                 if (tabId == R.id.tab_code_scan) {
+                    marketUpdate = "chooseMarket";
                     startScanCode();
                 }
                 if (tabId == R.id.tab_favorite) {
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 if (tabId == R.id.tab_share_sales) {
+                    marketUpdate = "chooseMarket";
                     changeFragment(ChooseMarketFragment.getInstance(),ChooseMarketFragment.TAG,true);
                 }
             }
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     callProfileFragment();
                 }
                 if (tabId == R.id.tab_code_scan) {
+                    marketUpdate = "chooseMarket";
                     startScanCode();
                 }
                 if (tabId == R.id.tab_favorite) {
@@ -151,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 if (tabId == R.id.tab_share_sales) {
+                    marketUpdate = "chooseMarket";
                     changeFragment(ChooseMarketFragment.getInstance(),ChooseMarketFragment.TAG,true);
                 }
             }
@@ -601,6 +607,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public String getIdMarketSearch() {
         return idMarketSearch;
+    }
+
+    public String getMarketUpdate() {
+        return marketUpdate;
+    }
+
+    public void setMarketUpdate(String marketUpdate) {
+        this.marketUpdate = marketUpdate;
     }
 
     public BottomBar getBottomBar() {

@@ -265,8 +265,10 @@ public class AddMarketFragment extends Fragment implements MarketListener {
     }
     @Override
     public void OnPostMarketsFinished(boolean finished) {
-        ((MainActivity) getActivity()).changeFragment(SupermarketFragment.getInstance(), SupermarketFragment.TAG, true);
-
+        if(((MainActivity) getActivity()).getMarketUpdate().equals("chooseMarket")) {
+            ((MainActivity) getActivity()).setMarketUpdate("");
+            ((MainActivity) getActivity()).changeFragment(ChooseMarketFragment.getInstance(), ChooseMarketFragment.TAG, true);
+        } else  ((MainActivity) getActivity()).changeFragment(SupermarketFragment.getInstance(), SupermarketFragment.TAG, true);
 
     }
 
