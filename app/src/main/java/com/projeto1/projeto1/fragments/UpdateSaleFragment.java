@@ -23,11 +23,9 @@ import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostSalesTask;
 import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.listeners.ProductListener;
 import com.projeto1.projeto1.listeners.SaleListener;
-import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Market;
 import com.projeto1.projeto1.models.Product;
 import com.projeto1.projeto1.models.Sale;
@@ -36,15 +34,10 @@ import com.shawnlin.numberpicker.NumberPicker;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 
@@ -355,12 +348,12 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -370,7 +363,7 @@ public class UpdateSaleFragment extends Fragment implements SaleListener, Produc
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

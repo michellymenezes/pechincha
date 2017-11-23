@@ -7,8 +7,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.projeto1.projeto1.listeners.SaleListener;
+import com.projeto1.projeto1.models.Historic;
 import com.projeto1.projeto1.models.Sale;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +23,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -34,6 +42,7 @@ public class HerokuPostLikeTask extends AsyncTask<Void, Void, Boolean> {
     private String responseMessage = "";
     private String saleId;
     private String userId;
+    private Sale sale;
 
     private boolean isSuccessfulRegister;
     private Object mAuthTask;
@@ -81,6 +90,67 @@ public class HerokuPostLikeTask extends AsyncTask<Void, Void, Boolean> {
                     responseMessage += line;
                 }
                 JSONObject jsonObject = new JSONObject(responseMessage);
+
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+                String id = jsonObject.getString("_id");
+                String productId = jsonObject.getString("product");
+                String marketId = jsonObject.getString("market");
+                Double salePrice = jsonObject.getDouble("salePrice");
+                Double regularPrice = jsonObject.getDouble("regularPrice");
+                String expirationDate =  jsonObject.getString("expirationDate");
+                Date publicationDate = df.parse(jsonObject.getString("publicationDate"));
+                String authorId = jsonObject.getString("author");
+
+                List<Historic> historic = new ArrayList<Historic>();
+                JSONArray historicList =  jsonObject.getJSONArray("historic");
+                for(int j = 0; j < historicList.length(); j++){
+
+                    double value = historicList.getJSONObject(j).getDouble("value");
+                    Date date = df.parse(historicList.getJSONObject(j).getString("saleDate"));
+                    int likeCount = historicList.getJSONObject(j).getInt("likeCount");
+                    int dislikeCount = historicList.getJSONObject(j).getInt("dislikeCount");
+                    int reportCount = historicList.getJSONObject(j).getInt("reportCount");
+
+                    List<String> likeUsers = new ArrayList<String>();
+                    JSONArray likeList =  historicList.getJSONObject(j).getJSONArray("likeUsers");
+                    for(int k = 0; k < likeList.length(); k++){
+                        likeUsers.add(likeList.getString(k));
+                    }
+
+                    List<String> dislikeUsers = new ArrayList<String>();
+                    JSONArray dislikeList =  historicList.getJSONObject(j).getJSONArray("dislikeUsers");
+                    for(int k = 0; k < dislikeList.length(); k++){
+                        dislikeUsers.add(dislikeList.getString(k));
+                    }
+
+                    historic.add(new Historic(date, value, likeCount, dislikeCount, reportCount, likeUsers, dislikeUsers));
+                }
+
+                int likeCount = jsonObject.getInt("likeCount");
+                int dislikeCount = jsonObject.getInt( "dislikeCount");
+                int reportCount = jsonObject.getInt("reportCount");
+
+                ArrayList<String> likeUsers = new ArrayList<String>();
+                JSONArray likeList =  jsonObject.getJSONArray("likeUsers");
+                for(int j = 0; j < likeList.length(); j++){
+                    likeUsers.add(likeList.getString(j));
+                }
+
+                ArrayList<String> reportUsers = new ArrayList<String>();
+                JSONArray reportList =  jsonObject.getJSONArray("likeUsers");
+                for(int j = 0; j < reportList.length(); j++){
+                    reportUsers.add(reportList.getString(j));
+                }
+
+                ArrayList<String> dislikeUsers = new ArrayList<String>();
+                JSONArray dislikeList =  jsonObject.getJSONArray("dislikeUsers");
+                for(int j = 0; j < dislikeList.length(); j++){
+                    dislikeUsers.add(dislikeList.getString(j));
+                }
+
+                sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, dislikeCount, reportCount, likeUsers, reportUsers, dislikeUsers);
+
                 Log.d(TAG, jsonObject.toString());
 
                 isSuccessfulRegister = (jsonObject.length() > 2);
@@ -114,6 +184,8 @@ public class HerokuPostLikeTask extends AsyncTask<Void, Void, Boolean> {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return true;
     }
@@ -124,10 +196,10 @@ public class HerokuPostLikeTask extends AsyncTask<Void, Void, Boolean> {
 
         if (isSuccessfulRegister) {
             Toast.makeText(context, "Like adicionado com sucesso", Toast.LENGTH_LONG).show();
-            mListener.OnPostLikeFinished(true);
+            mListener.OnPostLikeFinished(true, sale);
         }
         else {
-            mListener.OnPostLikeFinished(false);
+            mListener.OnPostLikeFinished(false, sale);
         }
         Log.d(TAG, responseMessage);
 

@@ -1,20 +1,16 @@
 package com.projeto1.projeto1.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
 import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
@@ -210,12 +206,12 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -225,7 +221,7 @@ public class FavoritListFragment extends Fragment implements MarketListener, Pro
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

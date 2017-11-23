@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -24,13 +23,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.SharedPreferencesUtils;
 import com.projeto1.projeto1.adapters.CategoryCardAdapter;
-import com.projeto1.projeto1.adapters.CategoryListAdapter;
 import com.projeto1.projeto1.adapters.MarketCardAdapter;
 import com.projeto1.projeto1.adapters.ProductListAdapter;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsBySearchTask;
@@ -458,12 +454,12 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -473,7 +469,7 @@ public class MainFragment extends Fragment implements SaleListener,ProductListen
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.projeto1.projeto1.MainActivity;
-import com.projeto1.projeto1.R;
-import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
 import com.projeto1.projeto1.fragments.GroceryProductsFragment;
 import com.projeto1.projeto1.listeners.GetSubcategoryListener;
 import com.projeto1.projeto1.listeners.SaleListener;
@@ -105,12 +102,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -120,7 +117,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

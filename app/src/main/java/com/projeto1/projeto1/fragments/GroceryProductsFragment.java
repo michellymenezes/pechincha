@@ -2,7 +2,6 @@ package com.projeto1.projeto1.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -172,12 +171,12 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -187,7 +186,7 @@ public class GroceryProductsFragment extends Fragment implements SaleListener, M
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

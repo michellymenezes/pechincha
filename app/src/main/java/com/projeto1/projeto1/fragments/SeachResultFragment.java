@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.projeto1.projeto1.MainActivity;
 import com.projeto1.projeto1.R;
@@ -192,12 +191,12 @@ import java.util.List;
      }
 
      @Override
-     public void OnPostLikeFinished(boolean finished) {
+     public void OnPostLikeFinished(boolean finished, Sale sale) {
 
      }
 
      @Override
-     public void OnDeleteLikeFinished(boolean finished) {
+     public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
      }
 
@@ -207,7 +206,7 @@ import java.util.List;
      }
 
      @Override
-     public void OnDeleteDislikeFinished(boolean finished) {
+     public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
      }
 

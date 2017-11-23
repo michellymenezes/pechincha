@@ -18,9 +18,7 @@ import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductsTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
-import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
-import com.projeto1.projeto1.endpoints.HerokuPutSaleTask;
 import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
 import com.projeto1.projeto1.listeners.FavoriteListener;
@@ -210,12 +208,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -225,7 +223,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -38,7 +37,6 @@ import com.projeto1.projeto1.endpoints.HerokuDeleteLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuGetMarketTask;
 import com.projeto1.projeto1.endpoints.HerokuGetProductTask;
 import com.projeto1.projeto1.endpoints.HerokuGetUserTask;
-import com.projeto1.projeto1.endpoints.HerokuGetUsersTask;
 import com.projeto1.projeto1.endpoints.HerokuPostDislikeTask;
 import com.projeto1.projeto1.endpoints.HerokuPostLikeTask;
 import com.projeto1.projeto1.endpoints.HerokuPostUserTask;
@@ -695,12 +693,12 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -710,7 +708,7 @@ public class SaleDetailsFragment extends Fragment implements ProductListener, Ma
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 

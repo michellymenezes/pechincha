@@ -149,11 +149,6 @@ public class HerokuPostDislikeTask extends AsyncTask<Void, Void, Boolean> {
                     dislikeUsers.add(dislikeList.getString(j));
                 }
 
-
-                // int quantity = salesJSON.getJSONObject(i).getInt("quantity");
-                // int unit = salesJSON.getJSONObject(i).getInt("unit");
-
-
                 sale = new Sale(id, productId, marketId, salePrice, regularPrice, expirationDate, publicationDate, authorId, 1, historic, likeCount, dislikeCount, reportCount, likeUsers, reportUsers, dislikeUsers);
 
                 Log.d(TAG, jsonObject.toString());

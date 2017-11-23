@@ -10,9 +10,9 @@ public interface SaleListener {
     void OnGetSalesByMarketReady(boolean ready, ArrayList<Sale> sales);
     void OnPostSaleFinished(boolean finished);
     void OnPutSaleFinished(boolean finished);
-    void OnPostLikeFinished(boolean finished);
-    void OnDeleteLikeFinished(boolean finished);
+    void OnPostLikeFinished(boolean finished, Sale sale);
+    void OnDeleteLikeFinished(boolean finished, Sale sale);
     void OnPostDislikeFinished(boolean finished, Sale sale);
-    void OnDeleteDislikeFinished(boolean finished);
+    void OnDeleteDislikeFinished(boolean finished, Sale sale);
 
 }

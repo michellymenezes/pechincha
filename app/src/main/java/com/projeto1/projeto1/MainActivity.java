@@ -28,15 +28,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.projeto1.projeto1.endpoints.HerokuAddFavoriteSaleTask;
-import com.projeto1.projeto1.endpoints.HerokuDeleteDislikeTask;
-import com.projeto1.projeto1.endpoints.HerokuDeleteLikeTask;
-import com.projeto1.projeto1.endpoints.HerokuGetSalesTask;
-import com.projeto1.projeto1.endpoints.HerokuPostDislikeTask;
-import com.projeto1.projeto1.endpoints.HerokuPostLikeTask;
-import com.projeto1.projeto1.endpoints.HerokuRemoveFavoriteSaleTask;
 import com.projeto1.projeto1.fragments.AboutFragment;
-import com.projeto1.projeto1.fragments.AddMarketFragment;
 import com.projeto1.projeto1.fragments.AddProductFragment;
 import com.projeto1.projeto1.fragments.ChooseMarketFragment;
 import com.projeto1.projeto1.fragments.FavoritListFragment;
@@ -44,7 +36,6 @@ import com.projeto1.projeto1.fragments.LoginFragment;
 import com.projeto1.projeto1.fragments.MainFragment;
 import com.projeto1.projeto1.fragments.ProfileFragment;
 import com.projeto1.projeto1.fragments.SaleDetailsFragment;
-import com.projeto1.projeto1.fragments.SupermarketFragment;
 import com.projeto1.projeto1.fragments.UpdateSaleFragment;
 import com.projeto1.projeto1.listeners.SaleListener;
 import com.projeto1.projeto1.listeners.UserListener;
@@ -585,12 +576,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void OnPostLikeFinished(boolean finished) {
+    public void OnPostLikeFinished(boolean finished, Sale sale) {
 
     }
 
     @Override
-    public void OnDeleteLikeFinished(boolean finished) {
+    public void OnDeleteLikeFinished(boolean finished, Sale sale) {
 
     }
 
@@ -600,7 +591,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void OnDeleteDislikeFinished(boolean finished) {
+    public void OnDeleteDislikeFinished(boolean finished, Sale sale) {
 
     }
 
