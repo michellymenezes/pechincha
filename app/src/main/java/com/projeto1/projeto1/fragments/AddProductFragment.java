@@ -305,17 +305,18 @@ public class AddProductFragment extends Fragment  implements SaleListener, Produ
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                String newExpDate = "";
+                if(date !=null){
+                     newExpDate = date.equals("")? expirationDate: date + expirationDate.substring(10, expirationDate.length());
 
-
-                String newExpDate = date.equals("")? expirationDate: date + expirationDate.substring(10, expirationDate.length());
-
-                if(date.length() == 9){
-                    newExpDate = date.substring(0, 8) + "0" + date.substring(8) + expirationDate.substring(10, expirationDate.length());
+                    if(date.length() == 9){
+                        newExpDate = date.substring(0, 8) + "0" + date.substring(8) + expirationDate.substring(10, expirationDate.length());
+                    }
                 }
                 Sale sale;
 
                 //TODO criar objeto e salvar no banco.
-                if(date == null){
+                if(date == null ){
                     sale = new Sale(productId, marketId, Double.parseDouble(price), 2.0, expirationDate, SharedPreferencesUtils.getUser(getContext()).getId(), new ArrayList<Historic>());
 
                 }
