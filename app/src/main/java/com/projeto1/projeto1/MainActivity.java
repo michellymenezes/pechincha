@@ -284,12 +284,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             return;
         }
-        if (getSupportFragmentManager().findFragmentByTag(SaleDetailsFragment.TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(UpdateSaleFragment.TAG) != null) {
             // I'm viewing Fragment C
-            getSupportFragmentManager().popBackStack(SaleDetailsFragment.TAG,
+            getSupportFragmentManager().popBackStack(UpdateSaleFragment.TAG,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            if (getSupportFragmentManager().findFragmentByTag(SaleDetailsFragment.TAG) != null) {
+                // I'm viewing Fragment C
+                getSupportFragmentManager().popBackStack(SaleDetailsFragment.TAG,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
         else super.onBackPressed();
+
     }
 
     @Override
