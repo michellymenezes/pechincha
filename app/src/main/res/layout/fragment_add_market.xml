@@ -6,29 +6,37 @@
     android:orientation="vertical"
     tools:context="com.projeto1.projeto1.fragments.AddMarketFragment">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="200dp"
-       android:background="@drawable/add_market">
-   </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="-20dp"
         android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:elevation="3dp"
         android:orientation="vertical"
-        android:background="@drawable/rounded_bg_text_input"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp">
+        android:layout_margin="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_bg_text_input"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/add_market"></LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -148,6 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginBottom="5dp"
             android:weightSum="1"
             android:orientation="horizontal">
 
@@ -193,22 +202,27 @@
 
         </LinearLayout>
 
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/send_btn"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_send_button"
+            android:textColor="@android:color/white"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:textAllCaps="false"
+            android:elevation="3dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="Cadastrar"/>
     </LinearLayout>
 
+
+
     </ScrollView>
-    <Button
-        android:layout_width="match_parent"
-        android:id="@+id/send_btn"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/bg_send_button"
-        android:textColor="@android:color/white"
-        android:layout_height="40dp"
-        android:textAllCaps="false"
-        android:elevation="3dp"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:text="Cadastrar"/>
+
 
 
 
